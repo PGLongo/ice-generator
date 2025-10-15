@@ -1,38 +1,37 @@
-# Nuxt Starter Template
+# ICE Generator
+
+A web application built with Nuxt 4 and Nuxt UI that allows users to create, edit, and export emergency contact information (ICE - In Case of Emergency) as standalone HTML pages designed to be stored on NFC tags.
 
 [![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+## Live Demo
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+**[Try ICE Generator](https://pglongo.github.io/ice-generator/)**
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-  </picture>
-</a>
+## Features
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+- **Create ICE Forms** - User-friendly interface to input emergency contact information and critical medical details
+- **Edit & Persist Data** - Modify ICE data with persistent storage (localStorage)
+- **Export to HTML** - Generate standalone, optimized HTML pages for NFC tags
+- **Multi-language Support** - Available in English and Italian
+- **Dark Mode** - Full dark mode support via Nuxt UI
+- **Privacy First** - All data stored locally, no server storage
 
-## Quick Start
+## Tech Stack
 
-```bash [Terminal]
-npm create nuxt@latest -- -t github:nuxt-ui-templates/starter
-```
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
+- **Framework**: Nuxt 4.1.3
+- **UI Library**: Nuxt UI 4.0.1
+- **Language**: TypeScript
+- **Runtime**: Vue 3.5.22
+- **Styling**: Tailwind CSS
+- **State Management**: Pinia
 
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-pnpm install
+npm install
 ```
 
 ## Development Server
@@ -40,7 +39,7 @@ pnpm install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 ## Production
@@ -48,13 +47,27 @@ pnpm dev
 Build the application for production:
 
 ```bash
-pnpm build
+npm run build
+```
+
+Generate static site:
+
+```bash
+npm run generate
 ```
 
 Locally preview production build:
 
 ```bash
-pnpm preview
+npm run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Deployment
+
+This project is configured to deploy automatically to GitHub Pages via GitHub Actions whenever changes are pushed to the main branch.
+
+Check out the [Nuxt deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## License
+
+MIT
