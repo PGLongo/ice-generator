@@ -253,6 +253,11 @@ const iceStore = useIceStore()
 - **IMPORTANT**: When adding new fields to forms, ALWAYS update ALL translation files (en.json AND it.json)
 
 ### UI Components Best Practices
+- **Use Native Nuxt UI Components**: ALWAYS use built-in Nuxt UI components instead of creating custom ones
+  - Available components: https://ui.nuxt.com/components
+  - Common components: `UButton`, `UInput`, `UTextarea`, `USelect`, `USelectMenu`, `UPopover`, `UCard`, `UFormField`, `UIcon`, `UBadge`, `UTooltip`, `UModal`, `UNotifications`
+  - DO NOT create custom wrappers or reinvent existing Nuxt UI components
+  - Check documentation before creating any new component
 - **Grid layouts**: Use Tailwind's `grid` with `md:grid-cols-3` for responsive 3-column layouts
 - **Column spanning**: Wrap fields in `<div class="md:col-span-2">` to make them span multiple columns
 - **Full width inputs**: Always add `class="w-full"` to both `UFormField` and input components to fill container

@@ -29,9 +29,9 @@
         <UButton
           icon="i-heroicons-trash"
           size="xs"
-          color="red"
+          color="error"
           variant="ghost"
-          @click="removeContact(index)"
+          @click="confirmDelete(index)"
         />
       </div>
 
@@ -100,6 +100,12 @@
       </div>
     </div>
   </div>
+
+  <DialogCancel
+    v-model:open="isDialogOpen"
+    @confirm="handleDeleteConfirm"
+    @cancel="handleDeleteCancel"
+  />
 </template>
 
 <script setup lang="ts">
@@ -116,6 +122,8 @@ const emit = defineEmits<{
 }>()
 
 const localData = ref<EmergencyContact[]>(props.modelValue || [])
+const contactToDelete = ref<number | null>(null)
+const isDialogOpen = ref(false)
 
 const addContact = () => {
   const newContact: EmergencyContact = {
@@ -129,9 +137,21 @@ const addContact = () => {
   emitUpdate()
 }
 
-const removeContact = (index: number) => {
-  localData.value.splice(index, 1)
-  emitUpdate()
+const confirmDelete = (index: number) => {
+  contactToDelete.value = index
+  isDialogOpen.value = true
+}
+
+const handleDeleteConfirm = () => {
+  if (contactToDelete.value !== null) {
+    localData.value.splice(contactToDelete.value, 1)
+    emitUpdate()
+    contactToDelete.value = null
+  }
+}
+
+const handleDeleteCancel = () => {
+  contactToDelete.value = null
 }
 
 const emitUpdate = () => {

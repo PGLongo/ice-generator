@@ -80,5 +80,12 @@
     "light": "Chiaro",
     "dark": "Scuro",
     "system": "Sistema"
+  },
+  "dialog": {
+    "confirmDelete": "Conferma Eliminazione",
+    "confirmDeleteMessage": "Sei sicuro di voler eliminare questo contatto?",
+    "confirmDeleteMessageWarning": "Questa azione non può essere annullata.",
+    "cancel": "Annulla",
+    "delete": "Elimina"
   }
 }
