@@ -22,9 +22,9 @@
               type="submit"
               size="xl"
               block
-              icon="i-heroicons-arrow-down-tray"
+              icon="i-heroicons-qr-code"
             >
-              {{ $t('form.save') }}
+              {{ $t('form.saveQr') }}
             </UButton>
 
             <UButton
@@ -79,12 +79,13 @@
 import { useIceStore } from '@/stores/ice'
 import type { EmergencyContact } from '@/stores/ice'
 
+import QRCode from 'qrcode'
+
 const { t } = useI18n()
 const toast = useToast()
 const route = useRoute()
 const iceStore = useIceStore()
-const { downloadHTML } = useIceExport()
-const { copyShareableUrl, getEncodedSize, encodeData, decodeData } = useIceUrlShare()
+const { copyShareableUrl, getEncodedSize, encodeData, decodeData, generateShareableUrl } = useIceUrlShare()
 
 // Load data from URL query params on mount (and save to store)
 onMounted(() => {
@@ -107,8 +108,8 @@ onMounted(() => {
   }
 })
 
-// Form submission - just download HTML
-const onSubmit = () => {
+// Form submission - generate and download QR code
+const onSubmit = async () => {
   if (!iceStore.data.name || !iceStore.data.age) {
     toast.add({
       id: 'error',
@@ -120,16 +121,35 @@ const onSubmit = () => {
   }
 
   try {
-    // Download HTML file
-    downloadHTML(iceStore.data)
+    // Generate shareable URL
+    const shareableUrl = generateShareableUrl(iceStore.data)
+
+    // Generate QR code as data URL
+    const qrCodeDataUrl = await QRCode.toDataURL(shareableUrl, {
+      width: 1024,
+      margin: 2,
+      color: {
+        dark: '#000000',
+        light: '#FFFFFF'
+      }
+    })
+
+    // Create download link
+    const link = document.createElement('a')
+    link.href = qrCodeDataUrl
+    link.download = `ICE-${iceStore.data.name.replace(/\s+/g, '-')}-QRCode.png`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
 
     toast.add({
       id: 'success',
-      title: t('form.success'),
-      description: t('form.successMessage', { name: iceStore.data.name }),
+      title: t('form.qrSuccess'),
+      description: t('form.qrSuccessMessage', { name: iceStore.data.name }),
       color: 'success'
     })
   } catch (error) {
+    console.error('Failed to generate QR code:', error)
     toast.add({
       id: 'error',
       title: t('form.error'),
