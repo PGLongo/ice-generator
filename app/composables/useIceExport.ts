@@ -18,7 +18,7 @@ export const useIceExport = () => {
 
     // Handle bloodType - could be string or object with value property
     const bloodType = typeof rawBloodType === 'object' && rawBloodType !== null
-      ? (rawBloodType as any).value || ''
+      ? (rawBloodType as { value?: string }).value || ''
       : rawBloodType || ''
 
     // Helper to render list items

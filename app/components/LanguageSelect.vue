@@ -15,5 +15,5 @@ const handleLocaleChange = (newLocale: string | undefined) => {
     v-model="locale"
     :locales="[en, it]"
     @update:model-value="handleLocaleChange"
-  />
+  ></ULocaleSelect>
 </template>

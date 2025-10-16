@@ -2,7 +2,7 @@
   <div class="space-y-6">
     <div class="flex items-center justify-between mb-6">
       <div class="flex items-center gap-2">
-        <div class="w-1 h-6 bg-primary rounded-full" />
+        <div class="w-1 h-6 bg-primary rounded-full"></div>
         <h3 class="text-lg font-semibold">
           {{ $t('form.emergencyContacts') }}
         </h3>
@@ -32,7 +32,7 @@
           color="error"
           variant="ghost"
           @click="confirmDelete(index)"
-        />
+        ></UButton>
       </div>
 
       <!-- Grid a 12 colonne: 12 su xs, 4 su sm, 3 su md -->
@@ -49,7 +49,7 @@
             size="lg"
             icon="i-heroicons-user"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
 
         <UFormField
@@ -64,7 +64,7 @@
             size="lg"
             icon="i-heroicons-heart"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
 
         <UFormField
@@ -80,7 +80,7 @@
             size="lg"
             icon="i-heroicons-phone"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
 
         <UFormField
@@ -95,7 +95,7 @@
             size="lg"
             icon="i-heroicons-envelope"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
       </div>
     </div>
@@ -105,13 +105,11 @@
     v-model:open="isDialogOpen"
     @confirm="handleDeleteConfirm"
     @cancel="handleDeleteCancel"
-  />
+  ></DialogCancel>
 </template>
 
 <script setup lang="ts">
 import type { EmergencyContact } from '@/stores/ice'
-
-const { t } = useI18n()
 
 const props = defineProps<{
   modelValue: EmergencyContact[]

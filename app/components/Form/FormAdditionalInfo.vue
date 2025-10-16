@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
     <div class="flex items-center gap-2 mb-6">
-      <div class="w-1 h-6 bg-primary rounded-full" />
+      <div class="w-1 h-6 bg-primary rounded-full"></div>
       <h3 class="text-lg font-semibold">
         {{ $t('form.additionalInfo') }}
       </h3>
@@ -21,7 +21,7 @@
             size="xl"
             icon="i-heroicons-user-circle"
             class="w-full"
-          />
+          ></UInput>
         </UFormField>
       </div>
 
@@ -37,7 +37,7 @@
             :rows="3"
             size="xl"
             class="w-full"
-          />
+          ></UTextarea>
         </UFormField>
       </div>
 
@@ -53,7 +53,7 @@
             :rows="4"
             size="xl"
             class="w-full"
-          />
+          ></UTextarea>
         </UFormField>
       </div>
     </div>

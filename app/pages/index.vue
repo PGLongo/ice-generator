@@ -1,21 +1,21 @@
 <template>
   <UContainer class="py-12">
     <div class="max-w-4xl mx-auto">
-      <UCard >
-        <form @submit.prevent="onSubmit" class="space-y-8">
-          <FormPersonalInfo />
+      <UCard>
+        <form class="space-y-8" @submit.prevent="onSubmit">
+          <FormPersonalInfo></FormPersonalInfo>
 
-          <UDivider />
+          <UDivider></UDivider>
 
-          <FormMedicalInfo />
+          <FormMedicalInfo></FormMedicalInfo>
 
-          <UDivider />
+          <UDivider></UDivider>
 
-          <FormEmergencyContacts v-model="iceStore.data.emergencyContacts" />
+          <FormEmergencyContacts v-model="iceStore.data.emergencyContacts"></FormEmergencyContacts>
 
-          <UDivider />
+          <UDivider></UDivider>
 
-          <FormAdditionalInfo />
+          <FormAdditionalInfo></FormAdditionalInfo>
 
           <div class="flex flex-col sm:flex-row gap-3 pt-4">
             <UButton
@@ -46,8 +46,8 @@
               variant="outline"
               icon="i-heroicons-link"
               block
-              @click="generateShareLink"
               :disabled="!iceStore.hasData"
+              @click="generateShareLink"
             >
               {{ $t('form.shareLink') }}
             </UButton>
@@ -71,8 +71,6 @@
 
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
-import type { EmergencyContact } from '@/stores/ice'
-
 import QRCode from 'qrcode'
 
 const { t } = useI18n()
@@ -142,8 +140,8 @@ const onSubmit = async () => {
       description: t('form.qrSuccessMessage', { name: iceStore.data.name }),
       color: 'success'
     })
-  } catch (error) {
-    console.error('Failed to generate QR code:', error)
+  } catch (_error) {
+    console.error('Failed to generate QR code:', _error)
     toast.add({
       id: 'error',
       title: t('form.error'),
@@ -178,7 +176,7 @@ const generateShareLink = async () => {
     } else {
       throw new Error('Copy failed')
     }
-  } catch (error) {
+  } catch {
     toast.add({
       title: t('form.error'),
       description: t('form.shareLinkError'),

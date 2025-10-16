@@ -1,8 +1,10 @@
+import type { Pinia } from 'pinia'
+
 export default defineNuxtPlugin({
   name: 'pinia.client',
   parallel: true,
   async setup(nuxtApp) {
-    const iceStore = useIceStore(nuxtApp.$pinia as any)
+    const iceStore = useIceStore(nuxtApp.$pinia as Pinia)
 
     // Load from localStorage on plugin init
     const saved = localStorage.getItem('ice-data')
@@ -16,10 +18,9 @@ export default defineNuxtPlugin({
     }
 
     // Subscribe to store changes and save to localStorage
-    iceStore.$subscribe((mutation, state) => {
+    iceStore.$subscribe((_mutation, state) => {
       try {
         localStorage.setItem('ice-data', JSON.stringify(state.data))
-        console.log('Saved to localStorage:', state.data)
       } catch (error) {
         console.error('Failed to save ICE data to localStorage:', error)
       }

@@ -1,10 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
-
-  devtools: {
-    enabled: true
-  },
 
   modules: [
     '@nuxt/eslint',
@@ -12,6 +7,27 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/i18n'
   ],
+
+  devtools: {
+    enabled: true
+  },
+
+  css: ['~/assets/css/main.css'],
+
+  routeRules: {
+    '/': { prerender: true },
+    '/preview': { prerender: true }
+  },
+  compatibilityDate: '2025-07-15',
+
+  eslint: {
+    config: {
+      stylistic: {
+        commaDangle: 'never',
+        braceStyle: '1tbs'
+      }
+    }
+  },
 
   i18n: {
     locales: [
@@ -27,22 +43,6 @@ export default defineNuxtConfig({
       cookieKey: 'i18n_redirected',
       alwaysRedirect: false,
       fallbackLocale: 'en'
-    }
-  },
-
-  css: ['~/assets/css/main.css'],
-
-  routeRules: {
-    '/': { prerender: true },
-    '/preview': { prerender: true }
-  },
-
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
-      }
     }
   }
 })

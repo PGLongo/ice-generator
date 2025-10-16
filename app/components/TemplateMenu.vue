@@ -44,6 +44,6 @@
       :ui="{
         trailingIcon: ['transition-transform duration-200', open ? 'rotate-180' : undefined].filter(Boolean).join(' ')
       }"
-    />
+    ></UButton>
   </UDropdownMenu>
 </template>

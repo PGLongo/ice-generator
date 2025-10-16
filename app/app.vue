@@ -37,18 +37,18 @@ useSeoMeta({
     <UHeader>
       <template #left>
         <NuxtLink to="/" class="flex items-center">
-          <AppLogo />
+          <AppLogo></AppLogo>
         </NuxtLink>
       </template>
 
       <template #center>
-        <TemplateMenu />
+        <TemplateMenu></TemplateMenu>
       </template>
 
       <template #right>
-        <LanguageSelect />
+        <LanguageSelect></LanguageSelect>
 
-        <UColorModeButton />
+        <UColorModeButton></UColorModeButton>
 
         <UButton
           to="https://github.com/PGLongo/ice-generator"
@@ -57,15 +57,15 @@ useSeoMeta({
           color="gray"
           variant="ghost"
           aria-label="GitHub Repository"
-        />
+        ></UButton>
       </template>
     </UHeader>
 
     <UMain>
-      <NuxtPage />
+      <NuxtPage></NuxtPage>
     </UMain>
 
-    <USeparator icon="i-simple-icons-nuxtdotjs" />
+    <USeparator icon="i-simple-icons-nuxtdotjs"></USeparator>
 
     <UFooter>
       <template #left>
@@ -81,6 +81,6 @@ useSeoMeta({
       </template>
     </UFooter>
 
-    <UNotifications />
+    <UNotifications></UNotifications>
   </UApp>
 </template>

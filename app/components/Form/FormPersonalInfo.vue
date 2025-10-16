@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
     <div class="flex items-center gap-2 mb-6">
-      <div class="w-1 h-6 bg-primary rounded-full" />
+      <div class="w-1 h-6 bg-primary rounded-full"></div>
       <h3 class="text-lg font-semibold">
         {{ $t('form.personalInfo') }}
       </h3>
@@ -22,7 +22,7 @@
             size="xl"
             icon="i-heroicons-user"
             class="w-full"
-          />
+          ></UInput>
         </UFormField>
       </div>
 
@@ -40,7 +40,7 @@
             size="xl"
             icon="i-heroicons-calendar"
             class="w-full"
-          />
+          ></UInput>
         </UFormField>
       </div>
 
@@ -58,7 +58,7 @@
             value-attribute="value"
             label-attribute="label"
             class="w-full"
-          />
+          ></USelectMenu>
         </UFormField>
       </div>
     </div>
@@ -77,7 +77,7 @@
             size="xl"
             icon="i-heroicons-map"
             class="w-full"
-          />
+          ></UInput>
         </UFormField>
       </div>
 
@@ -93,7 +93,7 @@
             size="xl"
             icon="i-heroicons-map-pin"
             class="w-full"
-          />
+          ></UInput>
         </UFormField>
       </div>
     </div>

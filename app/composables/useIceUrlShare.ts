@@ -1,5 +1,29 @@
-import type { IceData, EmergencyContact } from '@/stores/ice'
+import type { IceData } from '@/stores/ice'
 import pako from 'pako'
+
+interface CompactData {
+  n?: string
+  a?: number
+  b?: string
+  c?: string
+  ad?: string
+  al?: string[]
+  mc?: string[]
+  cm?: string[]
+  mn?: string
+  ec?: CompactContact[]
+  pd?: string
+  ii?: string
+  si?: string
+}
+
+interface CompactContact {
+  i?: string
+  n?: string
+  r?: string
+  p?: string
+  e?: string
+}
 
 /**
  * Composable for encoding/decoding ICE data to/from URL query parameters
@@ -15,32 +39,66 @@ export const useIceUrlShare = () => {
   /**
    * Serialize ICE data to compact format (remove empty fields, abbreviate keys)
    */
-  const serializeData = (data: IceData): any => {
-    const compact: any = {}
+  const serializeData = (data: IceData): CompactData => {
+    const compact: CompactData = {}
 
     // Only include non-empty fields with abbreviated keys
-    if (data.name) compact.n = data.name
-    if (data.age) compact.a = data.age
-    if (data.bloodType) compact.b = data.bloodType
-    if (data.city) compact.c = data.city
-    if (data.address) compact.ad = data.address
-    if (data.allergies?.length) compact.al = data.allergies
-    if (data.medicalConditions?.length) compact.mc = data.medicalConditions
-    if (data.currentMedications?.length) compact.cm = data.currentMedications
-    if (data.medicalNotes) compact.mn = data.medicalNotes
-    if (data.primaryDoctor) compact.pd = data.primaryDoctor
-    if (data.insuranceInfo) compact.ii = data.insuranceInfo
-    if (data.specialInstructions) compact.si = data.specialInstructions
+    if (data.name) {
+      compact.n = data.name
+    }
+    if (data.age) {
+      compact.a = data.age
+    }
+    if (data.bloodType) {
+      compact.b = data.bloodType
+    }
+    if (data.city) {
+      compact.c = data.city
+    }
+    if (data.address) {
+      compact.ad = data.address
+    }
+    if (data.allergies?.length) {
+      compact.al = data.allergies
+    }
+    if (data.medicalConditions?.length) {
+      compact.mc = data.medicalConditions
+    }
+    if (data.currentMedications?.length) {
+      compact.cm = data.currentMedications
+    }
+    if (data.medicalNotes) {
+      compact.mn = data.medicalNotes
+    }
+    if (data.primaryDoctor) {
+      compact.pd = data.primaryDoctor
+    }
+    if (data.insuranceInfo) {
+      compact.ii = data.insuranceInfo
+    }
+    if (data.specialInstructions) {
+      compact.si = data.specialInstructions
+    }
 
     // Compact emergency contacts
     if (data.emergencyContacts?.length) {
-      compact.ec = data.emergencyContacts.map(contact => {
-        const c: any = {}
-        if (contact.id) c.i = contact.id
-        if (contact.name) c.n = contact.name
-        if (contact.relationship) c.r = contact.relationship
-        if (contact.phone) c.p = contact.phone
-        if (contact.email) c.e = contact.email
+      compact.ec = data.emergencyContacts.map((contact): CompactContact => {
+        const c: CompactContact = {}
+        if (contact.id) {
+          c.i = contact.id
+        }
+        if (contact.name) {
+          c.n = contact.name
+        }
+        if (contact.relationship) {
+          c.r = contact.relationship
+        }
+        if (contact.phone) {
+          c.p = contact.phone
+        }
+        if (contact.email) {
+          c.e = contact.email
+        }
         return c
       })
     }
@@ -51,7 +109,7 @@ export const useIceUrlShare = () => {
   /**
    * Deserialize compact format back to ICE data
    */
-  const deserializeData = (compact: any): IceData => {
+  const deserializeData = (compact: CompactData): IceData => {
     const data: IceData = {
       name: compact.n || '',
       age: compact.a || null,
@@ -71,7 +129,7 @@ export const useIceUrlShare = () => {
 
     // Restore emergency contacts
     if (compact.ec?.length) {
-      data.emergencyContacts = compact.ec.map((c: any) => ({
+      data.emergencyContacts = compact.ec.map((c) => ({
         id: c.i || crypto.randomUUID(),
         name: c.n || '',
         relationship: c.r || '',

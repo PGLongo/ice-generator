@@ -3,7 +3,7 @@
     <div class="max-w-4xl mx-auto">
       <!-- No Data State -->
       <div v-if="!iceData" class="text-center py-12">
-        <UIcon name="i-heroicons-exclamation-triangle" class="w-16 h-16 mx-auto text-gray-400 mb-4" />
+        <UIcon name="i-heroicons-exclamation-triangle" class="w-16 h-16 mx-auto text-gray-400 mb-4"></UIcon>
         <h1 class="text-2xl font-bold mb-2">{{ $t('preview.noData') }}</h1>
         <p class="text-gray-500 mb-6">{{ $t('preview.noDataDescription') }}</p>
         <UButton
@@ -21,21 +21,21 @@
         <UCard>
           <div class="text-center py-6">
             <div class="flex items-center justify-center gap-3 mb-2">
-              <UIcon name="i-heroicons-identification" class="w-8 h-8 text-primary" />
+              <UIcon name="i-heroicons-identification" class="w-8 h-8 text-primary"></UIcon>
               <h1 class="text-4xl font-bold">{{ iceData.name }}</h1>
             </div>
             <div class="flex items-center justify-center gap-4 text-gray-900 dark:text-gray-100 mt-4 text-lg">
               <div v-if="iceData.age" class="flex items-center gap-2">
-                <UIcon name="i-heroicons-cake" class="w-5 h-5" />
+                <UIcon name="i-heroicons-cake" class="w-5 h-5"></UIcon>
                 <span class="font-medium">{{ iceData.age }} {{ $t('preview.years') }}</span>
               </div>
               <div v-if="bloodTypeDisplay" class="flex items-center gap-2">
-                <UIcon name="i-heroicons-beaker" class="w-5 h-5" />
+                <UIcon name="i-heroicons-beaker" class="w-5 h-5"></UIcon>
                 <span class="font-medium">{{ bloodTypeDisplay }}</span>
               </div>
             </div>
             <div v-if="iceData.city || iceData.address" class="flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 mt-2">
-              <UIcon name="i-heroicons-map-pin" class="w-5 h-5" />
+              <UIcon name="i-heroicons-map-pin" class="w-5 h-5"></UIcon>
               <span class="text-base">{{ [iceData.address, iceData.city].filter(Boolean).join(', ') }}</span>
             </div>
           </div>
@@ -45,7 +45,7 @@
         <UCard v-if="iceData.emergencyContacts.length > 0">
           <template #header>
             <div class="flex items-center gap-2">
-              <UIcon name="i-heroicons-phone" class="w-6 h-6 text-error" />
+              <UIcon name="i-heroicons-phone" class="w-6 h-6 text-error"></UIcon>
               <h2 class="text-xl font-semibold">{{ $t('preview.emergencyContacts') }}</h2>
             </div>
           </template>
@@ -104,7 +104,7 @@
         <UCard v-if="hasMedicalInfo">
           <template #header>
             <div class="flex items-center gap-2">
-              <UIcon name="i-heroicons-heart" class="w-6 h-6 text-error" />
+              <UIcon name="i-heroicons-heart" class="w-6 h-6 text-error"></UIcon>
               <h2 class="text-xl font-semibold">{{ $t('preview.medicalInfo') }}</h2>
             </div>
           </template>
@@ -160,7 +160,7 @@
         <UCard v-if="hasAdditionalInfo">
           <template #header>
             <div class="flex items-center gap-2">
-              <UIcon name="i-heroicons-information-circle" class="w-6 h-6 text-info" />
+              <UIcon name="i-heroicons-information-circle" class="w-6 h-6 text-info"></UIcon>
               <h2 class="text-xl font-semibold">{{ $t('preview.additionalInfo') }}</h2>
             </div>
           </template>
@@ -198,7 +198,6 @@
 <script setup lang="ts">
 import type { IceData } from '@/stores/ice'
 
-const { t } = useI18n()
 const route = useRoute()
 const { decodeData } = useIceUrlShare()
 
@@ -222,26 +221,26 @@ onMounted(() => {
 
 const bloodTypeDisplay = computed(() => {
   if (!iceData.value?.bloodType) return ''
-  const bt = iceData.value.bloodType as any
+  const bt = iceData.value.bloodType as string | { label?: string, value?: string }
   return typeof bt === 'object' && bt.label ? bt.label : bt
 })
 
 const hasMedicalInfo = computed(() => {
   if (!iceData.value) return false
   return !!(
-    (iceData.value.allergies && iceData.value.allergies.length > 0) ||
-    (iceData.value.medicalConditions && iceData.value.medicalConditions.length > 0) ||
-    (iceData.value.currentMedications && iceData.value.currentMedications.length > 0) ||
-    iceData.value.medicalNotes
+    (iceData.value.allergies && iceData.value.allergies.length > 0)
+    || (iceData.value.medicalConditions && iceData.value.medicalConditions.length > 0)
+    || (iceData.value.currentMedications && iceData.value.currentMedications.length > 0)
+    || iceData.value.medicalNotes
   )
 })
 
 const hasAdditionalInfo = computed(() => {
   if (!iceData.value) return false
   return !!(
-    iceData.value.primaryDoctor ||
-    iceData.value.insuranceInfo ||
-    iceData.value.specialInstructions
+    iceData.value.primaryDoctor
+    || iceData.value.insuranceInfo
+    || iceData.value.specialInstructions
   )
 })
 
