@@ -154,14 +154,14 @@ export const useIceUrlShare = () => {
   }
 
   /**
-   * Generate shareable URL with encoded data
+   * Generate shareable URL with encoded data (points to /preview)
    */
   const generateShareableUrl = (data: IceData, baseUrl?: string): string => {
     const encoded = encodeData(data)
 
     // If baseUrl is provided, use it
     if (baseUrl) {
-      return `${baseUrl}/?data=${encoded}`
+      return `${baseUrl}/preview?data=${encoded}`
     }
 
     // Otherwise, construct from window.location with proper base path
@@ -172,7 +172,7 @@ export const useIceUrlShare = () => {
       ? pathname
       : pathname.substring(0, pathname.lastIndexOf('/') + 1)
 
-    return `${origin}${basePath}?data=${encoded}`
+    return `${origin}${basePath}preview?data=${encoded}`
   }
 
   /**

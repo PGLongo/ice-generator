@@ -42,7 +42,7 @@
             <UButton
               type="button"
               size="xl"
-              color="blue"
+              color="info"
               variant="outline"
               icon="i-heroicons-link"
               block
@@ -81,9 +81,31 @@ import type { EmergencyContact } from '@/stores/ice'
 
 const { t } = useI18n()
 const toast = useToast()
+const route = useRoute()
 const iceStore = useIceStore()
 const { downloadHTML } = useIceExport()
-const { copyShareableUrl, getEncodedSize } = useIceUrlShare()
+const { copyShareableUrl, getEncodedSize, encodeData, decodeData } = useIceUrlShare()
+
+// Load data from URL query params on mount (and save to store)
+onMounted(() => {
+  const dataParam = route.query.data as string
+  if (dataParam) {
+    try {
+      const decodedData = decodeData(dataParam)
+      if (decodedData) {
+        // Load into store (will be saved to localStorage via plugin)
+        iceStore.data = decodedData
+        toast.add({
+          title: t('form.success'),
+          description: 'Data loaded from shared link',
+          color: 'success'
+        })
+      }
+    } catch (error) {
+      console.error('Failed to load data from URL:', error)
+    }
+  }
+})
 
 // Form submission - just download HTML
 const onSubmit = () => {
@@ -92,8 +114,7 @@ const onSubmit = () => {
       id: 'error',
       title: t('form.error'),
       description: t('form.errorMessage'),
-      color: 'red',
-      timeout: 3000
+      color: 'error'
     })
     return
   }
@@ -106,16 +127,14 @@ const onSubmit = () => {
       id: 'success',
       title: t('form.success'),
       description: t('form.successMessage', { name: iceStore.data.name }),
-      color: 'green',
-      timeout: 3000
+      color: 'success'
     })
   } catch (error) {
     toast.add({
       id: 'error',
       title: t('form.error'),
       description: t('form.errorMessageServer'),
-      color: 'red',
-      timeout: 3000
+      color: 'error'
     })
   }
 }
@@ -126,8 +145,7 @@ const generateShareLink = async () => {
     toast.add({
       title: t('form.error'),
       description: t('form.errorMessage'),
-      color: 'red',
-      timeout: 3000
+      color: 'error'
     })
     return
   }
@@ -141,8 +159,7 @@ const generateShareLink = async () => {
       toast.add({
         title: t('form.shareLinkSuccess'),
         description: t('form.shareLinkSuccessMessage', { size: sizeKB }),
-        color: 'green',
-        timeout: 5000
+        color: 'success'
       })
     } else {
       throw new Error('Copy failed')
@@ -151,8 +168,7 @@ const generateShareLink = async () => {
     toast.add({
       title: t('form.error'),
       description: t('form.shareLinkError'),
-      color: 'red',
-      timeout: 3000
+      color: 'error'
     })
   }
 }
@@ -162,19 +178,18 @@ const resetForm = () => {
   iceStore.clearData()
 }
 
-// Go to preview page with data in query params
+// Go to preview page with data in query params (compressed)
 const goToPreview = () => {
   if (!iceStore.hasData) {
     toast.add({
       title: t('form.error'),
       description: t('form.errorMessage'),
-      color: 'red',
-      timeout: 3000
+      color: 'error'
     })
     return
   }
 
-  const encodedData = encodeURIComponent(JSON.stringify(iceStore.data))
+  const encodedData = encodeData(iceStore.data)
   navigateTo(`/preview?data=${encodedData}`)
 }
 </script>

@@ -200,6 +200,7 @@ import type { IceData } from '@/stores/ice'
 
 const { t } = useI18n()
 const route = useRoute()
+const { decodeData } = useIceUrlShare()
 
 const iceData = ref<IceData | null>(null)
 
@@ -208,9 +209,11 @@ onMounted(() => {
   const dataParam = route.query.data as string
   if (dataParam) {
     try {
-      const decodedData = decodeURIComponent(dataParam)
-      const parsedData = JSON.parse(decodedData)
-      iceData.value = parsedData
+      // Use the compressed decoding from useIceUrlShare
+      const decodedIceData = decodeData(dataParam)
+      if (decodedIceData) {
+        iceData.value = decodedIceData
+      }
     } catch (error) {
       console.error('Failed to parse ICE data from URL:', error)
     }
