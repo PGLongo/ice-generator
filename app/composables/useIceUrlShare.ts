@@ -158,8 +158,21 @@ export const useIceUrlShare = () => {
    */
   const generateShareableUrl = (data: IceData, baseUrl?: string): string => {
     const encoded = encodeData(data)
-    const base = baseUrl || window.location.origin
-    return `${base}/?data=${encoded}`
+
+    // If baseUrl is provided, use it
+    if (baseUrl) {
+      return `${baseUrl}/?data=${encoded}`
+    }
+
+    // Otherwise, construct from window.location with proper base path
+    const { origin, pathname } = window.location
+    // Get the base path (everything except the current page)
+    // e.g., /ice-generator/ from /ice-generator/index.html
+    const basePath = pathname.endsWith('/')
+      ? pathname
+      : pathname.substring(0, pathname.lastIndexOf('/') + 1)
+
+    return `${origin}${basePath}?data=${encoded}`
   }
 
   /**
