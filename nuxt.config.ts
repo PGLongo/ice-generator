@@ -44,5 +44,48 @@ export default defineNuxtConfig({
       alwaysRedirect: false,
       fallbackLocale: 'en'
     }
+  },
+
+  icon: {
+    serverBundle: {
+      collections: ['heroicons', 'lucide', 'simple-icons']
+    },
+    clientBundle: {
+      icons: [
+        // Personal Info
+        'heroicons:user',
+        'heroicons:user-circle',
+        'heroicons:calendar',
+        'heroicons:cake',
+        'heroicons:beaker',
+        'heroicons:map',
+        'heroicons:map-pin',
+        // Medical Info
+        'heroicons:heart',
+        'heroicons:clipboard-document-list',
+        // Emergency Contacts
+        'heroicons:phone',
+        'heroicons:envelope',
+        'heroicons:user-plus',
+        'heroicons:trash',
+        // Additional Info
+        'heroicons:information-circle',
+        // Actions
+        'heroicons:qr-code',
+        'heroicons:eye',
+        'heroicons:link',
+        'heroicons:arrow-path',
+        'heroicons:plus',
+        'heroicons:exclamation-triangle',
+        'heroicons:identification',
+        // UI
+        'heroicons:sun',
+        'heroicons:moon',
+        'heroicons:language',
+        'heroicons:chevron-down',
+        'heroicons:check'
+      ],
+      scan: true
+    }
   }
 })
