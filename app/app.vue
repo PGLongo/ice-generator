@@ -1,28 +1,10 @@
 <script setup>
 import packageJson from '../package.json'
 
-const { locale, locales } = useI18n()
-const colorMode = useColorMode()
+const { locale } = useI18n()
 
 // App version from package.json
 const appVersion = packageJson.version
-
-// Switch locale with computed for reactive updates
-const currentLocale = computed({
-  get: () => locale.value,
-  set: (value) => {
-    locale.value = value
-  }
-})
-
-// Available locales for the dropdown
-const availableLocales = computed(() =>
-  locales.value.map((loc) => ({
-    label: loc.code === 'en' ? 'English' : 'Italiano',
-    value: loc.code,
-    icon: loc.code === 'en' ? 'i-heroicons-language' : 'i-heroicons-language'
-  }))
-)
 
 useHead({
   meta: [
@@ -64,13 +46,7 @@ useSeoMeta({
       </template>
 
       <template #right>
-        <USelectMenu
-          v-model="currentLocale"
-          :items="availableLocales"
-          value-attribute="value"
-          label-attribute="label"
-          class="w-32"
-        />
+        <LanguageSelect />
 
         <UColorModeButton />
 
