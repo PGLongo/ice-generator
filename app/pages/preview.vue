@@ -85,17 +85,23 @@ const formatDate = (dateString: string) => {
               <UIcon name="i-heroicons-identification" class="w-8 h-8 text-primary"></UIcon>
               <h1 class="text-4xl font-bold">{{ iceData.name }}</h1>
             </div>
-            <div class="flex items-center justify-center gap-4 text-gray-900 dark:text-gray-100 mt-4 text-lg">
-              <div v-if="iceData.age" class="flex items-center gap-2">
-                <UIcon name="i-heroicons-cake" class="w-5 h-5"></UIcon>
-                <span class="font-medium">{{ iceData.age }} {{ $t('preview.years') }}</span>
+            <div class="flex items-center justify-center gap-6 text-gray-900 dark:text-gray-100 mt-4 text-base">
+              <div v-if="iceData.age" class="flex flex-col items-center gap-1">
+                <div class="flex items-center gap-2">
+                  <UIcon name="i-heroicons-cake" class="w-5 h-5 text-primary"></UIcon>
+                  <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">{{ $t('preview.age') }}</span>
+                </div>
+                <span class="font-bold text-lg">{{ iceData.age }} {{ $t('preview.years') }}</span>
               </div>
-              <div v-if="bloodTypeDisplay" class="flex items-center gap-2">
-                <UIcon name="i-heroicons-beaker" class="w-5 h-5"></UIcon>
-                <span class="font-medium">{{ bloodTypeDisplay }}</span>
+              <div v-if="bloodTypeDisplay" class="flex flex-col items-center gap-1">
+                <div class="flex items-center gap-2">
+                  <span class="text-xl">🩸</span>
+                  <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">{{ $t('preview.bloodType') }}</span>
+                </div>
+                <span class="font-bold text-lg">{{ bloodTypeDisplay }}</span>
               </div>
             </div>
-            <div v-if="iceData.city || iceData.address" class="flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 mt-2">
+            <div v-if="iceData.city || iceData.address" class="flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 mt-4">
               <UIcon name="i-heroicons-map-pin" class="w-5 h-5"></UIcon>
               <span class="text-base">{{ [iceData.address, iceData.city].filter(Boolean).join(', ') }}</span>
             </div>

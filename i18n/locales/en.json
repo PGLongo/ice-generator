@@ -29,7 +29,9 @@
     "instructions": "Special Instructions",
     "footer": "In Case of Emergency (ICE) - Emergency Contact Information",
     "lastUpdated": "Last updated",
-    "years": "years"
+    "years": "years",
+    "age": "Age",
+    "bloodType": "Blood Type"
   },
   "form": {
     "subtitle": "Secure your emergency information for quick access",

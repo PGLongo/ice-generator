@@ -29,7 +29,9 @@
     "instructions": "Istruzioni Speciali",
     "footer": "In Caso di Emergenza (ICE) - Informazioni di Contatto di Emergenza",
     "lastUpdated": "Ultimo aggiornamento",
-    "years": "anni"
+    "years": "anni",
+    "age": "Età",
+    "bloodType": "Gruppo Sanguigno"
   },
   "form": {
     "subtitle": "Proteggi le tue informazioni di emergenza per un accesso rapido",
