@@ -1,6 +1,11 @@
 <script setup>
+import packageJson from '../package.json'
+
 const { locale, locales } = useI18n()
 const colorMode = useColorMode()
+
+// App version from package.json
+const appVersion = packageJson.version
 
 // Switch locale with computed for reactive updates
 const currentLocale = computed({
@@ -49,14 +54,25 @@ useSeoMeta({
   <UApp>
     <UHeader>
       <template #left>
-        <NuxtLink to="/">
-          <AppLogo class="w-auto h-6 shrink-0" />
+        <NuxtLink to="/" class="flex items-center">
+          <AppLogo />
         </NuxtLink>
+      </template>
 
+      <template #center>
         <TemplateMenu />
       </template>
 
       <template #right>
+        <UButton
+          to="https://github.com/PGLongo/ice-generator"
+          target="_blank"
+          icon="i-simple-icons-github"
+          color="gray"
+          variant="ghost"
+          aria-label="GitHub Repository"
+        />
+
         <USelectMenu
           v-model="currentLocale"
           :items="availableLocales"
@@ -77,7 +93,7 @@ useSeoMeta({
     <UFooter>
       <template #left>
         <p class="text-sm text-muted">
-          ICE Generator • {{ new Date().getFullYear() }}
+          ICE Generator v{{ appVersion }} • {{ new Date().getFullYear() }}
         </p>
       </template>
 
