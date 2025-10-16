@@ -65,12 +65,6 @@
           </div>
         </form>
       </UCard>
-
-      <div class="mt-6 text-center">
-        <p class="text-sm text-muted">
-          {{ $t('form.footer') }}
-        </p>
-      </div>
     </div>
   </UContainer>
 </template>
