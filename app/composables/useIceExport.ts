@@ -1,4 +1,4 @@
-import type { IceData } from '@/stores/ice'
+import type { IceData } from '@/types/ice'
 
 export const useIceExport = () => {
   const generateHTML = (data: IceData): string => {

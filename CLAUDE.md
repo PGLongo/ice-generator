@@ -39,11 +39,14 @@ ice-generator/
 │   │   ├── AppLogo.vue                  # Application logo
 │   │   └── TemplateMenu.vue             # Template selector menu
 │   ├── composables/
-│   │   └── useIceExport.ts              # HTML generation and export logic
+│   │   ├── useIceExport.ts              # HTML generation and export logic
+│   │   └── useIceUrlShare.ts            # URL encoding/decoding with compression
 │   ├── stores/
 │   │   └── ice.ts                       # Pinia store for ICE data
+│   ├── types/
+│   │   └── ice.ts                       # TypeScript interfaces (IceData, EmergencyContact)
 │   ├── plugins/
-│   │   └── persist-ice-store.ts         # Auto-persist plugin for localStorage
+│   │   └── pinia.client.ts              # Auto-persist plugin for localStorage
 │   └── assets/
 │       └── css/
 │           └── main.css                 # Global styles
@@ -160,16 +163,24 @@ npm run preview  # Preview production build
 
 ## Implementation Notes
 
+### TypeScript Types
+- **Types location**: `app/types/ice.ts` - All TypeScript interfaces for the domain model
+- **Main interfaces**:
+  - `IceData` - Complete ICE data structure with personal, medical, and emergency contact information
+  - `EmergencyContact` - Single emergency contact with name, relationship, phone, email
+- **Auto-imported**: Nuxt auto-imports types from `app/types/` so you can use them without explicit imports in Vue components
+- **Best practice**: Public domain interfaces go in `app/types/`, internal/implementation interfaces stay in their respective files
+
 ### State Management
 - **Pinia Store**: All ICE data is stored in a single reactive Pinia store (`useIceStore`)
-- **Store location**: `app/stores/ice.ts`
+- **Store location**: `app/stores/ice.ts` (imports types from `@/types/ice`)
 - **Auto-persistence**: Plugin (`app/plugins/pinia.client.ts`) uses `$subscribe` to automatically save to localStorage
 - **Direct store access**: ALL form components access the store directly via `useIceStore()`
 - **No intermediate data**: No `localData`, no `v-model` props, no computed properties in parent
 - **Real-time sync**: Changes to store automatically trigger localStorage save and UI updates
 - **Plugin format**: Uses modern `defineNuxtPlugin({ name, parallel: true, async setup() })` format
 
-**Store Data Structure (`IceData` interface):**
+**Store Data Structure (`IceData` interface from `@/types/ice`):**
 ```typescript
 {
   // Personal Information

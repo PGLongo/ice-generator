@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { EmergencyContact } from '@/stores/ice'
+import type { EmergencyContact } from '@/types/ice'
 
 const props = defineProps<{
   modelValue: EmergencyContact[]

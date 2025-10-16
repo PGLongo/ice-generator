@@ -1,4 +1,4 @@
-import type { IceData } from '@/stores/ice'
+import type { IceData } from '@/types/ice'
 import pako from 'pako'
 
 interface CompactData {

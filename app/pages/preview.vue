@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IceData } from '@/stores/ice'
+import type { IceData } from '@/types/ice'
 
 const route = useRoute()
 const { decodeData } = useIceUrlShare()

@@ -1,37 +1,5 @@
 import { defineStore } from 'pinia'
-
-export interface EmergencyContact {
-  id: string
-  name: string
-  relationship: string
-  phone: string
-  email?: string
-}
-
-export interface IceData {
-  // Personal Information
-  name: string
-  age: number | null
-  dateOfBirth?: string
-  bloodType?: string
-  city?: string
-  address?: string
-  allergies?: string[]
-  medicalConditions?: string[]
-  currentMedications?: string[]
-  medicalNotes?: string
-
-  // Emergency Contacts
-  emergencyContacts: EmergencyContact[]
-
-  // Additional Information
-  primaryDoctor?: string
-  insuranceInfo?: string
-  specialInstructions?: string
-
-  // Metadata
-  lastUpdated?: string
-}
+import type { IceData, EmergencyContact } from '@/types/ice'
 
 export const useIceStore = defineStore('ice', {
   state: (): { data: IceData } => ({
