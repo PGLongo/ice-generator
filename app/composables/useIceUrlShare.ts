@@ -4,6 +4,7 @@ import pako from 'pako'
 interface CompactData {
   n?: string
   a?: number
+  dob?: string
   b?: string
   c?: string
   ad?: string
@@ -30,7 +31,7 @@ interface CompactContact {
  * Uses optimized serialization + gzip compression + Base64 encoding
  *
  * Field abbreviations for minimal size:
- * n=name, a=age, b=bloodType, c=city, ad=address,
+ * n=name, a=age, dob=dateOfBirth, b=bloodType, c=city, ad=address,
  * al=allergies, mc=medicalConditions, cm=currentMedications,
  * mn=medicalNotes, ec=emergencyContacts, pd=primaryDoctor,
  * ii=insuranceInfo, si=specialInstructions
@@ -48,6 +49,9 @@ export const useIceUrlShare = () => {
     }
     if (data.age) {
       compact.a = data.age
+    }
+    if (data.dateOfBirth) {
+      compact.dob = data.dateOfBirth
     }
     if (data.bloodType) {
       compact.b = data.bloodType
@@ -113,6 +117,7 @@ export const useIceUrlShare = () => {
     const data: IceData = {
       name: compact.n || '',
       age: compact.a || null,
+      dateOfBirth: compact.dob || '',
       bloodType: compact.b || '',
       city: compact.c || '',
       address: compact.ad || '',
