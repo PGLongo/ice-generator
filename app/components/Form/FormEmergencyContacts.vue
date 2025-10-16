@@ -35,80 +35,68 @@
         />
       </div>
 
-      <!-- Grid a 6 colonne: Nome (2), Relazione (2), Telefono (1), Email (1) -->
-      <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
-        <div class="md:col-span-2">
-          <UFormField
-            :label="$t('form.contactName')"
-            :name="`contact-name-${index}`"
-            required
-            class="w-full"
-          >
-            <UInput
-              v-model="contact.name"
-              :placeholder="$t('form.contactNamePlaceholder')"
-              size="lg"
-              icon="i-heroicons-user"
-              class="w-full"
-              @input="emitUpdate"
-            />
-          </UFormField>
-        </div>
+      <!-- Grid a 12 colonne: 12 su xs, 4 su sm, 3 su md -->
+      <div class="grid grid-cols-12 gap-6">
+        <UFormField
+          :label="$t('form.contactName')"
+          :name="`contact-name-${index}`"
+          required
+          class="col-span-12 sm:col-span-4 md:col-span-3"
+        >
+          <UInput
+            v-model="contact.name"
+            :placeholder="$t('form.contactNamePlaceholder')"
+            size="lg"
+            icon="i-heroicons-user"
+            @input="emitUpdate"
+          />
+        </UFormField>
 
-        <div class="md:col-span-2">
-          <UFormField
-            :label="$t('form.relationship')"
-            :name="`relationship-${index}`"
-            required
-            class="w-full"
-          >
-            <UInput
-              v-model="contact.relationship"
-              :placeholder="$t('form.relationshipPlaceholder')"
-              size="lg"
-              icon="i-heroicons-heart"
-              class="w-full"
-              @input="emitUpdate"
-            />
-          </UFormField>
-        </div>
+        <UFormField
+          :label="$t('form.relationship')"
+          :name="`relationship-${index}`"
+          required
+          class="col-span-12 sm:col-span-4 md:col-span-3"
+        >
+          <UInput
+            v-model="contact.relationship"
+            :placeholder="$t('form.relationshipPlaceholder')"
+            size="lg"
+            icon="i-heroicons-heart"
+            @input="emitUpdate"
+          />
+        </UFormField>
 
-        <div class="md:col-span-1">
-          <UFormField
-            :label="$t('form.phone')"
-            :name="`phone-${index}`"
-            required
-            class="w-full"
-          >
-            <UInput
-              v-model="contact.phone"
-              type="tel"
-              :placeholder="$t('form.phonePlaceholder')"
-              size="lg"
-              icon="i-heroicons-phone"
-              class="w-full"
-              @input="emitUpdate"
-            />
-          </UFormField>
-        </div>
+        <UFormField
+          :label="$t('form.phone')"
+          :name="`phone-${index}`"
+          required
+          class="col-span-12 sm:col-span-4 md:col-span-3"
+        >
+          <UInput
+            v-model="contact.phone"
+            type="tel"
+            :placeholder="$t('form.phonePlaceholder')"
+            size="lg"
+            icon="i-heroicons-phone"
+            @input="emitUpdate"
+          />
+        </UFormField>
 
-        <div class="md:col-span-1">
-          <UFormField
-            :label="$t('form.email')"
-            :name="`email-${index}`"
-            class="w-full"
-          >
-            <UInput
-              v-model="contact.email"
-              type="email"
-              :placeholder="$t('form.emailPlaceholder')"
-              size="lg"
-              icon="i-heroicons-envelope"
-              class="w-full"
-              @input="emitUpdate"
-            />
-          </UFormField>
-        </div>
+        <UFormField
+          :label="$t('form.email')"
+          :name="`email-${index}`"
+          class="col-span-12 sm:col-span-4 md:col-span-3"
+        >
+          <UInput
+            v-model="contact.email"
+            type="email"
+            :placeholder="$t('form.emailPlaceholder')"
+            size="lg"
+            icon="i-heroicons-envelope"
+            @input="emitUpdate"
+          />
+        </UFormField>
       </div>
     </div>
   </div>
