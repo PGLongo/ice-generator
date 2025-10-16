@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import { useIceStore } from '@/stores/ice'
+
+const iceStore = useIceStore()
+
+const bloodTypes = [
+  { label: 'A+', value: 'A+' },
+  { label: 'A-', value: 'A-' },
+  { label: 'B+', value: 'B+' },
+  { label: 'B-', value: 'B-' },
+  { label: 'AB+', value: 'AB+' },
+  { label: 'AB-', value: 'AB-' },
+  { label: 'O+', value: 'O+' },
+  { label: 'O-', value: 'O-' }
+]
+</script>
+
 <template>
   <div class="space-y-6">
     <div class="flex items-center gap-2 mb-6">
@@ -99,20 +116,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useIceStore } from '@/stores/ice'
-
-const iceStore = useIceStore()
-
-const bloodTypes = [
-  { label: 'A+', value: 'A+' },
-  { label: 'A-', value: 'A-' },
-  { label: 'B+', value: 'B+' },
-  { label: 'B-', value: 'B-' },
-  { label: 'AB+', value: 'AB+' },
-  { label: 'AB-', value: 'AB-' },
-  { label: 'O+', value: 'O+' },
-  { label: 'O-', value: 'O-' }
-]
-</script>

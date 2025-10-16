@@ -1,3 +1,40 @@
+<script setup lang="ts">
+import { useIceStore } from '@/stores/ice'
+
+const iceStore = useIceStore()
+
+// Computed properties for text representation
+const allergiesText = computed({
+  get: () => (iceStore.data.allergies || []).join(', '),
+  set: (value: string) => {
+    iceStore.data.allergies = value
+      .split(',')
+      .map(item => item.trim())
+      .filter(item => item.length > 0)
+  }
+})
+
+const conditionsText = computed({
+  get: () => (iceStore.data.medicalConditions || []).join(', '),
+  set: (value: string) => {
+    iceStore.data.medicalConditions = value
+      .split(',')
+      .map(item => item.trim())
+      .filter(item => item.length > 0)
+  }
+})
+
+const medicationsText = computed({
+  get: () => (iceStore.data.currentMedications || []).join(', '),
+  set: (value: string) => {
+    iceStore.data.currentMedications = value
+      .split(',')
+      .map(item => item.trim())
+      .filter(item => item.length > 0)
+  }
+})
+</script>
+
 <template>
   <div class="space-y-6">
     <div class="flex items-center gap-2 mb-6">
@@ -78,40 +115,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useIceStore } from '@/stores/ice'
-
-const iceStore = useIceStore()
-
-// Computed properties for text representation
-const allergiesText = computed({
-  get: () => (iceStore.data.allergies || []).join(', '),
-  set: (value: string) => {
-    iceStore.data.allergies = value
-      .split(',')
-      .map(item => item.trim())
-      .filter(item => item.length > 0)
-  }
-})
-
-const conditionsText = computed({
-  get: () => (iceStore.data.medicalConditions || []).join(', '),
-  set: (value: string) => {
-    iceStore.data.medicalConditions = value
-      .split(',')
-      .map(item => item.trim())
-      .filter(item => item.length > 0)
-  }
-})
-
-const medicationsText = computed({
-  get: () => (iceStore.data.currentMedications || []).join(', '),
-  set: (value: string) => {
-    iceStore.data.currentMedications = value
-      .split(',')
-      .map(item => item.trim())
-      .filter(item => item.length > 0)
-  }
-})
-</script>

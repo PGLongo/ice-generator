@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { useIceStore } from '@/stores/ice'
+
+const iceStore = useIceStore()
+</script>
+
 <template>
   <div class="space-y-6">
     <div class="flex items-center gap-2 mb-6">
@@ -59,9 +65,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useIceStore } from '@/stores/ice'
-
-const iceStore = useIceStore()
-</script>

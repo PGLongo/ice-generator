@@ -1,74 +1,3 @@
-<template>
-  <UContainer class="py-12">
-    <div class="max-w-4xl mx-auto">
-      <UCard>
-        <form class="space-y-8" @submit.prevent="onSubmit">
-          <FormPersonalInfo></FormPersonalInfo>
-
-          <UDivider></UDivider>
-
-          <FormMedicalInfo></FormMedicalInfo>
-
-          <UDivider></UDivider>
-
-          <FormEmergencyContacts v-model="iceStore.data.emergencyContacts"></FormEmergencyContacts>
-
-          <UDivider></UDivider>
-
-          <FormAdditionalInfo></FormAdditionalInfo>
-
-          <div class="flex flex-col sm:flex-row gap-3 pt-4">
-            <UButton
-              type="submit"
-              size="xl"
-              block
-              icon="i-heroicons-qr-code"
-            >
-              {{ $t('form.saveQr') }}
-            </UButton>
-
-            <UButton
-              type="button"
-              size="xl"
-              color="primary"
-              variant="outline"
-              icon="i-heroicons-eye"
-              block
-              @click="goToPreview"
-            >
-              {{ $t('form.preview') }}
-            </UButton>
-
-            <UButton
-              type="button"
-              size="xl"
-              color="info"
-              variant="outline"
-              icon="i-heroicons-link"
-              block
-              :disabled="!iceStore.hasData"
-              @click="generateShareLink"
-            >
-              {{ $t('form.shareLink') }}
-            </UButton>
-
-            <UButton
-              type="button"
-              size="xl"
-              color="neutral"
-              variant="outline"
-              icon="i-heroicons-arrow-path"
-              @click="resetForm"
-            >
-              {{ $t('form.cancel') }}
-            </UButton>
-          </div>
-        </form>
-      </UCard>
-    </div>
-  </UContainer>
-</template>
-
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
 import QRCode from 'qrcode'
@@ -205,3 +134,74 @@ const goToPreview = () => {
   navigateTo(`/preview?data=${encodedData}`)
 }
 </script>
+
+<template>
+  <UContainer class="py-12">
+    <div class="max-w-4xl mx-auto">
+      <UCard>
+        <form class="space-y-8" @submit.prevent="onSubmit">
+          <FormPersonalInfo></FormPersonalInfo>
+
+          <UDivider></UDivider>
+
+          <FormMedicalInfo></FormMedicalInfo>
+
+          <UDivider></UDivider>
+
+          <FormEmergencyContacts v-model="iceStore.data.emergencyContacts"></FormEmergencyContacts>
+
+          <UDivider></UDivider>
+
+          <FormAdditionalInfo></FormAdditionalInfo>
+
+          <div class="flex flex-col sm:flex-row gap-3 pt-4">
+            <UButton
+              type="submit"
+              size="xl"
+              block
+              icon="i-heroicons-qr-code"
+            >
+              {{ $t('form.saveQr') }}
+            </UButton>
+
+            <UButton
+              type="button"
+              size="xl"
+              color="primary"
+              variant="outline"
+              icon="i-heroicons-eye"
+              block
+              @click="goToPreview"
+            >
+              {{ $t('form.preview') }}
+            </UButton>
+
+            <UButton
+              type="button"
+              size="xl"
+              color="info"
+              variant="outline"
+              icon="i-heroicons-link"
+              block
+              :disabled="!iceStore.hasData"
+              @click="generateShareLink"
+            >
+              {{ $t('form.shareLink') }}
+            </UButton>
+
+            <UButton
+              type="button"
+              size="xl"
+              color="neutral"
+              variant="outline"
+              icon="i-heroicons-arrow-path"
+              @click="resetForm"
+            >
+              {{ $t('form.cancel') }}
+            </UButton>
+          </div>
+        </form>
+      </UCard>
+    </div>
+  </UContainer>
+</template>

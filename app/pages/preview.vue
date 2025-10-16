@@ -1,3 +1,64 @@
+<script setup lang="ts">
+import type { IceData } from '@/stores/ice'
+
+const route = useRoute()
+const { decodeData } = useIceUrlShare()
+
+const iceData = ref<IceData | null>(null)
+
+onMounted(() => {
+  // Try to get data from URL query params
+  const dataParam = route.query.data as string
+  if (dataParam) {
+    try {
+      // Use the compressed decoding from useIceUrlShare
+      const decodedIceData = decodeData(dataParam)
+      if (decodedIceData) {
+        iceData.value = decodedIceData
+      }
+    } catch (error) {
+      console.error('Failed to parse ICE data from URL:', error)
+    }
+  }
+})
+
+const bloodTypeDisplay = computed(() => {
+  if (!iceData.value?.bloodType) return ''
+  const bt = iceData.value.bloodType as string | { label?: string, value?: string }
+  return typeof bt === 'object' && bt.label ? bt.label : bt
+})
+
+const hasMedicalInfo = computed(() => {
+  if (!iceData.value) return false
+  return !!(
+    (iceData.value.allergies && iceData.value.allergies.length > 0)
+    || (iceData.value.medicalConditions && iceData.value.medicalConditions.length > 0)
+    || (iceData.value.currentMedications && iceData.value.currentMedications.length > 0)
+    || iceData.value.medicalNotes
+  )
+})
+
+const hasAdditionalInfo = computed(() => {
+  if (!iceData.value) return false
+  return !!(
+    iceData.value.primaryDoctor
+    || iceData.value.insuranceInfo
+    || iceData.value.specialInstructions
+  )
+})
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+}
+</script>
+
 <template>
   <UContainer class="py-12">
     <div class="max-w-4xl mx-auto">
@@ -194,64 +255,3 @@
     </div>
   </UContainer>
 </template>
-
-<script setup lang="ts">
-import type { IceData } from '@/stores/ice'
-
-const route = useRoute()
-const { decodeData } = useIceUrlShare()
-
-const iceData = ref<IceData | null>(null)
-
-onMounted(() => {
-  // Try to get data from URL query params
-  const dataParam = route.query.data as string
-  if (dataParam) {
-    try {
-      // Use the compressed decoding from useIceUrlShare
-      const decodedIceData = decodeData(dataParam)
-      if (decodedIceData) {
-        iceData.value = decodedIceData
-      }
-    } catch (error) {
-      console.error('Failed to parse ICE data from URL:', error)
-    }
-  }
-})
-
-const bloodTypeDisplay = computed(() => {
-  if (!iceData.value?.bloodType) return ''
-  const bt = iceData.value.bloodType as string | { label?: string, value?: string }
-  return typeof bt === 'object' && bt.label ? bt.label : bt
-})
-
-const hasMedicalInfo = computed(() => {
-  if (!iceData.value) return false
-  return !!(
-    (iceData.value.allergies && iceData.value.allergies.length > 0)
-    || (iceData.value.medicalConditions && iceData.value.medicalConditions.length > 0)
-    || (iceData.value.currentMedications && iceData.value.currentMedications.length > 0)
-    || iceData.value.medicalNotes
-  )
-})
-
-const hasAdditionalInfo = computed(() => {
-  if (!iceData.value) return false
-  return !!(
-    iceData.value.primaryDoctor
-    || iceData.value.insuranceInfo
-    || iceData.value.specialInstructions
-  )
-})
-
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString)
-  return date.toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  })
-}
-</script>

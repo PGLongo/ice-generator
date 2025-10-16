@@ -1,3 +1,57 @@
+<script setup lang="ts">
+import type { EmergencyContact } from '@/stores/ice'
+
+const props = defineProps<{
+  modelValue: EmergencyContact[]
+}>()
+
+const emit = defineEmits<{
+  'update:modelValue': [value: EmergencyContact[]]
+}>()
+
+const localData = ref<EmergencyContact[]>(props.modelValue || [])
+const contactToDelete = ref<number | null>(null)
+const isDialogOpen = ref(false)
+
+const addContact = () => {
+  const newContact: EmergencyContact = {
+    id: crypto.randomUUID(),
+    name: '',
+    relationship: '',
+    phone: '',
+    email: ''
+  }
+  localData.value.push(newContact)
+  emitUpdate()
+}
+
+const confirmDelete = (index: number) => {
+  contactToDelete.value = index
+  isDialogOpen.value = true
+}
+
+const handleDeleteConfirm = () => {
+  if (contactToDelete.value !== null) {
+    localData.value.splice(contactToDelete.value, 1)
+    emitUpdate()
+    contactToDelete.value = null
+  }
+}
+
+const handleDeleteCancel = () => {
+  contactToDelete.value = null
+}
+
+const emitUpdate = () => {
+  emit('update:modelValue', [...localData.value])
+}
+
+// Watch for external changes
+watch(() => props.modelValue, (newValue) => {
+  localData.value = newValue || []
+}, { deep: true })
+</script>
+
 <template>
   <div class="space-y-6">
     <div class="flex items-center justify-between mb-6">
@@ -107,57 +161,3 @@
     @cancel="handleDeleteCancel"
   ></DialogCancel>
 </template>
-
-<script setup lang="ts">
-import type { EmergencyContact } from '@/stores/ice'
-
-const props = defineProps<{
-  modelValue: EmergencyContact[]
-}>()
-
-const emit = defineEmits<{
-  'update:modelValue': [value: EmergencyContact[]]
-}>()
-
-const localData = ref<EmergencyContact[]>(props.modelValue || [])
-const contactToDelete = ref<number | null>(null)
-const isDialogOpen = ref(false)
-
-const addContact = () => {
-  const newContact: EmergencyContact = {
-    id: crypto.randomUUID(),
-    name: '',
-    relationship: '',
-    phone: '',
-    email: ''
-  }
-  localData.value.push(newContact)
-  emitUpdate()
-}
-
-const confirmDelete = (index: number) => {
-  contactToDelete.value = index
-  isDialogOpen.value = true
-}
-
-const handleDeleteConfirm = () => {
-  if (contactToDelete.value !== null) {
-    localData.value.splice(contactToDelete.value, 1)
-    emitUpdate()
-    contactToDelete.value = null
-  }
-}
-
-const handleDeleteCancel = () => {
-  contactToDelete.value = null
-}
-
-const emitUpdate = () => {
-  emit('update:modelValue', [...localData.value])
-}
-
-// Watch for external changes
-watch(() => props.modelValue, (newValue) => {
-  localData.value = newValue || []
-}, { deep: true })
-</script>

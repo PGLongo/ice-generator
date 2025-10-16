@@ -18,6 +18,9 @@ export default withNuxt(
       'vue/no-unused-components': 'error',
       'vue/no-v-html': 'warn',
       'vue/require-default-prop': 'warn',
+      'vue/block-order': ['error', {
+        order: ['script', 'template', 'style']
+      }],
 
       // General code quality
       'no-console': ['warn', { allow: ['warn', 'error'] }],
