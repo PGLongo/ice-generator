@@ -7,59 +7,65 @@
       </h3>
     </div>
 
-    <!-- Prima riga: Nome, Età, Gruppo Sanguigno -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <UFormField
-        :label="$t('form.name')"
-        name="name"
-        required
-        class="w-full"
-      >
-        <UInput
-          v-model="iceStore.data.name"
-          :placeholder="$t('form.namePlaceholder')"
-          size="xl"
-          icon="i-heroicons-user"
+    <!-- Grid a 6 colonne: Nome (3), Età (2), Gruppo Sanguigno (1) -->
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+      <div class="md:col-span-3">
+        <UFormField
+          :label="$t('form.name')"
+          name="name"
+          required
           class="w-full"
-        />
-      </UFormField>
+        >
+          <UInput
+            v-model="iceStore.data.name"
+            :placeholder="$t('form.namePlaceholder')"
+            size="xl"
+            icon="i-heroicons-user"
+            class="w-full"
+          />
+        </UFormField>
+      </div>
 
-      <UFormField
-        :label="$t('form.age')"
-        name="age"
-        required
-        class="w-full"
-      >
-        <UInput
-          v-model.number="iceStore.data.age"
-          type="number"
-          :placeholder="$t('form.agePlaceholder')"
-          size="xl"
-          icon="i-heroicons-calendar"
+      <div class="md:col-span-2">
+        <UFormField
+          :label="$t('form.age')"
+          name="age"
+          required
           class="w-full"
-        />
-      </UFormField>
+        >
+          <UInput
+            v-model.number="iceStore.data.age"
+            type="number"
+            :placeholder="$t('form.agePlaceholder')"
+            size="xl"
+            icon="i-heroicons-calendar"
+            class="w-full"
+          />
+        </UFormField>
+      </div>
 
-      <UFormField
-        :label="$t('form.bloodType')"
-        name="bloodType"
-        class="w-full"
-      >
-        <USelectMenu
-          v-model="iceStore.data.bloodType"
-          :items="bloodTypes"
-          :placeholder="$t('form.bloodTypePlaceholder')"
-          size="xl"
-          value-attribute="value"
-          label-attribute="label"
+      <div class="md:col-span-1">
+        <UFormField
+          :label="$t('form.bloodType')"
+          name="bloodType"
           class="w-full"
-        />
-      </UFormField>
+        >
+          <USelectMenu
+            v-model="iceStore.data.bloodType"
+            :items="bloodTypes"
+            :placeholder="$t('form.bloodTypePlaceholder')"
+            size="xl"
+            value-attribute="value"
+            label-attribute="label"
+            class="w-full"
+          />
+        </UFormField>
+      </div>
     </div>
 
-    <!-- Seconda riga: Città (1 col), Indirizzo (2 col) -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="md:col-span-1">
+    <!-- Città (2 col), Indirizzo (4 col) -->
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+      <div class="md:col-span-2">
         <UFormField
           :label="$t('form.city')"
           name="city"
@@ -75,7 +81,7 @@
         </UFormField>
       </div>
 
-      <div class="md:col-span-2">
+      <div class="md:col-span-4">
         <UFormField
           :label="$t('form.address')"
           name="address"

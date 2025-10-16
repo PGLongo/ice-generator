@@ -35,8 +35,9 @@
         />
       </div>
 
-      <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-12 md:col-span-3">
+      <!-- Grid a 6 colonne: Nome (2), Relazione (2), Telefono (1), Email (1) -->
+      <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
+        <div class="md:col-span-2">
           <UFormField
             :label="$t('form.contactName')"
             :name="`contact-name-${index}`"
@@ -54,7 +55,7 @@
           </UFormField>
         </div>
 
-        <div class="col-span-12 md:col-span-3">
+        <div class="md:col-span-2">
           <UFormField
             :label="$t('form.relationship')"
             :name="`relationship-${index}`"
@@ -72,7 +73,7 @@
           </UFormField>
         </div>
 
-        <div class="col-span-12 md:col-span-3">
+        <div class="md:col-span-1">
           <UFormField
             :label="$t('form.phone')"
             :name="`phone-${index}`"
@@ -91,7 +92,7 @@
           </UFormField>
         </div>
 
-        <div class="col-span-12 md:col-span-3">
+        <div class="md:col-span-1">
           <UFormField
             :label="$t('form.email')"
             :name="`email-${index}`"
