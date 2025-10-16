@@ -75,7 +75,7 @@ useSeoMeta({
       </template>
 
       <template #right>
-        <p class="text-sm ">
+        <p class="text-sm text-muted">
           All data stored locally for privacy
         </p>
       </template>
