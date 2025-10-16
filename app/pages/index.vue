@@ -1,12 +1,7 @@
 <template>
   <UContainer class="py-12">
     <div class="max-w-4xl mx-auto">
-      <UPageHeader
-        :title="$t('app.title')"
-        :description="$t('form.subtitle')"
-      />
-
-      <UCard class="mt-8">
+      <UCard >
         <form @submit.prevent="onSubmit" class="space-y-8">
           <FormPersonalInfo />
 

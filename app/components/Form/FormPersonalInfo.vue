@@ -8,8 +8,8 @@
     </div>
 
     <!-- Grid a 6 colonne: Nome (3), Età (2), Gruppo Sanguigno (1) -->
-    <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
-      <div class="md:col-span-3">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+      <div class="md:col-span-6">
         <UFormField
           :label="$t('form.name')"
           name="name"
@@ -26,7 +26,7 @@
         </UFormField>
       </div>
 
-      <div class="md:col-span-2">
+      <div class="md:col-span-3">
         <UFormField
           :label="$t('form.age')"
           name="age"
@@ -44,7 +44,7 @@
         </UFormField>
       </div>
 
-      <div class="md:col-span-1">
+      <div class="md:col-span-3">
         <UFormField
           :label="$t('form.bloodType')"
           name="bloodType"

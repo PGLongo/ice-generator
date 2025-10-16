@@ -64,6 +64,13 @@ useSeoMeta({
       </template>
 
       <template #right>
+        <USelectMenu
+          v-model="currentLocale"
+          :items="availableLocales"
+          value-attribute="value"
+          class="w-32"
+        />
+        <UColorModeButton />
         <UButton
           to="https://github.com/PGLongo/ice-generator"
           target="_blank"
@@ -72,15 +79,6 @@ useSeoMeta({
           variant="ghost"
           aria-label="GitHub Repository"
         />
-
-        <USelectMenu
-          v-model="currentLocale"
-          :items="availableLocales"
-          value-attribute="value"
-          class="w-32"
-        />
-
-        <UColorModeButton />
       </template>
     </UHeader>
 
