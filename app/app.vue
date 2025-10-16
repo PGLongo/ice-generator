@@ -68,9 +68,12 @@ useSeoMeta({
           v-model="currentLocale"
           :items="availableLocales"
           value-attribute="value"
+          label-attribute="label"
           class="w-32"
         />
+
         <UColorModeButton />
+
         <UButton
           to="https://github.com/PGLongo/ice-generator"
           target="_blank"
