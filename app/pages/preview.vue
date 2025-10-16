@@ -1,125 +1,255 @@
 <template>
   <UContainer class="py-12">
     <div class="max-w-4xl mx-auto">
-      <div class="flex items-center justify-between mb-8">
-        <div>
-          <h1 class="text-3xl font-bold">{{ $t('preview.title') }}</h1>
-          <p class="text-gray-500 mt-1">{{ $t('preview.subtitle') }}</p>
-        </div>
-        <UButton
-          icon="i-heroicons-arrow-left"
-          variant="outline"
-          @click="goBack"
-        >
-          {{ $t('preview.back') }}
-        </UButton>
-      </div>
-
-      <div v-if="!hasData" class="text-center py-12">
-        <p class="text-gray-500 mb-4">{{ $t('preview.noData') }}</p>
+      <!-- No Data State -->
+      <div v-if="!iceData" class="text-center py-12">
+        <UIcon name="i-heroicons-exclamation-triangle" class="w-16 h-16 mx-auto text-gray-400 mb-4" />
+        <h1 class="text-2xl font-bold mb-2">{{ $t('preview.noData') }}</h1>
+        <p class="text-gray-500 mb-6">{{ $t('preview.noDataDescription') }}</p>
         <UButton
           icon="i-heroicons-plus"
+          size="lg"
           @click="navigateTo('/')"
         >
           {{ $t('preview.createCard') }}
         </UButton>
       </div>
 
-      <div v-else class="space-y-4">
-        <div class="flex gap-3">
-          <UButton
-            icon="i-heroicons-arrow-down-tray"
-            color="primary"
-            @click="downloadCard"
-          >
-            {{ $t('preview.download') }}
-          </UButton>
-          <UButton
-            icon="i-heroicons-arrow-path"
-            variant="outline"
-            @click="refreshPreview"
-          >
-            {{ $t('preview.refresh') }}
-          </UButton>
-        </div>
-
+      <!-- ICE Card Display -->
+      <div v-else class="space-y-6">
+        <!-- Header Card with Name -->
         <UCard>
-          <iframe
-            ref="previewFrame"
-            :srcdoc="htmlContent"
-            class="w-full border-0 rounded-lg"
-            style="min-height: 600px;"
-            @load="adjustIframeHeight"
-          />
+          <div class="text-center py-6">
+            <div class="flex items-center justify-center gap-3 mb-2">
+              <UIcon name="i-heroicons-identification" class="w-8 h-8 text-primary" />
+              <h1 class="text-4xl font-bold">{{ iceData.name }}</h1>
+            </div>
+            <div class="flex items-center justify-center gap-4 text-gray-900 dark:text-gray-100 mt-4 text-lg">
+              <div v-if="iceData.age" class="flex items-center gap-2">
+                <UIcon name="i-heroicons-cake" class="w-5 h-5" />
+                <span class="font-medium">{{ iceData.age }} {{ $t('preview.years') }}</span>
+              </div>
+              <div v-if="bloodTypeDisplay" class="flex items-center gap-2">
+                <UIcon name="i-heroicons-beaker" class="w-5 h-5" />
+                <span class="font-medium">{{ bloodTypeDisplay }}</span>
+              </div>
+            </div>
+            <div v-if="iceData.city || iceData.address" class="flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 mt-2">
+              <UIcon name="i-heroicons-map-pin" class="w-5 h-5" />
+              <span class="text-base">{{ [iceData.address, iceData.city].filter(Boolean).join(', ') }}</span>
+            </div>
+          </div>
         </UCard>
+
+        <!-- Emergency Contacts -->
+        <UCard v-if="iceData.emergencyContacts.length > 0">
+          <template #header>
+            <div class="flex items-center gap-2">
+              <UIcon name="i-heroicons-phone" class="w-6 h-6 text-error" />
+              <h2 class="text-xl font-semibold">{{ $t('preview.emergencyContacts') }}</h2>
+            </div>
+          </template>
+
+          <div class="space-y-4">
+            <div
+              v-for="(contact, index) in iceData.emergencyContacts"
+              :key="contact.id"
+              class="p-6 border-2 rounded-lg"
+              :class="index === 0 ? 'border-error bg-error/5' : 'border-gray-200'"
+            >
+              <div class="mb-4">
+                <div class="flex items-center gap-2 mb-2">
+                  <UBadge v-if="index === 0" color="error" size="lg">
+                    {{ $t('preview.primary') }}
+                  </UBadge>
+                  <UBadge v-else color="neutral" size="lg">
+                    {{ $t('preview.secondary') }}
+                  </UBadge>
+                </div>
+                <h3 class="text-2xl font-bold mb-1">{{ contact.name }}</h3>
+                <p class="text-lg text-gray-800 dark:text-gray-200 font-medium">{{ contact.relationship }}</p>
+              </div>
+              <div class="space-y-3">
+                <UButton
+                  v-if="contact.phone"
+                  :to="`tel:${contact.phone}`"
+                  color="success"
+                  size="xl"
+                  block
+                  icon="i-heroicons-phone"
+                  external
+                  class="text-lg font-semibold"
+                >
+                  {{ contact.phone }}
+                </UButton>
+                <UButton
+                  v-if="contact.email"
+                  :to="`mailto:${contact.email}`"
+                  color="primary"
+                  size="xl"
+                  block
+                  variant="outline"
+                  icon="i-heroicons-envelope"
+                  external
+                  class="text-lg"
+                >
+                  {{ contact.email }}
+                </UButton>
+              </div>
+            </div>
+          </div>
+        </UCard>
+
+        <!-- Medical Information -->
+        <UCard v-if="hasMedicalInfo">
+          <template #header>
+            <div class="flex items-center gap-2">
+              <UIcon name="i-heroicons-heart" class="w-6 h-6 text-error" />
+              <h2 class="text-xl font-semibold">{{ $t('preview.medicalInfo') }}</h2>
+            </div>
+          </template>
+
+          <div class="space-y-3">
+            <div v-if="iceData.allergies && iceData.allergies.length > 0" class="p-4 border-2 border-primary rounded-lg bg-primary/5">
+              <h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 mb-3">{{ $t('preview.allergies') }}</h3>
+              <div class="space-y-2">
+                <div
+                  v-for="allergy in iceData.allergies"
+                  :key="allergy"
+                  class="text-base text-gray-800 dark:text-gray-200"
+                >
+                  {{ allergy }}
+                </div>
+              </div>
+            </div>
+
+            <div v-if="iceData.medicalConditions && iceData.medicalConditions.length > 0" class="p-4 border-2 border-primary rounded-lg bg-primary/5">
+              <h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 mb-3">{{ $t('preview.conditions') }}</h3>
+              <div class="space-y-2">
+                <div
+                  v-for="condition in iceData.medicalConditions"
+                  :key="condition"
+                  class="text-base text-gray-800 dark:text-gray-200"
+                >
+                  {{ condition }}
+                </div>
+              </div>
+            </div>
+
+            <div v-if="iceData.currentMedications && iceData.currentMedications.length > 0" class="p-4 border-2 border-primary rounded-lg bg-primary/5">
+              <h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 mb-3">{{ $t('preview.medications') }}</h3>
+              <div class="space-y-2">
+                <div
+                  v-for="medication in iceData.currentMedications"
+                  :key="medication"
+                  class="text-base text-gray-800 dark:text-gray-200"
+                >
+                  {{ medication }}
+                </div>
+              </div>
+            </div>
+
+            <div v-if="iceData.medicalNotes" class="p-4 border-2 border-primary rounded-lg bg-primary/5">
+              <h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 mb-3">{{ $t('preview.notes') }}</h3>
+              <p class="text-base text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{{ iceData.medicalNotes }}</p>
+            </div>
+          </div>
+        </UCard>
+
+        <!-- Additional Information -->
+        <UCard v-if="hasAdditionalInfo">
+          <template #header>
+            <div class="flex items-center gap-2">
+              <UIcon name="i-heroicons-information-circle" class="w-6 h-6 text-info" />
+              <h2 class="text-xl font-semibold">{{ $t('preview.additionalInfo') }}</h2>
+            </div>
+          </template>
+
+          <div class="space-y-4">
+            <div v-if="iceData.primaryDoctor">
+              <h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 mb-1">{{ $t('preview.doctor') }}</h3>
+              <p class="text-gray-800 dark:text-gray-200">{{ iceData.primaryDoctor }}</p>
+            </div>
+
+            <div v-if="iceData.insuranceInfo">
+              <h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 mb-1">{{ $t('preview.insurance') }}</h3>
+              <p class="text-gray-800 dark:text-gray-200">{{ iceData.insuranceInfo }}</p>
+            </div>
+
+            <div v-if="iceData.specialInstructions">
+              <h3 class="font-semibold text-base text-gray-900 dark:text-gray-100 mb-1">{{ $t('preview.instructions') }}</h3>
+              <p class="text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{{ iceData.specialInstructions }}</p>
+            </div>
+          </div>
+        </UCard>
+
+        <!-- Footer with timestamp -->
+        <div class="text-center text-sm text-gray-500">
+          <p>{{ $t('preview.footer') }}</p>
+          <p v-if="iceData.lastUpdated" class="mt-1">
+            {{ $t('preview.lastUpdated') }}: {{ formatDate(iceData.lastUpdated) }}
+          </p>
+        </div>
       </div>
     </div>
   </UContainer>
 </template>
 
 <script setup lang="ts">
-import { useIceStore } from '@/stores/ice'
+import type { IceData } from '@/stores/ice'
 
 const { t } = useI18n()
-const toast = useToast()
-const iceStore = useIceStore()
-const { generateHTML, downloadHTML } = useIceExport()
+const route = useRoute()
 
-const previewFrame = ref<HTMLIFrameElement>()
-const htmlContent = ref('')
-
-const hasData = computed(() => iceStore.hasData)
+const iceData = ref<IceData | null>(null)
 
 onMounted(() => {
-  if (iceStore.hasData) {
-    generatePreview()
+  // Try to get data from URL query params
+  const dataParam = route.query.data as string
+  if (dataParam) {
+    try {
+      const decodedData = decodeURIComponent(dataParam)
+      const parsedData = JSON.parse(decodedData)
+      iceData.value = parsedData
+    } catch (error) {
+      console.error('Failed to parse ICE data from URL:', error)
+    }
   }
 })
 
-// Watch for changes in store data and regenerate preview
-watch(() => iceStore.data, () => {
-  if (iceStore.hasData) {
-    generatePreview()
-    nextTick(() => {
-      adjustIframeHeight()
-    })
-  }
-}, { deep: true })
+const bloodTypeDisplay = computed(() => {
+  if (!iceData.value?.bloodType) return ''
+  const bt = iceData.value.bloodType as any
+  return typeof bt === 'object' && bt.label ? bt.label : bt
+})
 
-const generatePreview = () => {
-  htmlContent.value = generateHTML(iceStore.data)
-}
+const hasMedicalInfo = computed(() => {
+  if (!iceData.value) return false
+  return !!(
+    (iceData.value.allergies && iceData.value.allergies.length > 0) ||
+    (iceData.value.medicalConditions && iceData.value.medicalConditions.length > 0) ||
+    (iceData.value.currentMedications && iceData.value.currentMedications.length > 0) ||
+    iceData.value.medicalNotes
+  )
+})
 
-const adjustIframeHeight = () => {
-  if (previewFrame.value?.contentWindow?.document.body) {
-    const height = previewFrame.value.contentWindow.document.body.scrollHeight
-    previewFrame.value.style.height = `${height + 40}px`
-  }
-}
+const hasAdditionalInfo = computed(() => {
+  if (!iceData.value) return false
+  return !!(
+    iceData.value.primaryDoctor ||
+    iceData.value.insuranceInfo ||
+    iceData.value.specialInstructions
+  )
+})
 
-const refreshPreview = () => {
-  generatePreview()
-  nextTick(() => {
-    adjustIframeHeight()
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
   })
-  toast.add({
-    title: t('preview.refreshed'),
-    color: 'green',
-    timeout: 2000
-  })
-}
-
-const downloadCard = () => {
-  downloadHTML(iceStore.data)
-  toast.add({
-    title: t('preview.downloaded'),
-    description: t('preview.downloadedMessage'),
-    color: 'green',
-    timeout: 3000
-  })
-}
-
-const goBack = () => {
-  navigateTo('/')
 }
 </script>

@@ -162,8 +162,19 @@ const resetForm = () => {
   iceStore.clearData()
 }
 
-// Go to preview page
+// Go to preview page with data in query params
 const goToPreview = () => {
-  navigateTo('/preview')
+  if (!iceStore.hasData) {
+    toast.add({
+      title: t('form.error'),
+      description: t('form.errorMessage'),
+      color: 'red',
+      timeout: 3000
+    })
+    return
+  }
+
+  const encodedData = encodeURIComponent(JSON.stringify(iceStore.data))
+  navigateTo(`/preview?data=${encodedData}`)
 }
 </script>
