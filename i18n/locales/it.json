@@ -7,6 +7,8 @@
     "title": "Anteprima Scheda ICE",
     "subtitle": "Visualizza l'anteprima della tua scheda di emergenza",
     "back": "Torna al Form",
+    "loading": "Caricamento dati in corso...",
+    "loadingDescription": "Sto decodificando i dati dal link",
     "noData": "Nessun dato disponibile",
     "noDataDescription": "Questa pagina mostra le informazioni di contatto di emergenza condivise tramite link",
     "createCard": "Crea Scheda ICE",

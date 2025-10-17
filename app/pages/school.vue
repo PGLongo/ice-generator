@@ -1,30 +1,18 @@
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
+import type { IceData } from '@/types/ice'
 
-const route = useRoute()
 const iceStore = useIceStore()
-const { decodeData } = useIceUrlShare()
 const { generatePhoneQR } = useQRCode()
-
-// Loading state
-const isLoading = ref(true)
+const { isLoading, data, loadData } = useDataLoader<IceData>()
 
 // Load data from URL query params on mount
 onMounted(async () => {
-  const dataParam = route.query.data as string
-  if (dataParam) {
-    try {
-      const decodedData = decodeData(dataParam)
-      if (decodedData) {
-        iceStore.data = decodedData
-      }
-    } catch (error) {
-      console.error('Failed to load data from URL:', error)
-    }
+  await loadData()
+  // If data was loaded from URL, update the store
+  if (data.value) {
+    iceStore.data = data.value
   }
-  // Small delay to ensure data is fully loaded
-  await nextTick()
-  isLoading.value = false
 })
 
 const hasSchoolData = computed(() => {
@@ -95,17 +83,11 @@ const printCard = () => {
       </div>
 
       <!-- Loading state -->
-      <UCard v-if="isLoading">
-        <div class="text-center py-12">
-          <UIcon name="i-heroicons-arrow-path" class="text-6xl text-primary mb-4 mx-auto animate-spin" />
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-            {{ $t('school.loading') }}
-          </h3>
-          <p class="text-gray-500 dark:text-gray-400">
-            {{ $t('school.loadingDescription') }}
-          </p>
-        </div>
-      </UCard>
+      <LoadingState
+        v-if="isLoading"
+        :message="$t('school.loading')"
+        :description="$t('school.loadingDescription')"
+      />
 
       <!-- Card biglietto scuola -->
       <UCard v-else-if="hasSchoolData || hasStudentData" id="school-card-content" class="school-card">

@@ -7,6 +7,8 @@
     "title": "ICE Card Preview",
     "subtitle": "Preview your emergency contact information card",
     "back": "Back to Form",
+    "loading": "Loading data...",
+    "loadingDescription": "Decoding data from link",
     "noData": "No data available",
     "noDataDescription": "This page displays emergency contact information shared via link",
     "createCard": "Create ICE Card",

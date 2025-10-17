@@ -1,25 +1,10 @@
 <script setup lang="ts">
 import type { IceData } from '@/types/ice'
 
-const route = useRoute()
-const { decodeData } = useIceUrlShare()
+const { isLoading, data: iceData, loadData } = useDataLoader<IceData>()
 
-const iceData = ref<IceData | null>(null)
-
-onMounted(() => {
-  // Try to get data from URL query params
-  const dataParam = route.query.data as string
-  if (dataParam) {
-    try {
-      // Use the compressed decoding from useIceUrlShare
-      const decodedIceData = decodeData(dataParam)
-      if (decodedIceData) {
-        iceData.value = decodedIceData
-      }
-    } catch (error) {
-      console.error('Failed to parse ICE data from URL:', error)
-    }
-  }
+onMounted(async () => {
+  await loadData()
 })
 
 const bloodTypeDisplay = computed(() => {
@@ -62,8 +47,15 @@ const formatDate = (dateString: string) => {
 <template>
   <UContainer class="py-12">
     <div class="max-w-4xl mx-auto">
+      <!-- Loading state -->
+      <LoadingState
+        v-if="isLoading"
+        :message="$t('preview.loading')"
+        :description="$t('preview.loadingDescription')"
+      />
+
       <!-- No Data State -->
-      <div v-if="!iceData" class="text-center py-12">
+      <div v-else-if="!iceData" class="text-center py-12">
         <UIcon name="i-heroicons-exclamation-triangle" class="w-16 h-16 mx-auto text-gray-400 mb-4"></UIcon>
         <h1 class="text-2xl font-bold mb-2">{{ $t('preview.noData') }}</h1>
         <p class="text-gray-500 mb-6">{{ $t('preview.noDataDescription') }}</p>
