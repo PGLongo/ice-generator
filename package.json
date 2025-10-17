@@ -36,6 +36,7 @@
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@nuxt/eslint": "^1.9.0",
+    "@types/qrcode": "^1.5.5",
     "eslint": "^9.37.0",
     "husky": "^9.1.7",
     "standard-version": "^9.5.0",

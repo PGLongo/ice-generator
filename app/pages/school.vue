@@ -6,7 +6,6 @@ const route = useRoute()
 const iceStore = useIceStore()
 const { decodeData } = useIceUrlShare()
 const { generatePhoneQR } = useQRCode()
-const { tel } = useHref()
 
 // Load data from URL query params on mount
 onMounted(() => {
@@ -38,11 +37,17 @@ const hasStudentData = computed(() => {
 })
 
 // Format phone numbers for tel: links
-const schoolPhoneLink = computed(() => tel(iceStore.data.school?.phone))
-const referentPhoneLink = computed(() => tel(iceStore.data.school?.referentPhone))
+const schoolPhoneLink = computed(() => {
+  if (!iceStore.data.school?.phone) return ''
+  return `tel:${iceStore.data.school.phone.replace(/\s+/g, '')}`
+})
+const referentPhoneLink = computed(() => {
+  if (!iceStore.data.school?.referentPhone) return ''
+  return `tel:${iceStore.data.school.referentPhone.replace(/\s+/g, '')}`
+})
 
 // Generate QR code for calling referent (reactive)
-const referentPhoneRef = computed(() => iceStore.data.school?.referentPhone)
+const referentPhoneRef = computed(() => iceStore.data.school?.referentPhone || null)
 const qrCode = generatePhoneQR(referentPhoneRef, {
   margin: 1,
   width: 120,
