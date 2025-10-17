@@ -152,7 +152,7 @@ const printCard = () => {
               </p>
             </div>
 
-            <UDivider />
+            <USeparator />
 
             <!-- Referente con QR Code -->
             <div v-if="iceStore.data.school?.referentName || iceStore.data.school?.referentPhone" class="flex gap-4 items-start">

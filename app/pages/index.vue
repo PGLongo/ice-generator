@@ -170,19 +170,19 @@ const goToSchool = () => {
         <form class="space-y-8" @submit.prevent="onSubmit">
           <FormPersonalInfo></FormPersonalInfo>
 
-          <UDivider></UDivider>
+          <USeparator></USeparator>
 
           <FormMedicalInfo></FormMedicalInfo>
 
-          <UDivider></UDivider>
+          <USeparator></USeparator>
 
           <FormEmergencyContacts v-model="iceStore.data.emergencyContacts"></FormEmergencyContacts>
 
-          <UDivider></UDivider>
+          <USeparator></USeparator>
 
           <FormAdditionalInfo></FormAdditionalInfo>
 
-          <UDivider></UDivider>
+          <USeparator></USeparator>
 
           <FormSchoolInfo></FormSchoolInfo>
 
