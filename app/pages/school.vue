@@ -216,6 +216,12 @@ const printCard = () => {
 }
 
 @media print {
+  /* Rimuovi limite max-width in stampa */
+  .school-card {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
   /* Formato A4 orizzontale */
   @page {
     size: A4 landscape;
