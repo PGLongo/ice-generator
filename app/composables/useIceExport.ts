@@ -1,6 +1,8 @@
 import type { IceData } from '@/types/ice'
 
 export const useIceExport = () => {
+  const { tel, mailto } = useHref()
+
   const generateHTML = (data: IceData): string => {
     const {
       name,
@@ -312,12 +314,12 @@ export const useIceExport = () => {
             <div class="contact-priority">${index === 0 ? 'PRIMARY CONTACT' : 'SECONDARY CONTACT'} • ${contact.relationship}</div>
             <div class="contact-header">${contact.name}</div>
           </div>
-          <a href="tel:${contact.phone.replace(/\s+/g, '')}" class="call-button">
+          <a href="${tel(contact.phone)}" class="call-button">
             <span class="call-icon">📱</span>
             <span>CALL ${contact.phone}</span>
           </a>
           ${contact.email ? `
-          <a href="mailto:${contact.email}" class="email-button">
+          <a href="${mailto(contact.email)}" class="email-button">
             <span class="email-icon">✉️</span>
             <span>EMAIL ${contact.name.split(' ')[0].toUpperCase()}</span>
           </a>
@@ -408,14 +410,14 @@ export const useIceExport = () => {
             <div class="form-field">
               <label class="form-label">Phone</label>
               <div class="form-value">
-                <a href="tel:${contact.phone.replace(/\s+/g, '')}">${contact.phone}</a>
+                <a href="${tel(contact.phone)}">${contact.phone}</a>
               </div>
             </div>
             ${contact.email ? `
             <div class="form-field">
               <label class="form-label">Email</label>
               <div class="form-value">
-                <a href="mailto:${contact.email}">${contact.email}</a>
+                <a href="${mailto(contact.email)}">${contact.email}</a>
               </div>
             </div>
             ` : ''}
@@ -482,7 +484,7 @@ export const useIceExport = () => {
           <div class="form-field">
             <label class="form-label">School Phone</label>
             <div class="form-value">
-              <a href="tel:${school.phone.replace(/\s+/g, '')}">${school.phone}</a>
+              <a href="${tel(school.phone)}">${school.phone}</a>
             </div>
           </div>
           ` : ''}
@@ -498,7 +500,7 @@ export const useIceExport = () => {
           <div class="form-field">
             <label class="form-label">Referent Phone</label>
             <div class="form-value">
-              <a href="tel:${school.referentPhone.replace(/\s+/g, '')}">${school.referentPhone}</a>
+              <a href="${tel(school.referentPhone)}">${school.referentPhone}</a>
             </div>
           </div>
           ` : ''}

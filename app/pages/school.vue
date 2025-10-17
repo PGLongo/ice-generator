@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
-import { useQRCode } from '@vueuse/integrations/useQRCode'
 
 const { t } = useI18n()
 const route = useRoute()
 const iceStore = useIceStore()
 const { decodeData } = useIceUrlShare()
+const { generatePhoneQR } = useQRCode()
+const { tel } = useHref()
 
 // Load data from URL query params on mount
 onMounted(() => {
@@ -36,14 +37,13 @@ const hasStudentData = computed(() => {
   return iceStore.data.name || iceStore.data.section
 })
 
-// Generate QR code for calling referent
-const qrCodeValue = computed(() => {
-  const phone = iceStore.data.school?.referentPhone
-  if (!phone) return ''
-  return `tel:${phone.replace(/\s+/g, '')}`
-})
+// Format phone numbers for tel: links
+const schoolPhoneLink = computed(() => tel(iceStore.data.school?.phone))
+const referentPhoneLink = computed(() => tel(iceStore.data.school?.referentPhone))
 
-const qrCode = useQRCode(qrCodeValue, {
+// Generate QR code for calling referent (reactive)
+const referentPhoneRef = computed(() => iceStore.data.school?.referentPhone)
+const qrCode = generatePhoneQR(referentPhoneRef, {
   margin: 1,
   width: 120,
   errorCorrectionLevel: 'M'
@@ -126,7 +126,7 @@ const printCard = () => {
             <div v-if="iceStore.data.school?.phone" class="mb-2">
               <div class="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300">
                 <UIcon name="i-heroicons-phone" class="text-lg" />
-                <a :href="`tel:${iceStore.data.school.phone.replace(/\s+/g, '')}`" class="text-base font-semibold hover:text-primary">
+                <a :href="schoolPhoneLink" class="text-base font-semibold hover:text-primary">
                   {{ iceStore.data.school.phone }}
                 </a>
               </div>
@@ -173,7 +173,7 @@ const printCard = () => {
                   </div>
                   <div v-if="iceStore.data.school?.referentPhone" class="flex items-center gap-2">
                     <UIcon name="i-heroicons-phone" class="text-xl text-gray-400" />
-                    <a :href="`tel:${iceStore.data.school.referentPhone.replace(/\s+/g, '')}`" class="text-lg font-semibold text-primary hover:underline">
+                    <a :href="referentPhoneLink" class="text-lg font-semibold text-primary hover:underline">
                       {{ iceStore.data.school.referentPhone }}
                     </a>
                   </div>

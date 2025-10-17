@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
-import QRCode from 'qrcode'
 
 const { t } = useI18n()
 const toast = useToast()
 const route = useRoute()
 const iceStore = useIceStore()
 const { copyShareableUrl, getEncodedSize, encodeData, decodeData, generateShareableUrl } = useIceUrlShare()
+const { generateQRCode } = useQRCode()
 
 // Load data from URL query params on mount (and save to store)
 onMounted(() => {
@@ -46,13 +46,9 @@ const onSubmit = async () => {
     const shareableUrl = generateShareableUrl(iceStore.data)
 
     // Generate QR code as data URL
-    const qrCodeDataUrl = await QRCode.toDataURL(shareableUrl, {
+    const qrCodeDataUrl = await generateQRCode(shareableUrl, {
       width: 1024,
-      margin: 2,
-      color: {
-        dark: '#000000',
-        light: '#FFFFFF'
-      }
+      margin: 2
     })
 
     // Create download link
