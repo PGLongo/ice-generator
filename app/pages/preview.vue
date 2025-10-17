@@ -95,13 +95,13 @@ const formatDate = (dateString: string) => {
               </div>
               <div v-if="bloodTypeDisplay" class="flex flex-col items-center gap-1">
                 <div class="flex items-center gap-2">
-                  <span class="text-xl">🩸</span>
+                  <UIcon name="i-heroicons-heart" class="w-5 h-5 text-error"></UIcon>
                   <span class="text-sm font-semibold text-gray-600 dark:text-gray-400">{{ $t('preview.bloodType') }}</span>
                 </div>
                 <span class="font-bold text-lg">{{ bloodTypeDisplay }}</span>
               </div>
             </div>
-            <div v-if="iceData.city || iceData.address" class="flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 mt-4">
+            <div v-if="iceData.city || iceData.address" class="flex items-center justify-center gap-2 text-gray-700 dark:text-gray-300 mt-3">
               <UIcon name="i-heroicons-map-pin" class="w-5 h-5"></UIcon>
               <span class="text-base">{{ [iceData.address, iceData.city].filter(Boolean).join(', ') }}</span>
             </div>
