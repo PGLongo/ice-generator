@@ -6,14 +6,20 @@ export default defineNuxtPlugin({
   async setup(nuxtApp) {
     const iceStore = useIceStore(nuxtApp['$pinia'] as Pinia)
 
-    // Load from localStorage on plugin init
-    const saved = localStorage.getItem('ice-data')
-    if (saved) {
-      try {
-        const parsedData = JSON.parse(saved)
-        iceStore.$patch({ data: parsedData })
-      } catch (error) {
-        console.error('Failed to load ICE data from localStorage:', error)
+    // Check if data is provided via URL query params
+    const route = useRoute()
+    const hasUrlData = route.query['data'] && typeof route.query['data'] === 'string'
+
+    // Only load from localStorage if NO data in URL
+    if (!hasUrlData) {
+      const saved = localStorage.getItem('ice-data')
+      if (saved) {
+        try {
+          const parsedData = JSON.parse(saved)
+          iceStore.$patch({ data: parsedData })
+        } catch (error) {
+          console.error('Failed to load ICE data from localStorage:', error)
+        }
       }
     }
 

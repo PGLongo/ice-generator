@@ -3,34 +3,14 @@ import { useIceStore } from '@/stores/ice'
 
 const { t } = useI18n()
 const toast = useToast()
-const route = useRoute()
 const iceStore = useIceStore()
-const { copyShareableUrl, getEncodedSize, encodeData, decodeData, generateShareableUrl } = useIceUrlShare()
+const { copyShareableUrl, getEncodedSize, encodeData, generateShareableUrl } = useIceUrlShare()
 const { generateQRCode } = useQRCode()
 
 // Reset confirmation modal state
 const isResetModalOpen = ref(false)
 
-// Load data from URL query params on mount (and save to store)
-onMounted(() => {
-  const dataParam = route.query['data']
-  if (dataParam && typeof dataParam === 'string') {
-    try {
-      const decodedData = decodeData(dataParam)
-      if (decodedData) {
-        // Load into store (will be saved to localStorage via plugin)
-        iceStore.data = decodedData
-        toast.add({
-          title: t('form.success'),
-          description: 'Data loaded from shared link',
-          color: 'success'
-        })
-      }
-    } catch (error) {
-      console.error('Failed to load data from URL:', error)
-    }
-  }
-})
+// Note: Data loading from URL is handled by the load-from-url.client.ts plugin
 
 // Form submission - generate and download QR code
 const onSubmit = async () => {
