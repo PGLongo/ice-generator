@@ -4,7 +4,7 @@ export default defineNuxtPlugin({
   name: 'pinia.client',
   parallel: true,
   async setup(nuxtApp) {
-    const iceStore = useIceStore(nuxtApp.$pinia as Pinia)
+    const iceStore = useIceStore(nuxtApp['$pinia'] as Pinia)
 
     // Load from localStorage on plugin init
     const saved = localStorage.getItem('ice-data')

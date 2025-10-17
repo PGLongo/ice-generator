@@ -12,6 +12,24 @@ export default defineNuxtConfig({
     enabled: true
   },
 
+  typescript: {
+    strict: true,
+    typeCheck: true,
+    tsConfig: {
+      compilerOptions: {
+        strict: true,
+        noUnusedLocals: true,
+        noUnusedParameters: true,
+        noFallthroughCasesInSwitch: true,
+        noUncheckedIndexedAccess: true,
+        noImplicitReturns: true,
+        noPropertyAccessFromIndexSignature: true,
+        exactOptionalPropertyTypes: false, // Can cause issues with Vue
+        forceConsistentCasingInFileNames: true
+      }
+    }
+  },
+
   css: ['~/assets/css/main.css'],
 
   routeRules: {
@@ -34,7 +52,6 @@ export default defineNuxtConfig({
       { code: 'en', name: 'English', file: 'en.json' },
       { code: 'it', name: 'Italiano', file: 'it.json' }
     ],
-    lazy: true,
     langDir: 'locales',
     defaultLocale: 'en',
     strategy: 'no_prefix',

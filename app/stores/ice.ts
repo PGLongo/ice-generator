@@ -34,9 +34,17 @@ export const useIceStore = defineStore('ice', {
     updateEmergencyContact(id: string, updates: Partial<EmergencyContact>) {
       const index = this.data.emergencyContacts.findIndex(c => c.id === id)
       if (index !== -1) {
+        const current = this.data.emergencyContacts[index]
+        if (!current) return
+
         this.data.emergencyContacts[index] = {
-          ...this.data.emergencyContacts[index],
-          ...updates
+          ...current,
+          ...updates,
+          // Ensure required fields are always present
+          id: current.id,
+          name: updates.name ?? current.name,
+          relationship: updates.relationship ?? current.relationship,
+          phone: updates.phone ?? current.phone
         }
         this.data.lastUpdated = new Date().toISOString()
       }

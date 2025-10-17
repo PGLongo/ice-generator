@@ -321,7 +321,7 @@ export const useIceExport = () => {
           ${contact.email ? `
           <a href="${mailto(contact.email)}" class="email-button">
             <span class="email-icon">✉️</span>
-            <span>EMAIL ${contact.name.split(' ')[0].toUpperCase()}</span>
+            <span>EMAIL ${(contact.name.split(' ')[0] ?? contact.name).toUpperCase()}</span>
           </a>
           ` : ''}
         </div>

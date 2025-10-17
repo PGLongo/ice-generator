@@ -22,8 +22,7 @@ export default defineNuxtPlugin({
         toast.add({
           title: 'Data Loaded',
           description: 'ICE data has been loaded from the URL',
-          color: 'green',
-          timeout: 5000
+          color: 'success'
         })
 
         // Optional: Clean URL after loading (remove query params)
@@ -37,8 +36,7 @@ export default defineNuxtPlugin({
         toast.add({
           title: 'Error',
           description: 'Failed to load ICE data from URL',
-          color: 'red',
-          timeout: 5000
+          color: 'error'
         })
       }
     }

@@ -3,9 +3,7 @@ import type { QRCodeToDataURLOptions } from 'qrcode'
 
 export type QRCodeValue = string | Ref<string | undefined | null> | ComputedRef<string | undefined | null>
 
-export interface QRCodeOptions extends QRCodeToDataURLOptions {
-  reactive?: boolean
-}
+export type QRCodeOptions = QRCodeToDataURLOptions
 
 /**
  * Composable for generating QR codes using the qrcode library

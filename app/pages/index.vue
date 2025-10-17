@@ -13,8 +13,8 @@ const isResetModalOpen = ref(false)
 
 // Load data from URL query params on mount (and save to store)
 onMounted(() => {
-  const dataParam = route.query.data as string
-  if (dataParam) {
+  const dataParam = route.query['data']
+  if (dataParam && typeof dataParam === 'string') {
     try {
       const decodedData = decodeData(dataParam)
       if (decodedData) {
@@ -50,7 +50,6 @@ const onSubmit = async () => {
 
     // Generate QR code as data URL
     const qrCodeDataUrl = await generateQRCode(shareableUrl, {
-      width: 1024,
       margin: 2
     })
 
@@ -130,7 +129,7 @@ const handleResetConfirm = () => {
 }
 
 const handleResetCancel = () => {
-  isResetModalOpen.value = falses
+  isResetModalOpen.value = false
 }
 
 // Go to preview page with data in query params (compressed)

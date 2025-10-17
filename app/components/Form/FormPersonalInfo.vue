@@ -13,6 +13,18 @@ const bloodTypes = [
   { label: 'O+', value: 'O+' },
   { label: 'O-', value: 'O-' }
 ]
+
+// Computed to handle undefined bloodType
+const selectedBloodType = computed({
+  get: () => {
+    const bloodType = iceStore.data.bloodType
+    if (!bloodType) return undefined
+    return bloodTypes.find(bt => bt.value === bloodType)
+  },
+  set: (value: { label: string; value: string } | undefined) => {
+    iceStore.data.bloodType = value?.value || undefined
+  }
+})
 </script>
 
 <template>
@@ -68,7 +80,7 @@ const bloodTypes = [
           class="w-full"
         >
           <USelectMenu
-            v-model="iceStore.data.bloodType"
+            v-model="selectedBloodType"
             :items="bloodTypes"
             :placeholder="$t('form.bloodTypePlaceholder')"
             size="xl"

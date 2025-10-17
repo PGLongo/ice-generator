@@ -9,4 +9,5 @@ export interface School {
   referentPhone?: string
   referentName?: string
   logoUrl?: string
+  section?: string
 }

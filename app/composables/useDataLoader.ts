@@ -13,8 +13,8 @@ export function useDataLoader<T = any>() {
    * Load data from URL query params on mount
    */
   const loadData = async () => {
-    const dataParam = route.query.data as string
-    if (dataParam) {
+    const dataParam = route.query['data']
+    if (dataParam && typeof dataParam === 'string') {
       try {
         const decodedData = decodeData(dataParam)
         if (decodedData) {

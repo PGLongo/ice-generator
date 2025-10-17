@@ -7,6 +7,71 @@ const iceStore = useIceStore()
 if (!iceStore.data.school) {
   iceStore.data.school = {}
 }
+
+// Computed properties per gestire in modo sicuro i campi opzionali di school
+const schoolName = computed({
+  get: () => iceStore.data.school?.name ?? '',
+  set: (value: string) => {
+    if (!iceStore.data.school) iceStore.data.school = {}
+    iceStore.data.school.name = value || undefined
+  }
+})
+
+const schoolPhone = computed({
+  get: () => iceStore.data.school?.phone ?? '',
+  set: (value: string) => {
+    if (!iceStore.data.school) iceStore.data.school = {}
+    iceStore.data.school.phone = value || undefined
+  }
+})
+
+const schoolAddress = computed({
+  get: () => iceStore.data.school?.address ?? '',
+  set: (value: string) => {
+    if (!iceStore.data.school) iceStore.data.school = {}
+    iceStore.data.school.address = value || undefined
+  }
+})
+
+const schoolCity = computed({
+  get: () => iceStore.data.school?.city ?? '',
+  set: (value: string) => {
+    if (!iceStore.data.school) iceStore.data.school = {}
+    iceStore.data.school.city = value || undefined
+  }
+})
+
+const referentName = computed({
+  get: () => iceStore.data.school?.referentName ?? '',
+  set: (value: string) => {
+    if (!iceStore.data.school) iceStore.data.school = {}
+    iceStore.data.school.referentName = value || undefined
+  }
+})
+
+const referentPhone = computed({
+  get: () => iceStore.data.school?.referentPhone ?? '',
+  set: (value: string) => {
+    if (!iceStore.data.school) iceStore.data.school = {}
+    iceStore.data.school.referentPhone = value || undefined
+  }
+})
+
+const schoolSection = computed({
+  get: () => iceStore.data.school?.section ?? '',
+  set: (value: string) => {
+    if (!iceStore.data.school) iceStore.data.school = {}
+    iceStore.data.school.section = value || undefined
+  }
+})
+
+const logoUrl = computed({
+  get: () => iceStore.data.school?.logoUrl ?? '',
+  set: (value: string) => {
+    if (!iceStore.data.school) iceStore.data.school = {}
+    iceStore.data.school.logoUrl = value || undefined
+  }
+})
 </script>
 
 <template>
@@ -27,7 +92,7 @@ if (!iceStore.data.school) {
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.name"
+            v-model="schoolName"
             :placeholder="$t('form.schoolNamePlaceholder')"
             size="xl"
             icon="i-heroicons-academic-cap"
@@ -43,7 +108,7 @@ if (!iceStore.data.school) {
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.phone"
+            v-model="schoolPhone"
             :placeholder="$t('form.schoolPhonePlaceholder')"
             size="xl"
             icon="i-heroicons-phone"
@@ -62,7 +127,7 @@ if (!iceStore.data.school) {
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.city"
+            v-model="schoolCity"
             :placeholder="$t('form.schoolCityPlaceholder')"
             size="xl"
             icon="i-heroicons-map"
@@ -78,7 +143,7 @@ if (!iceStore.data.school) {
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.address"
+            v-model="schoolAddress"
             :placeholder="$t('form.schoolAddressPlaceholder')"
             size="xl"
             icon="i-heroicons-map-pin"
@@ -97,7 +162,7 @@ if (!iceStore.data.school) {
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.referentName"
+            v-model="referentName"
             :placeholder="$t('form.schoolReferentNamePlaceholder')"
             size="xl"
             icon="i-heroicons-user"
@@ -113,7 +178,7 @@ if (!iceStore.data.school) {
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.referentPhone"
+            v-model="referentPhone"
             :placeholder="$t('form.schoolReferentPhonePlaceholder')"
             size="xl"
             icon="i-heroicons-phone"
@@ -129,7 +194,7 @@ if (!iceStore.data.school) {
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.section"
+            v-model="schoolSection"
             :placeholder="$t('school.sectionPlaceholder')"
             size="xl"
             icon="i-heroicons-rectangle-group"
@@ -148,7 +213,7 @@ if (!iceStore.data.school) {
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.logoUrl"
+            v-model="logoUrl"
             :placeholder="$t('form.schoolLogoUrlPlaceholder')"
             size="xl"
             icon="i-heroicons-photo"
