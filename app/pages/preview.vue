@@ -48,11 +48,7 @@ const formatDate = (dateString: string) => {
   <UContainer class="py-12">
     <div class="max-w-4xl mx-auto">
       <!-- Loading state -->
-      <LoadingState
-        v-if="isLoading"
-        :message="$t('preview.loading')"
-        :description="$t('preview.loadingDescription')"
-      />
+      <LoadingState v-if="isLoading" />
 
       <!-- No Data State -->
       <div v-else-if="!iceData" class="text-center py-12">

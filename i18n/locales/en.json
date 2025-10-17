@@ -1,4 +1,8 @@
 {
+  "common": {
+    "loading": "Loading data...",
+    "loadingDescription": "Decoding data from link"
+  },
   "app": {
     "title": "ICE Generator",
     "subtitle": "Emergency Contact Information"

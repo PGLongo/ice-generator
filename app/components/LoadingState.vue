@@ -1,13 +1,19 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
 interface Props {
   message?: string
   description?: string
 }
 
-withDefaults(defineProps<Props>(), {
-  message: 'Loading data...',
-  description: 'Decoding data from link'
+const props = withDefaults(defineProps<Props>(), {
+  message: undefined,
+  description: undefined
 })
+
+// Use props if provided, otherwise use common i18n translations
+const displayMessage = computed(() => props.message ?? t('common.loading'))
+const displayDescription = computed(() => props.description ?? t('common.loadingDescription'))
 </script>
 
 <template>
@@ -15,10 +21,10 @@ withDefaults(defineProps<Props>(), {
     <div class="text-center py-12">
       <UIcon name="i-heroicons-arrow-path" class="text-6xl text-primary mb-4 mx-auto animate-spin" />
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-        {{ message }}
+        {{ displayMessage }}
       </h3>
       <p class="text-gray-500 dark:text-gray-400">
-        {{ description }}
+        {{ displayDescription }}
       </p>
     </div>
   </UCard>

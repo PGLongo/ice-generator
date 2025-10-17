@@ -83,11 +83,7 @@ const printCard = () => {
       </div>
 
       <!-- Loading state -->
-      <LoadingState
-        v-if="isLoading"
-        :message="$t('school.loading')"
-        :description="$t('school.loadingDescription')"
-      />
+      <LoadingState v-if="isLoading" />
 
       <!-- Card biglietto scuola -->
       <UCard v-else-if="hasSchoolData || hasStudentData" id="school-card-content" class="school-card">

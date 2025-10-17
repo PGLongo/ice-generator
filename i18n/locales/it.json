@@ -1,4 +1,8 @@
 {
+  "common": {
+    "loading": "Caricamento dati in corso...",
+    "loadingDescription": "Sto decodificando i dati dal link"
+  },
   "app": {
     "title": "Generatore ICE",
     "subtitle": "Informazioni di Contatto di Emergenza"
