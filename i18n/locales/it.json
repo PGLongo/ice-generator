@@ -1,7 +1,11 @@
 {
   "common": {
     "loading": "Caricamento dati in corso...",
-    "loadingDescription": "Sto decodificando i dati dal link"
+    "loadingDescription": "Sto decodificando i dati dal link",
+    "dataLoaded": "Dati Caricati",
+    "dataLoadedFromUrl": "I dati ICE sono stati caricati dall'URL",
+    "dataLoadError": "Errore",
+    "dataLoadErrorMessage": "Impossibile caricare i dati ICE dall'URL"
   },
   "app": {
     "title": "Generatore ICE",

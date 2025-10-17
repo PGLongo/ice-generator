@@ -5,10 +5,12 @@
 export default defineNuxtPlugin({
   name: 'load-from-url',
   parallel: true,
-  async setup() {
+  async setup(nuxtApp) {
     const iceStore = useIceStore()
     const { getDataFromUrl } = useIceUrlShare()
     const toast = useToast()
+    // Access i18n from nuxtApp - must use bracket notation and type cast
+    const { t } = nuxtApp['$i18n'] as { t: (key: string) => string }
 
     // Check if there's data in the URL
     const urlData = getDataFromUrl()
@@ -20,8 +22,8 @@ export default defineNuxtPlugin({
 
         // Show success notification
         toast.add({
-          title: 'Data Loaded',
-          description: 'ICE data has been loaded from the URL',
+          title: t('common.dataLoaded'),
+          description: t('common.dataLoadedFromUrl'),
           color: 'success'
         })
 
@@ -34,8 +36,8 @@ export default defineNuxtPlugin({
       } catch (error) {
         console.error('Failed to load data from URL:', error)
         toast.add({
-          title: 'Error',
-          description: 'Failed to load ICE data from URL',
+          title: t('common.dataLoadError'),
+          description: t('common.dataLoadErrorMessage'),
           color: 'error'
         })
       }

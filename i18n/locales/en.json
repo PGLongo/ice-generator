@@ -1,7 +1,11 @@
 {
   "common": {
     "loading": "Loading data...",
-    "loadingDescription": "Decoding data from link"
+    "loadingDescription": "Decoding data from link",
+    "dataLoaded": "Data Loaded",
+    "dataLoadedFromUrl": "ICE data has been loaded from the URL",
+    "dataLoadError": "Error",
+    "dataLoadErrorMessage": "Failed to load ICE data from URL"
   },
   "app": {
     "title": "ICE Generator",
