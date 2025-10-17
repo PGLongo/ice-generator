@@ -80,9 +80,9 @@ const bloodTypes = [
       </div>
     </div>
 
-    <!-- Città (2 col), Indirizzo (3 col), Sezione (1 col) -->
-    <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
-      <div class="md:col-span-2">
+    <!-- Città (4 col), Indirizzo (8 col) -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <div class="md:col-span-4">
         <UFormField
           :label="$t('form.city')"
           name="city"
@@ -98,7 +98,7 @@ const bloodTypes = [
         </UFormField>
       </div>
 
-      <div class="md:col-span-3">
+      <div class="md:col-span-8">
         <UFormField
           :label="$t('form.address')"
           name="address"
@@ -109,22 +109,6 @@ const bloodTypes = [
             :placeholder="$t('form.addressPlaceholder')"
             size="xl"
             icon="i-heroicons-map-pin"
-            class="w-full"
-          ></UInput>
-        </UFormField>
-      </div>
-
-      <div class="md:col-span-1">
-        <UFormField
-          :label="$t('form.section')"
-          name="section"
-          class="w-full"
-        >
-          <UInput
-            v-model="iceStore.data.section"
-            :placeholder="$t('form.sectionPlaceholder')"
-            size="xl"
-            icon="i-heroicons-academic-cap"
             class="w-full"
           ></UInput>
         </UFormField>

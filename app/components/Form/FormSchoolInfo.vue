@@ -18,9 +18,9 @@ if (!iceStore.data.school) {
       </h3>
     </div>
 
-    <!-- Nome Scuola (6 col) -->
+    <!-- Nome Scuola (8 col), Telefono Scuola (4 col) -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-      <div class="md:col-span-12">
+      <div class="md:col-span-8">
         <UFormField
           :label="$t('form.schoolName')"
           name="schoolName"
@@ -31,6 +31,22 @@ if (!iceStore.data.school) {
             :placeholder="$t('form.schoolNamePlaceholder')"
             size="xl"
             icon="i-heroicons-academic-cap"
+            class="w-full"
+          ></UInput>
+        </UFormField>
+      </div>
+
+      <div class="md:col-span-4">
+        <UFormField
+          :label="$t('form.schoolPhone')"
+          name="schoolPhone"
+          class="w-full"
+        >
+          <UInput
+            v-model="iceStore.data.school.phone"
+            :placeholder="$t('form.schoolPhonePlaceholder')"
+            size="xl"
+            icon="i-heroicons-phone"
             class="w-full"
           ></UInput>
         </UFormField>
@@ -72,25 +88,25 @@ if (!iceStore.data.school) {
       </div>
     </div>
 
-    <!-- Telefono Scuola (6 col), Telefono Referente (6 col) -->
+    <!-- Nome Referente (4 col), Telefono Referente (4 col), Sezione (4 col) -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-      <div class="md:col-span-6">
+      <div class="md:col-span-4">
         <UFormField
-          :label="$t('form.schoolPhone')"
-          name="schoolPhone"
+          :label="$t('form.schoolReferentName')"
+          name="schoolReferentName"
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.phone"
-            :placeholder="$t('form.schoolPhonePlaceholder')"
+            v-model="iceStore.data.school.referentName"
+            :placeholder="$t('form.schoolReferentNamePlaceholder')"
             size="xl"
-            icon="i-heroicons-phone"
+            icon="i-heroicons-user"
             class="w-full"
           ></UInput>
         </UFormField>
       </div>
 
-      <div class="md:col-span-6">
+      <div class="md:col-span-4">
         <UFormField
           :label="$t('form.schoolReferentPhone')"
           name="schoolReferentPhone"
@@ -105,21 +121,18 @@ if (!iceStore.data.school) {
           ></UInput>
         </UFormField>
       </div>
-    </div>
 
-    <!-- Nome Referente (12 col) -->
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-      <div class="md:col-span-12">
+      <div class="md:col-span-4">
         <UFormField
-          :label="$t('form.schoolReferentName')"
-          name="schoolReferentName"
+          :label="$t('school.section')"
+          name="schoolSection"
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.referentName"
-            :placeholder="$t('form.schoolReferentNamePlaceholder')"
+            v-model="iceStore.data.school.section"
+            :placeholder="$t('school.sectionPlaceholder')"
             size="xl"
-            icon="i-heroicons-user"
+            icon="i-heroicons-rectangle-group"
             class="w-full"
           ></UInput>
         </UFormField>
