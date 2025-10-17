@@ -134,6 +134,8 @@
     "studentName": "Nome Bambino",
     "section": "Sezione",
     "referent": "Referente di Emergenza",
+    "loading": "Caricamento dati in corso...",
+    "loadingDescription": "Sto decodificando i dati dal link",
     "noData": "Nessun dato scolastico disponibile",
     "noDataDescription": "Compila le informazioni della scuola nel form per generare un biglietto scolastico",
     "goToForm": "Vai al Form"

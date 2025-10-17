@@ -134,6 +134,8 @@
     "studentName": "Student Name",
     "section": "Section",
     "referent": "Emergency Referent",
+    "loading": "Loading data...",
+    "loadingDescription": "Decoding data from link",
     "noData": "No school data available",
     "noDataDescription": "Please fill in the school information in the form to generate a school card",
     "goToForm": "Go to Form"

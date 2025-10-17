@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
 
-const { t } = useI18n()
 const route = useRoute()
 const iceStore = useIceStore()
 const { decodeData } = useIceUrlShare()
 const { generatePhoneQR } = useQRCode()
 
+// Loading state
+const isLoading = ref(true)
+
 // Load data from URL query params on mount
-onMounted(() => {
+onMounted(async () => {
   const dataParam = route.query.data as string
   if (dataParam) {
     try {
@@ -20,6 +22,9 @@ onMounted(() => {
       console.error('Failed to load data from URL:', error)
     }
   }
+  // Small delay to ensure data is fully loaded
+  await nextTick()
+  isLoading.value = false
 })
 
 const hasSchoolData = computed(() => {
@@ -47,12 +52,8 @@ const referentPhoneLink = computed(() => {
 })
 
 // Generate QR code for calling referent (reactive)
-const referentPhoneRef = computed(() => iceStore.data.school?.referentPhone || null)
-const qrCode = generatePhoneQR(referentPhoneRef, {
-  margin: 1,
-  width: 120,
-  errorCorrectionLevel: 'M'
-})
+const referentPhoneRef = computed(() => iceStore.data.school?.referentPhone || '')
+const qrCode = generatePhoneQR(referentPhoneRef)
 
 const printCard = () => {
   window.print()
@@ -93,8 +94,21 @@ const printCard = () => {
         </div>
       </div>
 
+      <!-- Loading state -->
+      <UCard v-if="isLoading">
+        <div class="text-center py-12">
+          <UIcon name="i-heroicons-arrow-path" class="text-6xl text-primary mb-4 mx-auto animate-spin" />
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            {{ $t('school.loading') }}
+          </h3>
+          <p class="text-gray-500 dark:text-gray-400">
+            {{ $t('school.loadingDescription') }}
+          </p>
+        </div>
+      </UCard>
+
       <!-- Card biglietto scuola -->
-      <UCard v-if="hasSchoolData || hasStudentData" id="school-card-content" class="school-card">
+      <UCard v-else-if="hasSchoolData || hasStudentData" id="school-card-content" class="school-card">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 min-h-[400px]">
           <!-- Sezione Sinistra: Dati Scuola -->
           <div class="flex flex-col items-center justify-center text-center border-r border-gray-200 dark:border-gray-700 pr-6">
