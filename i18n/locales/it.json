@@ -118,6 +118,12 @@
     "error": "Errore",
     "errorMessage": "Compila correttamente tutti i campi obbligatori",
     "errorMessageServer": "Impossibile salvare il contatto. Riprova.",
+    "resetSuccess": "Tutti i dati sono stati reimpostati con successo",
+    "resetConfirmTitle": "Conferma Reimpostazione",
+    "resetConfirmMessage": "Sei sicuro di voler reimpostare tutti i dati? Questo eliminerà permanentemente tutte le informazioni di contatto di emergenza.",
+    "resetConfirmWarning": "Questa azione non può essere annullata.",
+    "resetCancel": "Annulla",
+    "resetConfirm": "Sì, Reimposta Tutto",
     "footer": "Tutti i dati sono archiviati localmente sul tuo dispositivo per la privacy"
   },
   "theme": {

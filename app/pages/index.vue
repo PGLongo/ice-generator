@@ -8,6 +8,9 @@ const iceStore = useIceStore()
 const { copyShareableUrl, getEncodedSize, encodeData, decodeData, generateShareableUrl } = useIceUrlShare()
 const { generateQRCode } = useQRCode()
 
+// Reset confirmation modal state
+const isResetModalOpen = ref(false)
+
 // Load data from URL query params on mount (and save to store)
 onMounted(() => {
   const dataParam = route.query.data as string
@@ -110,9 +113,24 @@ const generateShareLink = async () => {
   }
 }
 
-// Reset form - clear store
-const resetForm = () => {
+// Open reset confirmation modal
+const openResetModal = () => {
+  isResetModalOpen.value = true
+}
+
+// Reset form - clear store (after confirmation)
+const handleResetConfirm = () => {
   iceStore.clearData()
+  isResetModalOpen.value = false
+  toast.add({
+    title: t('form.success'),
+    description: t('form.resetSuccess'),
+    color: 'success'
+  })
+}
+
+const handleResetCancel = () => {
+  isResetModalOpen.value = falses
 }
 
 // Go to preview page with data in query params (compressed)
@@ -187,6 +205,8 @@ const goToSchool = () => {
               icon="i-heroicons-eye"
               block
               @click="goToPreview"
+                            :disabled="!iceStore.hasData"
+
             >
               {{ $t('form.preview') }}
             </UButton>
@@ -223,7 +243,7 @@ const goToSchool = () => {
               color="neutral"
               variant="outline"
               icon="i-heroicons-arrow-path"
-              @click="resetForm"
+              @click="openResetModal"
             >
               {{ $t('form.cancel') }}
             </UButton>
@@ -231,5 +251,26 @@ const goToSchool = () => {
         </form>
       </UCard>
     </div>
+
+    <!-- Reset Confirmation Modal -->
+    <DialogCancel
+      v-model:open="isResetModalOpen"
+      @confirm="handleResetConfirm"
+      @cancel="handleResetCancel"
+    >
+      <template #title>
+        <div class="flex items-center gap-3">
+          <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-amber-500" />
+          <span>{{ $t('form.resetConfirmTitle') }}</span>
+        </div>
+      </template>
+
+      <template #message>
+        <div class="space-y-2">
+          <p>{{ $t('form.resetConfirmMessage') }}</p>
+          <p class="text-sm text-gray-500">{{ $t('form.resetConfirmWarning') }}</p>
+        </div>
+      </template>
+    </DialogCancel>
   </UContainer>
 </template>
