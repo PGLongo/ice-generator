@@ -36,6 +36,7 @@ interface CompactSchool {
   rp?: string
   rn?: string
   l?: string
+  sec?: string
 }
 
 /**
@@ -146,6 +147,9 @@ export const useIceUrlShare = () => {
       if (data.school.logoUrl) {
         s.l = data.school.logoUrl
       }
+      if (data.school.section) {
+        s.sec = data.school.section
+      }
       if (Object.keys(s).length > 0) {
         compact.s = s
       }
@@ -174,6 +178,7 @@ export const useIceUrlShare = () => {
       primaryDoctor: compact.pd || '',
       insuranceInfo: compact.ii || '',
       specialInstructions: compact.si || '',
+      school: {},
       lastUpdated: new Date().toISOString()
     }
 
@@ -197,7 +202,8 @@ export const useIceUrlShare = () => {
         phone: compact.s.p || '',
         referentPhone: compact.s.rp || '',
         referentName: compact.s.rn || '',
-        logoUrl: compact.s.l || ''
+        logoUrl: compact.s.l || '',
+        section: compact.s.sec || ''
       }
     }
 

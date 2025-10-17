@@ -40,7 +40,7 @@ export interface IceData {
   specialInstructions?: string
 
   // School Information
-  school?: School
+  school: School
 
   // Metadata
   lastUpdated?: string

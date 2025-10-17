@@ -31,16 +31,16 @@ const hasStudentData = computed(() => {
 
 // Format phone numbers for tel: links
 const schoolPhoneLink = computed(() => {
-  if (!iceStore.data.school?.phone) return ''
+  if (!iceStore.data.school.phone) return ''
   return `tel:${iceStore.data.school.phone.replace(/\s+/g, '')}`
 })
 const referentPhoneLink = computed(() => {
-  if (!iceStore.data.school?.referentPhone) return ''
+  if (!iceStore.data.school.referentPhone) return ''
   return `tel:${iceStore.data.school.referentPhone.replace(/\s+/g, '')}`
 })
 
 // Generate QR code for calling referent (reactive)
-const referentPhoneRef = computed(() => iceStore.data.school?.referentPhone || '')
+const referentPhoneRef = computed(() => iceStore.data.school.referentPhone || '')
 const qrCode = generatePhoneQR(referentPhoneRef)
 
 const printCard = () => {
@@ -91,7 +91,7 @@ const printCard = () => {
           <!-- Sezione Sinistra: Dati Scuola -->
           <div class="flex flex-col items-center justify-center text-center border-r border-gray-200 dark:border-gray-700 pr-6">
             <!-- Logo Scuola -->
-            <div v-if="iceStore.data.school?.logoUrl" class="mb-4">
+            <div v-if="iceStore.data.school.logoUrl" class="mb-4">
               <img
                 :src="iceStore.data.school.logoUrl"
                 alt="School Logo"
@@ -100,19 +100,19 @@ const printCard = () => {
             </div>
 
             <!-- Nome Scuola -->
-            <h2 v-if="iceStore.data.school?.name" class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            <h2 v-if="iceStore.data.school.name" class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
               {{ iceStore.data.school.name }}
             </h2>
 
             <!-- Indirizzo -->
-            <div v-if="iceStore.data.school?.address || iceStore.data.school?.city" class="mb-3">
+            <div v-if="iceStore.data.school.address || iceStore.data.school.city" class="mb-3">
               <div class="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300">
                 <UIcon name="i-heroicons-map-pin" class="text-lg" />
                 <div>
-                  <p v-if="iceStore.data.school?.address" class="text-base">
+                  <p v-if="iceStore.data.school.address" class="text-base">
                     {{ iceStore.data.school.address }}
                   </p>
-                  <p v-if="iceStore.data.school?.city" class="text-base">
+                  <p v-if="iceStore.data.school.city" class="text-base">
                     {{ iceStore.data.school.city }}
                   </p>
                 </div>
@@ -120,7 +120,7 @@ const printCard = () => {
             </div>
 
             <!-- Telefono Scuola -->
-            <div v-if="iceStore.data.school?.phone" class="mb-2">
+            <div v-if="iceStore.data.school.phone" class="mb-2">
               <div class="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300">
                 <UIcon name="i-heroicons-phone" class="text-lg" />
                 <a :href="schoolPhoneLink" class="text-base font-semibold hover:text-primary">
@@ -155,20 +155,20 @@ const printCard = () => {
             <USeparator />
 
             <!-- Referente con QR Code -->
-            <div v-if="iceStore.data.school?.referentName || iceStore.data.school?.referentPhone" class="flex gap-4 items-start">
+            <div v-if="iceStore.data.school.referentName || iceStore.data.school.referentPhone" class="flex gap-4 items-start">
               <!-- Dati referente -->
               <div class="flex-1">
                 <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2 block">
                   {{ $t('school.referent') }}
                 </label>
                 <div class="space-y-2">
-                  <div v-if="iceStore.data.school?.referentName" class="flex items-center gap-2">
+                  <div v-if="iceStore.data.school.referentName" class="flex items-center gap-2">
                     <UIcon name="i-heroicons-user" class="text-xl text-gray-400" />
                     <p class="text-lg font-semibold text-gray-900 dark:text-white">
                       {{ iceStore.data.school.referentName }}
                     </p>
                   </div>
-                  <div v-if="iceStore.data.school?.referentPhone" class="flex items-center gap-2">
+                  <div v-if="iceStore.data.school.referentPhone" class="flex items-center gap-2">
                     <UIcon name="i-heroicons-phone" class="text-xl text-gray-400" />
                     <a :href="referentPhoneLink" class="text-lg font-semibold text-primary hover:underline">
                       {{ iceStore.data.school.referentPhone }}
@@ -178,7 +178,7 @@ const printCard = () => {
               </div>
 
               <!-- QR Code -->
-              <div v-if="iceStore.data.school?.referentPhone" class="flex-shrink-0">
+              <div v-if="iceStore.data.school.referentPhone" class="flex-shrink-0">
                 <img :src="qrCode" alt="QR Code to call referent" class="w-24 h-24 border-2 border-gray-300 rounded-lg" />
               </div>
             </div>

@@ -17,6 +17,7 @@ export const useIceStore = defineStore('ice', {
       primaryDoctor: '',
       insuranceInfo: '',
       specialInstructions: '',
+      school: {},
       lastUpdated: ''
     }
   }),
