@@ -8,6 +8,7 @@ interface CompactData {
   b?: string
   c?: string
   ad?: string
+  sec?: string
   al?: string[]
   mc?: string[]
   cm?: string[]
@@ -16,6 +17,7 @@ interface CompactData {
   pd?: string
   ii?: string
   si?: string
+  s?: CompactSchool
 }
 
 interface CompactContact {
@@ -24,6 +26,16 @@ interface CompactContact {
   r?: string
   p?: string
   e?: string
+}
+
+interface CompactSchool {
+  n?: string
+  a?: string
+  c?: string
+  p?: string
+  rp?: string
+  rn?: string
+  l?: string
 }
 
 /**
@@ -61,6 +73,9 @@ export const useIceUrlShare = () => {
     }
     if (data.address) {
       compact.ad = data.address
+    }
+    if (data.section) {
+      compact.sec = data.section
     }
     if (data.allergies?.length) {
       compact.al = data.allergies
@@ -107,6 +122,35 @@ export const useIceUrlShare = () => {
       })
     }
 
+    // Compact school information
+    if (data.school) {
+      const s: CompactSchool = {}
+      if (data.school.name) {
+        s.n = data.school.name
+      }
+      if (data.school.address) {
+        s.a = data.school.address
+      }
+      if (data.school.city) {
+        s.c = data.school.city
+      }
+      if (data.school.phone) {
+        s.p = data.school.phone
+      }
+      if (data.school.referentPhone) {
+        s.rp = data.school.referentPhone
+      }
+      if (data.school.referentName) {
+        s.rn = data.school.referentName
+      }
+      if (data.school.logoUrl) {
+        s.l = data.school.logoUrl
+      }
+      if (Object.keys(s).length > 0) {
+        compact.s = s
+      }
+    }
+
     return compact
   }
 
@@ -121,6 +165,7 @@ export const useIceUrlShare = () => {
       bloodType: compact.b || '',
       city: compact.c || '',
       address: compact.ad || '',
+      section: compact.sec || '',
       allergies: compact.al || [],
       medicalConditions: compact.mc || [],
       currentMedications: compact.cm || [],
@@ -141,6 +186,19 @@ export const useIceUrlShare = () => {
         phone: c.p || '',
         email: c.e || ''
       }))
+    }
+
+    // Restore school information
+    if (compact.s) {
+      data.school = {
+        name: compact.s.n || '',
+        address: compact.s.a || '',
+        city: compact.s.c || '',
+        phone: compact.s.p || '',
+        referentPhone: compact.s.rp || '',
+        referentName: compact.s.rn || '',
+        logoUrl: compact.s.l || ''
+      }
     }
 
     return data

@@ -133,6 +133,21 @@ const goToPreview = () => {
   const encodedData = encodeData(iceStore.data)
   navigateTo(`/preview?data=${encodedData}`)
 }
+
+// Go to school page with data in query params (compressed)
+const goToSchool = () => {
+  if (!iceStore.hasData) {
+    toast.add({
+      title: t('form.error'),
+      description: t('form.errorMessage'),
+      color: 'error'
+    })
+    return
+  }
+
+  const encodedData = encodeData(iceStore.data)
+  navigateTo(`/school?data=${encodedData}`)
+}
 </script>
 
 <template>
@@ -154,6 +169,10 @@ const goToPreview = () => {
 
           <FormAdditionalInfo></FormAdditionalInfo>
 
+          <UDivider></UDivider>
+
+          <FormSchoolInfo></FormSchoolInfo>
+
           <div class="flex flex-col sm:flex-row gap-3 pt-4">
             <UButton
               type="submit"
@@ -174,6 +193,19 @@ const goToPreview = () => {
               @click="goToPreview"
             >
               {{ $t('form.preview') }}
+            </UButton>
+
+            <UButton
+              type="button"
+              size="xl"
+              color="primary"
+              variant="outline"
+              icon="i-heroicons-academic-cap"
+              block
+              :disabled="!iceStore.hasData"
+              @click="goToSchool"
+            >
+              {{ $t('form.schoolCard') }}
             </UButton>
 
             <UButton

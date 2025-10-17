@@ -6,6 +6,7 @@ export const useIceExport = () => {
       name,
       age,
       bloodType: rawBloodType,
+      section = '',
       allergies = [],
       medicalConditions = [],
       currentMedications = [],
@@ -13,7 +14,8 @@ export const useIceExport = () => {
       emergencyContacts = [],
       primaryDoctor = '',
       insuranceInfo = '',
-      specialInstructions = ''
+      specialInstructions = '',
+      school
     } = data
 
     // Handle bloodType - could be string or object with value property
@@ -345,6 +347,13 @@ export const useIceExport = () => {
             <div class="form-value">${bloodType}</div>
           </div>
           ` : ''}
+
+          ${section ? `
+          <div class="form-field">
+            <label class="form-label">Section</label>
+            <div class="form-value">${section}</div>
+          </div>
+          ` : ''}
         </div>
       </div>
 
@@ -439,6 +448,58 @@ export const useIceExport = () => {
           <div class="form-field">
             <label class="form-label">Special Instructions</label>
             <div class="form-value">${specialInstructions}</div>
+          </div>
+          ` : ''}
+        </div>
+      </div>
+      ` : ''}
+
+      <!-- School Information -->
+      ${school && (school.name || school.address || school.city || school.phone || school.referentName || school.referentPhone || school.logoUrl) ? `
+      <div class="section">
+        <h2 class="section-title">🏫 School Information</h2>
+        ${school.logoUrl ? `
+        <div style="text-align: center; margin-bottom: 1rem;">
+          <img src="${school.logoUrl}" alt="School Logo" style="max-width: 150px; max-height: 150px; object-fit: contain; border-radius: 0.5rem;">
+        </div>
+        ` : ''}
+        <div class="form-fields">
+          ${school.name ? `
+          <div class="form-field">
+            <label class="form-label">School Name</label>
+            <div class="form-value">${school.name}</div>
+          </div>
+          ` : ''}
+
+          ${school.city || school.address ? `
+          <div class="form-field">
+            <label class="form-label">School Address</label>
+            <div class="form-value">${school.address ? `${school.address}${school.city ? ', ' : ''}` : ''}${school.city || ''}</div>
+          </div>
+          ` : ''}
+
+          ${school.phone ? `
+          <div class="form-field">
+            <label class="form-label">School Phone</label>
+            <div class="form-value">
+              <a href="tel:${school.phone.replace(/\s+/g, '')}">${school.phone}</a>
+            </div>
+          </div>
+          ` : ''}
+
+          ${school.referentName ? `
+          <div class="form-field">
+            <label class="form-label">School Referent</label>
+            <div class="form-value">${school.referentName}</div>
+          </div>
+          ` : ''}
+
+          ${school.referentPhone ? `
+          <div class="form-field">
+            <label class="form-label">Referent Phone</label>
+            <div class="form-value">
+              <a href="tel:${school.referentPhone.replace(/\s+/g, '')}">${school.referentPhone}</a>
+            </div>
           </div>
           ` : ''}
         </div>

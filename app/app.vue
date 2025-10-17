@@ -34,7 +34,7 @@ useSeoMeta({
 
 <template>
   <UApp>
-    <UHeader>
+    <UHeader class="print:hidden">
       <template #left>
         <NuxtLink to="/" class="flex items-center">
           <AppLogo></AppLogo>
@@ -65,9 +65,9 @@ useSeoMeta({
       <NuxtPage></NuxtPage>
     </UMain>
 
-    <USeparator icon="i-simple-icons-nuxtdotjs"></USeparator>
+    <USeparator icon="i-simple-icons-nuxtdotjs" class="print:hidden"></USeparator>
 
-    <UFooter>
+    <UFooter class="print:hidden">
       <template #left>
         <p class="text-sm text-muted">
           ICE Generator v{{ appVersion }} • {{ new Date().getFullYear() }}

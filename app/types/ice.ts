@@ -1,3 +1,5 @@
+import type { School } from './school'
+
 /**
  * Emergency contact information
  */
@@ -21,6 +23,7 @@ export interface IceData {
   bloodType?: string
   city?: string
   address?: string
+  section?: string
 
   // Medical Information
   allergies?: string[]
@@ -35,6 +38,9 @@ export interface IceData {
   primaryDoctor?: string
   insuranceInfo?: string
   specialInstructions?: string
+
+  // School Information
+  school?: School
 
   // Metadata
   lastUpdated?: string
