@@ -34,6 +34,32 @@
 
 ---
 
+## 🆕 What's New in v0.1.1
+
+### 🏫 School Cards Feature
+Generate printable school identification cards with:
+- Student name, section, and school details
+- School logo support
+- Emergency referent contact with QR code
+- Optimized A4 landscape print layout
+- Instant call functionality via QR code scan
+
+### ⚡ Performance Improvements
+- **Loading States** - Smooth loading experience when accessing shared links
+- **Reusable Components** - New `LoadingState` component for consistent UX
+- **Smart Data Loading** - Centralized `useDataLoader` composable
+- **i18n Ready** - Common translations for loading messages
+
+### 🔧 Technical Updates
+- Unified QR code generation system
+- Better composable architecture following best practices
+- Improved error handling for data loading
+- Type-safe with full TypeScript support
+
+[View Full Changelog →](CHANGELOG.md)
+
+---
+
 ## ✨ Features
 
 <table>
@@ -45,6 +71,7 @@
 - 💾 **Auto-Save** - Data persists automatically
 - 🗑️ **Safe Delete** - Confirmation before removing contacts
 - 🌐 **Multi-Language** - English & Italian support
+- 🏫 **School Cards** - Printable student ID cards with QR codes
 
 </td>
 <td width="50%">
@@ -53,7 +80,8 @@
 - 📲 **QR Code** - High-res (1024x1024) printable codes
 - 🔗 **Smart Links** - Gzip-compressed shareable URLs
 - 👆 **Touch Optimized** - Extra-large tap targets
-- 📱 **Mobile Preview** - Emergency-ready display
+- 📱 **Mobile Preview** - Emergency-ready display with loading states
+- 🖨️ **Print Layout** - Optimized A4 landscape school cards
 
 </td>
 </tr>
@@ -116,10 +144,17 @@ npm run preview
 
 ## 🎯 How It Works
 
+### Personal ICE Cards
 1. **📝 Fill the Form** - Enter your personal, medical, and emergency contact information
 2. **📲 Generate QR** - Click "Generate QR Code" to create a printable image
 3. **🖨️ Print & Carry** - Print the QR code and keep it in your wallet/phone case
 4. **🚨 Emergency Access** - Anyone can scan the code to see your info instantly
+
+### School Cards (New! 🎓)
+1. **📋 Fill School Info** - Add school name, address, logo, and student details
+2. **👨‍👩‍👧 Add Referent** - Emergency contact with phone number
+3. **🖨️ Generate Card** - Create a printable school ID card with QR code
+4. **📱 Quick Call** - Scan QR to call the emergency referent instantly
 
 ### 💡 Pro Tips
 
@@ -127,6 +162,7 @@ npm run preview
 - 🖨️ **Multiple Copies** - Print several, keep in wallet, car, gym bag
 - 👨‍👩‍👧 **Family Sharing** - Create codes for every family member
 - 📱 **Save to Phone** - Keep as a lock screen wallpaper
+- 🏫 **School Safety** - Print school cards for quick parent/guardian contact
 
 ---
 
@@ -219,6 +255,13 @@ Contributions are welcome! Here's how you can help:
 
 ## 📋 Roadmap
 
+### ✅ Completed (v0.1.1)
+- [x] 🏫 School cards with printable layout
+- [x] 📲 QR codes for emergency contacts
+- [x] ⏳ Loading states for data pages
+- [x] 🔗 Compressed shareable URLs
+
+### 🚧 Coming Soon
 - [ ] 📸 Photo upload for medical cards
 - [ ] 🔔 Emergency alert system
 - [ ] 🩺 Medical condition templates
