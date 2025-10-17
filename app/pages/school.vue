@@ -4,6 +4,7 @@ import type { IceData } from '@/types/ice'
 
 const iceStore = useIceStore()
 const { generatePhoneQR } = useQRCode()
+const { tel } = useHref()
 const { isLoading, data, loadData } = useDataLoader<IceData>()
 
 // Load data from URL query params on mount
@@ -29,15 +30,9 @@ const hasStudentData = computed(() => {
   return iceStore.data.name || iceStore.data.section
 })
 
-// Format phone numbers for tel: links
-const schoolPhoneLink = computed(() => {
-  if (!iceStore.data.school.phone) return ''
-  return `tel:${iceStore.data.school.phone.replace(/\s+/g, '')}`
-})
-const referentPhoneLink = computed(() => {
-  if (!iceStore.data.school.referentPhone) return ''
-  return `tel:${iceStore.data.school.referentPhone.replace(/\s+/g, '')}`
-})
+// Format phone numbers for tel: links using useHref composable
+const schoolPhoneLink = computed(() => tel(iceStore.data.school.phone))
+const referentPhoneLink = computed(() => tel(iceStore.data.school.referentPhone))
 
 // Generate QR code for calling referent (reactive)
 const referentPhoneRef = computed(() => iceStore.data.school.referentPhone || '')
