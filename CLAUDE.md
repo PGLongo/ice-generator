@@ -226,28 +226,39 @@ npm run preview  # Preview production build
 - `importData(jsonData)` - Import from JSON string
 
 ### Form Components Architecture
-**IMPORTANT: All form components MUST follow this pattern:**
+**IMPORTANT: All form components MUST follow this pattern for clean, type-safe code:**
 
 - **Direct store import**: `import { useIceStore } from '@/stores/ice'` in every form component
 - **No props for data**: Forms do NOT accept `modelValue` or other data props (except FormEmergencyContacts which uses v-model for the array)
-- **Direct binding**: Use `v-model="iceStore.data.fieldName"` directly in inputs
+- **Direct binding**: Use `v-model="iceStore.data.fieldName"` directly in inputs - NO intermediate computed properties
 - **Computed for transformations**: Use computed properties ONLY when transforming data (e.g., array ↔ comma-separated string)
+- **No optional chaining**: All nested objects (like `school`) are always initialized as empty objects `{}` - never optional
 - **No watchers**: No need to watch props or sync local data
 - **No emit**: No need to emit updates - store is reactive
 - **Modular**: Each form section is a separate component in `app/components/Form/`
 - **Validation**: Client-side validation with required fields (name, age)
 - **Auto-save**: No explicit save button needed - data persists on every change
 
+**Benefits of this architecture:**
+- ✅ Cleaner code without optional chaining (`?.`)
+- ✅ Simpler components without intermediate computed properties
+- ✅ Better type safety with TypeScript
+- ✅ Consistent pattern across all form components
+- ✅ Direct, transparent data flow from store to UI
+
 **Example pattern:**
 ```vue
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
 const iceStore = useIceStore()
+// That's it! No computed properties needed for simple field bindings
 </script>
 
 <template>
   <UInput v-model="iceStore.data.name" />
   <UInput v-model="iceStore.data.age" />
+  <UInput v-model="iceStore.data.school.name" />
+  <!-- Direct binding - no ?.  because school is always {} -->
 </template>
 ```
 
@@ -315,16 +326,21 @@ const iceStore = useIceStore()
    - Use proper function overloading signatures
 
 ### General Best Practices Followed
+**PRIORITY: Always strive for cleaner, simpler, and more type-safe code**
+
 - ✅ All data remains client-side (localStorage only)
 - ✅ No backend/server requirements
 - ✅ All form components access store directly (no props/emit for data)
+- ✅ Direct v-model bindings without intermediate computed properties (unless transforming data)
+- ✅ No optional chaining - nested objects always initialized as `{}`
 - ✅ Components follow Nuxt naming convention (prefix with folder name)
-- ✅ TypeScript interfaces for type safety
+- ✅ TypeScript strict mode for maximum type safety
 - ✅ Accessibility features (semantic HTML, ARIA labels)
 - ✅ Responsive design (mobile-first with Tailwind breakpoints)
 - ✅ Privacy-focused (no analytics, no external calls except fonts)
 - ✅ Modern plugin format with `async setup()` and `parallel: true`
 - ✅ Composables follow single responsibility and separation of concerns
+- ✅ Consistent code patterns across the entire codebase
 
 ## Current Status
 
