@@ -29,18 +29,22 @@ ice-generator/
 │   ├── app.vue                          # Main application layout (header, footer, navigation)
 │   ├── pages/
 │   │   ├── index.vue                    # Main form page
-│   │   └── preview.vue                  # HTML preview page
+│   │   ├── preview.vue                  # HTML preview page
+│   │   └── school.vue                   # School card page
 │   ├── components/
 │   │   ├── Form/
 │   │   │   ├── FormPersonalInfo.vue     # Personal data form section
 │   │   │   ├── FormMedicalInfo.vue      # Medical data form section
 │   │   │   ├── FormEmergencyContacts.vue # Contacts list with add/remove
-│   │   │   └── FormAdditionalInfo.vue   # Additional info form section
+│   │   │   ├── FormAdditionalInfo.vue   # Additional info form section
+│   │   │   └── FormSchoolInfo.vue       # School info form section
 │   │   ├── AppLogo.vue                  # Application logo
 │   │   └── TemplateMenu.vue             # Template selector menu
 │   ├── composables/
 │   │   ├── useIceExport.ts              # HTML generation and export logic
-│   │   └── useIceUrlShare.ts            # URL encoding/decoding with compression
+│   │   ├── useIceUrlShare.ts            # URL encoding/decoding with compression
+│   │   ├── useQRCode.ts                 # QR code generation (static and reactive)
+│   │   └── useHref.ts                   # Format hrefs (tel:, mailto:)
 │   ├── stores/
 │   │   └── ice.ts                       # Pinia store for ICE data
 │   ├── types/
@@ -170,6 +174,10 @@ npm run preview  # Preview production build
   - `EmergencyContact` - Single emergency contact with name, relationship, phone, email
 - **Auto-imported**: Nuxt auto-imports types from `app/types/` so you can use them without explicit imports in Vue components
 - **Best practice**: Public domain interfaces go in `app/types/`, internal/implementation interfaces stay in their respective files
+- **IMPORTANT**: ALWAYS export types and interfaces from composables using `export type` and `export interface`
+  - This allows reusability across the codebase
+  - Example: `export type QRCodeValue = ...` in `useQRCode.ts`
+  - Never keep types internal unless explicitly needed only within that file
 
 ### State Management
 - **Pinia Store**: All ICE data is stored in a single reactive Pinia store (`useIceStore`)
@@ -276,7 +284,37 @@ const iceStore = useIceStore()
 - **Consistent spacing**: Use `mb-6` for section headers, `space-y-6` for form sections
 - **Section headers**: All form sections have a colored bar + title: `<div class="flex items-center gap-2 mb-6">`
 
-### Best Practices Followed
+### Composables Best Practices
+**CRITICAL RULES - ALWAYS FOLLOW:**
+
+1. **Separation of Concerns**: Create specific composables for distinct purposes
+   - ✅ GOOD: `useHref` for formatting links, `useQRCode` for generating QR codes
+   - ❌ BAD: Mixing QR code generation and href formatting in one composable
+
+2. **Single Responsibility**: Each composable should do ONE thing well
+   - `useHref` = format `tel:`, `mailto:` links
+   - `useQRCode` = generate QR codes (uses `useHref` internally for wrappers)
+   - Never create "god composables" that do everything
+
+3. **Function Overloading for Unified APIs**: Use TypeScript overloading to handle static vs reactive
+   - ✅ GOOD: `generatePhoneQR(phone: string)` and `generatePhoneQR(phone: Ref<string>)` as overloads
+   - ❌ BAD: Separate functions like `generatePhoneQR` and `generateReactivePhoneQR`
+   - Detect input type automatically with `isRef()` and return appropriate type
+
+4. **Always Export Types**: Make composable types reusable
+   - ✅ ALWAYS: `export type QRCodeValue = ...`, `export interface QRCodeOptions = ...`
+   - ❌ NEVER: Keep types internal unless explicitly scoped to that file only
+
+5. **Smart Wrappers**: Create convenience functions that encapsulate common patterns
+   - Example: `generatePhoneQR()` internally calls `generateQRCode(tel(phone))`
+   - This keeps the API clean and intention-revealing
+
+6. **Type Safety**: Return types should match input types
+   - String input → `Promise<string>`
+   - Ref input → `Ref<string>`
+   - Use proper function overloading signatures
+
+### General Best Practices Followed
 - ✅ All data remains client-side (localStorage only)
 - ✅ No backend/server requirements
 - ✅ All form components access store directly (no props/emit for data)
@@ -286,6 +324,7 @@ const iceStore = useIceStore()
 - ✅ Responsive design (mobile-first with Tailwind breakpoints)
 - ✅ Privacy-focused (no analytics, no external calls except fonts)
 - ✅ Modern plugin format with `async setup()` and `parallel: true`
+- ✅ Composables follow single responsibility and separation of concerns
 
 ## Current Status
 
@@ -348,10 +387,22 @@ const iceStore = useIceStore()
 - ✅ Toast notifications for actions
 - ✅ Loading states and error handling
 
+#### QR Code System
+- ✅ Unified QR code composable (`useQRCode`)
+  - Function overloading for static/reactive generation
+  - `generateQRCode()` - Universal function (string or Ref input)
+  - `generatePhoneQR()` - Wrapper for phone numbers (tel: protocol)
+  - `generateEmailQR()` - Wrapper for emails (mailto: protocol)
+- ✅ Href formatting composable (`useHref`)
+  - `tel()` - Format phone numbers for clickable links
+  - `mailto()` - Format email addresses for clickable links
+- ✅ QR code in school card (call referent directly)
+- ✅ Download QR code as PNG from main form
+- ✅ Single library dependency: `qrcode` (8k GitHub stars)
+
 ### ⏳ Pending Features
 
 - ⏳ NFC size optimization
-- ⏳ QR code generation
 - ⏳ PDF export option
 - ⏳ Template system (children, elderly, pets)
 - ⏳ Data encryption option
