@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/PGLongo/ice-generator/compare/v0.1.1...v0.1.2) (2025-10-17)
+
+
+### Bug Fixes
+
+* section location in form ([6727cbc](https://github.com/PGLongo/ice-generator/commit/6727cbc81b453a0fd70539f65cce5a02462e1f37))
+
 ### [0.1.1](https://github.com/PGLongo/ice-generator/compare/v0.1.0...v0.1.1) (2025-10-17)
 
 
