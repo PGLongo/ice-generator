@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
+import { useQRCode } from '@vueuse/integrations/useQRCode'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -33,6 +34,19 @@ const hasSchoolData = computed(() => {
 
 const hasStudentData = computed(() => {
   return iceStore.data.name || iceStore.data.section
+})
+
+// Generate QR code for calling referent
+const qrCodeValue = computed(() => {
+  const phone = iceStore.data.school?.referentPhone
+  if (!phone) return ''
+  return `tel:${phone.replace(/\s+/g, '')}`
+})
+
+const qrCode = useQRCode(qrCodeValue, {
+  margin: 1,
+  width: 120,
+  errorCorrectionLevel: 'M'
 })
 
 const printCard = () => {
@@ -143,24 +157,32 @@ const printCard = () => {
 
             <UDivider />
 
-            <!-- Referente -->
-            <div v-if="iceStore.data.school?.referentName || iceStore.data.school?.referentPhone">
-              <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2 block">
-                {{ $t('school.referent') }}
-              </label>
-              <div class="space-y-2">
-                <div v-if="iceStore.data.school?.referentName" class="flex items-center gap-2">
-                  <UIcon name="i-heroicons-user" class="text-xl text-gray-400" />
-                  <p class="text-lg font-semibold text-gray-900 dark:text-white">
-                    {{ iceStore.data.school.referentName }}
-                  </p>
+            <!-- Referente con QR Code -->
+            <div v-if="iceStore.data.school?.referentName || iceStore.data.school?.referentPhone" class="flex gap-4 items-start">
+              <!-- Dati referente -->
+              <div class="flex-1">
+                <label class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2 block">
+                  {{ $t('school.referent') }}
+                </label>
+                <div class="space-y-2">
+                  <div v-if="iceStore.data.school?.referentName" class="flex items-center gap-2">
+                    <UIcon name="i-heroicons-user" class="text-xl text-gray-400" />
+                    <p class="text-lg font-semibold text-gray-900 dark:text-white">
+                      {{ iceStore.data.school.referentName }}
+                    </p>
+                  </div>
+                  <div v-if="iceStore.data.school?.referentPhone" class="flex items-center gap-2">
+                    <UIcon name="i-heroicons-phone" class="text-xl text-gray-400" />
+                    <a :href="`tel:${iceStore.data.school.referentPhone.replace(/\s+/g, '')}`" class="text-lg font-semibold text-primary hover:underline">
+                      {{ iceStore.data.school.referentPhone }}
+                    </a>
+                  </div>
                 </div>
-                <div v-if="iceStore.data.school?.referentPhone" class="flex items-center gap-2">
-                  <UIcon name="i-heroicons-phone" class="text-xl text-gray-400" />
-                  <a :href="`tel:${iceStore.data.school.referentPhone.replace(/\s+/g, '')}`" class="text-lg font-semibold text-primary hover:underline">
-                    {{ iceStore.data.school.referentPhone }}
-                  </a>
-                </div>
+              </div>
+
+              <!-- QR Code -->
+              <div v-if="iceStore.data.school?.referentPhone" class="flex-shrink-0">
+                <img :src="qrCode" alt="QR Code to call referent" class="w-24 h-24 border-2 border-gray-300 rounded-lg" />
               </div>
             </div>
           </div>
@@ -332,6 +354,18 @@ const printCard = () => {
   /* Spazi nella parte destra */
   #school-card-content :deep(.space-y-5 > *) {
     margin-top: 1.25rem !important;
+  }
+
+  /* QR Code in stampa */
+  #school-card-content :deep(.absolute.top-0.right-0) {
+    display: block !important;
+  }
+
+  #school-card-content :deep(.absolute.top-0.right-0 img) {
+    width: 100px !important;
+    height: 100px !important;
+    border: 2px solid #000000 !important;
+    border-radius: 8px !important;
   }
 
   /* Forza stampa colori */
