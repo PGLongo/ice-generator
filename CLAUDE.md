@@ -146,6 +146,59 @@ npm run preview  # Preview production build
 - `@nuxt/fonts`: Font optimization
 - `tailwindcss`: Utility-first CSS
 
+## Project Management
+
+### GitHub Projects & Scrum Workflow
+
+**CRITICAL: ALWAYS use the `github-scrum-master` agent for ALL project management tasks:**
+
+- ✅ **Tasks**: Creating, updating, prioritizing all work items
+- ✅ **Bugs**: Reporting, tracking, managing bug fixes  
+- ✅ **Epics**: Large features broken into smaller stories
+- ✅ **User Stories**: Feature requirements with acceptance criteria
+- ✅ **Sprint Planning**: Organizing backlog and sprint cycles
+- ✅ **Backlog Management**: Prioritizing and organizing work items
+
+**GitHub Project Board**: https://github.com/users/PGLongo/projects/1
+
+**Workflow Rules:**
+1. **Never manually create GitHub issues** - Always delegate to `github-scrum-master` agent
+2. **All work items must be tracked** in the GitHub project board
+3. **Use proper Scrum artifacts**: Epics → User Stories → Tasks → Bugs
+4. **Update project board status** as work progresses (Todo → In Progress → Done)
+5. **Include acceptance criteria** for all user stories
+6. **Estimate story points** for better sprint planning
+7. **Link related issues** (dependencies, sub-tasks, etc.)
+
+**MANDATORY github-scrum-master Agent Requirements:**
+1. **English Language**: Agent MUST write all GitHub content (titles, descriptions, comments) in English
+2. **Permission Required**: Agent MUST ask for permission before making ANY changes to GitHub (creating, updating, deleting issues/PRs)
+3. **Preview Before Permission**: Agent MUST show the complete title and content of the Scrum card/issue before asking for permission to proceed
+
+**Agent Usage Examples:**
+- "Create a user story for PDF export functionality"
+- "Add a bug report for QR code generation issues"  
+- "Update the sprint board with completed tasks"
+- "Prioritize the backlog for next sprint"
+
+**Expected Agent Behavior:**
+```
+Agent: I will create a new user story for PDF export functionality.
+
+Title: "Add PDF Export Feature for ICE Cards"
+Description: "As a user, I want to export my ICE information as a PDF file so that I can print it or store it digitally for offline access.
+
+Acceptance Criteria:
+- [ ] PDF export button available in main interface
+- [ ] Generated PDF includes all filled ICE data
+- [ ] PDF is optimized for printing (A4/Letter format)
+- [ ] PDF includes QR code for digital access
+
+Story Points: 5"
+
+May I proceed to create this user story in the GitHub project board?
+```
+
 ## Design Principles
 
 1. **User-Centric**: Simple, intuitive interface for all age groups
@@ -418,6 +471,8 @@ const iceStore = useIceStore()
 
 ### ⏳ Pending Features
 
+**IMPORTANT: Use `github-scrum-master` agent to convert these to proper GitHub issues**
+
 - ⏳ NFC size optimization
 - ⏳ PDF export option
 - ⏳ Template system (children, elderly, pets)
@@ -425,3 +480,9 @@ const iceStore = useIceStore()
 - ⏳ Cloud backup (optional)
 - ⏳ PWA features (offline support)
 - ⏳ Multiple profiles support
+
+**Backlog Management Note**: All pending features should be tracked as Epics or User Stories in the GitHub project board. Use the `github-scrum-master` agent to:
+1. Create epics for major features (PDF export, Template system, PWA features)
+2. Break down epics into user stories with acceptance criteria
+3. Prioritize backlog items based on user value and technical dependencies
+4. Estimate story points for sprint planning
