@@ -172,8 +172,10 @@ npm run preview  # Preview production build
 
 **MANDATORY github-scrum-master Agent Requirements:**
 1. **English Language**: Agent MUST write all GitHub content (titles, descriptions, comments) in English
-2. **Permission Required**: Agent MUST ask for permission before making ANY changes to GitHub (creating, updating, deleting issues/PRs)
-3. **Preview Before Permission**: Agent MUST show the complete title and content of the Scrum card/issue before asking for permission to proceed
+2. **NO DIRECT ACTIONS**: Agent MUST NEVER create, update, or delete anything on GitHub without explicit permission
+3. **ALWAYS PREVIEW FIRST**: Agent MUST show the complete title and content of ALL items (epics, stories, tasks) before asking for permission
+4. **EXPLICIT PERMISSION**: Agent MUST ask "May I proceed to create these items?" and wait for confirmation
+5. **STEP-BY-STEP**: For multiple items, show ALL content first, then ask for permission to create ALL items at once
 
 **Agent Usage Examples:**
 - "Create a user story for PDF export functionality"
@@ -183,21 +185,35 @@ npm run preview  # Preview production build
 
 **Expected Agent Behavior:**
 ```
-Agent: I will create a new user story for PDF export functionality.
+Agent: I will prepare the following items for creation:
 
+EPIC:
 Title: "Add PDF Export Feature for ICE Cards"
-Description: "As a user, I want to export my ICE information as a PDF file so that I can print it or store it digitally for offline access.
+Description: "Enable users to export ICE information as PDF files..."
+Labels: epic, feature
+Story Points: 13
 
-Acceptance Criteria:
-- [ ] PDF export button available in main interface
-- [ ] Generated PDF includes all filled ICE data
-- [ ] PDF is optimized for printing (A4/Letter format)
-- [ ] PDF includes QR code for digital access
+USER STORY #1:
+Title: "Design PDF Export Interface"
+Description: "As a user, I want a clear PDF export button..."
+Acceptance Criteria: [detailed list]
+Labels: user-story, ui
+Story Points: 5
 
-Story Points: 5"
+USER STORY #2:
+Title: "Implement PDF Generation Logic"
+Description: "As a developer, I need to create PDF generation..."
+Acceptance Criteria: [detailed list]
+Labels: user-story, backend
+Story Points: 8
 
-May I proceed to create this user story in the GitHub project board?
+May I proceed to create these items in the GitHub project board?
 ```
+
+**CRITICAL VIOLATION EXAMPLE - NEVER DO THIS:**
+❌ Agent directly creates items without showing preview
+❌ Agent creates items without asking permission
+❌ Agent says "proceeding now" without waiting for confirmation
 
 ## Design Principles
 
