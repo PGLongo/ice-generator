@@ -502,3 +502,5 @@ const iceStore = useIceStore()
 2. Break down epics into user stories with acceptance criteria
 3. Prioritize backlog items based on user value and technical dependencies
 4. Estimate story points for sprint planning
+
+- Prima di creare risorse usando github-scrum-master devi mostrarmi una anteprima e chiedermi conferma
