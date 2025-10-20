@@ -298,7 +298,7 @@ const generateAndDownloadPDF = async () => {
     >
       <template #title>
         <div class="flex items-center gap-3">
-          <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-amber-500" />
+          <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-amber-500" ></UIcon>
           <span>{{ $t('form.resetConfirmTitle') }}</span>
         </div>
       </template>

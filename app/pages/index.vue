@@ -24,11 +24,11 @@ useHead({
             <div class="animated-word final-word" data-word="SmICE">SmICE</div>
           </div>
         </div>
-        
+
         <p class="text-xl lg:text-2xl text-muted mb-8">
           {{ $t('landing.subtitle') }}
         </p>
-        
+
         <p class="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
           {{ $t('landing.description') }}
         </p>
@@ -43,7 +43,7 @@ useHead({
             {{ $t('landing.story') }}
           </h2>
         </div>
-        
+
         <UCard class="mb-8">
           <div class="text-center p-6">
             <div class="text-6xl mb-4">💡</div>
@@ -55,7 +55,7 @@ useHead({
             </p>
           </div>
         </UCard>
-        
+
         <!-- Use Cases Section -->
         <div class="mt-16">
           <div class="text-center mb-12">
@@ -66,7 +66,7 @@ useHead({
               {{ $t('landing.useCasesDescription') }}
             </p>
           </div>
-          
+
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Family Members -->
             <UCard class="text-center hover:shadow-lg transition-shadow">
@@ -76,7 +76,7 @@ useHead({
                 <p class="text-sm text-muted-foreground">{{ $t('landing.useCase1Description') }}</p>
               </div>
             </UCard>
-            
+
             <!-- Pets -->
             <UCard class="text-center hover:shadow-lg transition-shadow">
               <div class="p-6">
@@ -85,7 +85,7 @@ useHead({
                 <p class="text-sm text-muted-foreground">{{ $t('landing.useCase2Description') }}</p>
               </div>
             </UCard>
-            
+
             <!-- Luggage & Travel -->
             <UCard class="text-center hover:shadow-lg transition-shadow">
               <div class="p-6">
@@ -94,7 +94,7 @@ useHead({
                 <p class="text-sm text-muted-foreground">{{ $t('landing.useCase3Description') }}</p>
               </div>
             </UCard>
-            
+
             <!-- Valuable Objects -->
             <UCard class="text-center hover:shadow-lg transition-shadow">
               <div class="p-6">
@@ -103,7 +103,7 @@ useHead({
                 <p class="text-sm text-muted-foreground">{{ $t('landing.useCase4Description') }}</p>
               </div>
             </UCard>
-            
+
             <!-- Medical Equipment -->
             <UCard class="text-center hover:shadow-lg transition-shadow">
               <div class="p-6">
@@ -112,7 +112,7 @@ useHead({
                 <p class="text-sm text-muted-foreground">{{ $t('landing.useCase5Description') }}</p>
               </div>
             </UCard>
-            
+
             <!-- Work Equipment -->
             <UCard class="text-center hover:shadow-lg transition-shadow">
               <div class="p-6">
@@ -132,7 +132,7 @@ useHead({
         <h2 class="text-3xl lg:text-4xl font-bold mb-6">
           {{ $t('landing.whatIsIce') }}
         </h2>
-        
+
         <p class="text-lg text-muted-foreground max-w-3xl mx-auto">
           {{ $t('landing.whatIsIceDescription') }}
         </p>
@@ -145,17 +145,17 @@ useHead({
         <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16">
           {{ $t('landing.howItWorks') }}
         </h2>
-        
+
         <div class="grid md:grid-cols-3 gap-8">
           <UCard class="text-center">
             <template #header>
               <div class="flex justify-center">
                 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-                  <UIcon name="i-heroicons-document-text" class="w-8 h-8 text-primary" />
+                  <UIcon name="i-heroicons-document-text" class="w-8 h-8 text-primary" ></UIcon>
                 </div>
               </div>
             </template>
-            
+
             <div class="space-y-4">
               <h3 class="text-xl font-semibold">
                 {{ $t('landing.step1Title') }}
@@ -165,16 +165,16 @@ useHead({
               </p>
             </div>
           </UCard>
-          
+
           <UCard class="text-center">
             <template #header>
               <div class="flex justify-center">
                 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-                  <UIcon name="i-heroicons-credit-card" class="w-8 h-8 text-primary" />
+                  <UIcon name="i-heroicons-credit-card" class="w-8 h-8 text-primary" ></UIcon>
                 </div>
               </div>
             </template>
-            
+
             <div class="space-y-4">
               <h3 class="text-xl font-semibold">
                 {{ $t('landing.step2Title') }}
@@ -184,16 +184,16 @@ useHead({
               </p>
             </div>
           </UCard>
-          
+
           <UCard class="text-center">
             <template #header>
               <div class="flex justify-center">
                 <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-                  <UIcon name="i-heroicons-share" class="w-8 h-8 text-primary" />
+                  <UIcon name="i-heroicons-share" class="w-8 h-8 text-primary" ></UIcon>
                 </div>
               </div>
             </template>
-            
+
             <div class="space-y-4">
               <h3 class="text-xl font-semibold">
                 {{ $t('landing.step3Title') }}
@@ -213,35 +213,35 @@ useHead({
         <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16">
           {{ $t('landing.features') }}
         </h2>
-        
+
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div class="text-center space-y-4">
             <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mx-auto">
-              <UIcon name="i-heroicons-shield-check" class="w-6 h-6 text-green-600 dark:text-green-400" />
+              <UIcon name="i-heroicons-shield-check" class="w-6 h-6 text-green-600 dark:text-green-400" ></UIcon>
             </div>
             <h3 class="font-semibold">{{ $t('landing.feature1Title') }}</h3>
             <p class="text-sm text-muted-foreground">{{ $t('landing.feature1Description') }}</p>
           </div>
-          
+
           <div class="text-center space-y-4">
             <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mx-auto">
-              <UIcon name="i-heroicons-document-duplicate" class="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <UIcon name="i-heroicons-document-duplicate" class="w-6 h-6 text-blue-600 dark:text-blue-400" ></UIcon>
             </div>
             <h3 class="font-semibold">{{ $t('landing.feature2Title') }}</h3>
             <p class="text-sm text-muted-foreground">{{ $t('landing.feature2Description') }}</p>
           </div>
-          
+
           <div class="text-center space-y-4">
             <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center mx-auto">
-              <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-red-600 dark:text-red-400" />
+              <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-red-600 dark:text-red-400" ></UIcon>
             </div>
             <h3 class="font-semibold">{{ $t('landing.feature3Title') }}</h3>
             <p class="text-sm text-muted-foreground">{{ $t('landing.feature3Description') }}</p>
           </div>
-          
+
           <div class="text-center space-y-4">
             <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mx-auto">
-              <UIcon name="i-heroicons-wifi" class="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              <UIcon name="i-heroicons-wifi" class="w-6 h-6 text-purple-600 dark:text-purple-400" ></UIcon>
             </div>
             <h3 class="font-semibold">{{ $t('landing.feature4Title') }}</h3>
             <p class="text-sm text-muted-foreground">{{ $t('landing.feature4Description') }}</p>
@@ -257,12 +257,12 @@ useHead({
           <h2 class="text-3xl lg:text-4xl font-bold mb-6">
             {{ $t('landing.integration') }}
           </h2>
-          
+
           <p class="text-lg text-muted-foreground max-w-3xl mx-auto">
             {{ $t('landing.integrationDescription') }}
           </p>
         </div>
-        
+
         <div class="grid md:grid-cols-3 gap-8 mb-12">
           <!-- AirTag -->
           <UCard class="text-center hover:shadow-lg transition-shadow">
@@ -273,7 +273,7 @@ useHead({
                 </div>
               </div>
             </template>
-            
+
             <div class="space-y-4">
               <h3 class="text-xl font-semibold">
                 {{ $t('landing.airtag') }}
@@ -283,7 +283,7 @@ useHead({
               </p>
             </div>
           </UCard>
-          
+
           <!-- Samsung SmartTag -->
           <UCard class="text-center hover:shadow-lg transition-shadow">
             <template #header>
@@ -293,7 +293,7 @@ useHead({
                 </div>
               </div>
             </template>
-            
+
             <div class="space-y-4">
               <h3 class="text-xl font-semibold">
                 {{ $t('landing.smarttag') }}
@@ -303,7 +303,7 @@ useHead({
               </p>
             </div>
           </UCard>
-          
+
           <!-- Tile -->
           <UCard class="text-center hover:shadow-lg transition-shadow">
             <template #header>
@@ -313,7 +313,7 @@ useHead({
                 </div>
               </div>
             </template>
-            
+
             <div class="space-y-4">
               <h3 class="text-xl font-semibold">
                 {{ $t('landing.tile') }}
@@ -324,7 +324,7 @@ useHead({
             </div>
           </UCard>
         </div>
-        
+
         <!-- Integration Benefit -->
         <UCard class="bg-gradient-to-r from-primary/10 to-info/10 border-primary/20">
           <div class="text-center p-8">
@@ -346,11 +346,11 @@ useHead({
         <h2 class="text-3xl lg:text-4xl font-bold mb-6">
           {{ $t('landing.getStarted') }}
         </h2>
-        
+
         <p class="text-lg text-muted-foreground mb-8">
           {{ $t('landing.secureData') }}
         </p>
-        
+
         <UButton
           to="/form"
           size="xl"
@@ -366,7 +366,7 @@ useHead({
     <UContainer class="py-12 border-t">
       <div class="text-center space-y-4">
         <p class="text-sm text-muted-foreground">
-          {{ $t('landing.madeWith') }} 
+          {{ $t('landing.madeWith') }}
           <UButton
             to="https://nuxt.com"
             target="_blank"
@@ -387,7 +387,7 @@ useHead({
             Nuxt UI
           </UButton>
         </p>
-        
+
         <p class="text-sm text-muted-foreground">
           {{ $t('landing.openSource') }}
         </p>
@@ -517,7 +517,7 @@ useHead({
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  
+
   .final-word {
     background: linear-gradient(135deg, #34d399, #60a5fa, #a78bfa);
     background-clip: text;

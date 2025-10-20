@@ -78,7 +78,7 @@ const printCard = () => {
       </div>
 
       <!-- Loading state -->
-      <LoadingState v-if="isLoading" />
+      <LoadingState v-if="isLoading" ></LoadingState>
 
       <!-- Card biglietto scuola -->
       <UCard v-else-if="hasSchoolData || hasStudentData" id="school-card-content" class="school-card">
@@ -91,7 +91,7 @@ const printCard = () => {
                 :src="iceStore.data.school.logoUrl"
                 alt="School Logo"
                 class="w-24 h-24 object-contain"
-              >
+              />
             </div>
 
             <!-- Nome Scuola -->
@@ -102,7 +102,7 @@ const printCard = () => {
             <!-- Indirizzo -->
             <div v-if="iceStore.data.school.address || iceStore.data.school.city" class="mb-3">
               <div class="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300">
-                <UIcon name="i-heroicons-map-pin" class="text-lg" />
+                <UIcon name="i-heroicons-map-pin" class="text-lg" ></UIcon>
                 <div>
                   <p v-if="iceStore.data.school.address" class="text-base">
                     {{ iceStore.data.school.address }}
@@ -117,7 +117,7 @@ const printCard = () => {
             <!-- Telefono Scuola -->
             <div v-if="iceStore.data.school.phone" class="mb-2">
               <div class="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300">
-                <UIcon name="i-heroicons-phone" class="text-lg" />
+                <UIcon name="i-heroicons-phone" class="text-lg" ></UIcon>
                 <a :href="schoolPhoneLink" class="text-base font-semibold hover:text-primary">
                   {{ iceStore.data.school.phone }}
                 </a>
@@ -147,7 +147,7 @@ const printCard = () => {
               </p>
             </div>
 
-            <USeparator />
+            <USeparator ></USeparator>
 
             <!-- Referente con QR Code -->
             <div v-if="iceStore.data.school.referentName || iceStore.data.school.referentPhone" class="flex gap-4 items-start">
@@ -158,13 +158,13 @@ const printCard = () => {
                 </label>
                 <div class="space-y-2">
                   <div v-if="iceStore.data.school.referentName" class="flex items-center gap-2">
-                    <UIcon name="i-heroicons-user" class="text-xl text-gray-400" />
+                    <UIcon name="i-heroicons-user" class="text-xl text-gray-400" ></UIcon>
                     <p class="text-lg font-semibold text-gray-900 dark:text-white">
                       {{ iceStore.data.school.referentName }}
                     </p>
                   </div>
                   <div v-if="iceStore.data.school.referentPhone" class="flex items-center gap-2">
-                    <UIcon name="i-heroicons-phone" class="text-xl text-gray-400" />
+                    <UIcon name="i-heroicons-phone" class="text-xl text-gray-400" ></UIcon>
                     <a :href="referentPhoneLink" class="text-lg font-semibold text-primary hover:underline">
                       {{ iceStore.data.school.referentPhone }}
                     </a>
@@ -184,7 +184,7 @@ const printCard = () => {
       <!-- Messaggio nessun dato -->
       <UCard v-else>
         <div class="text-center py-12">
-          <UIcon name="i-heroicons-academic-cap" class="text-6xl text-gray-300 dark:text-gray-600 mb-4 mx-auto" />
+          <UIcon name="i-heroicons-academic-cap" class="text-6xl text-gray-300 dark:text-gray-600 mb-4 mx-auto" ></UIcon>
           <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             {{ $t('school.noData') }}
           </h3>

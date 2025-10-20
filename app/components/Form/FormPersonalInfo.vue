@@ -21,7 +21,7 @@ const selectedBloodType = computed({
     if (!bloodType) return undefined
     return bloodTypes.find(bt => bt.value === bloodType)
   },
-  set: (value: { label: string; value: string } | undefined) => {
+  set: (value: { label: string, value: string } | undefined) => {
     iceStore.data.bloodType = value?.value || undefined
   }
 })

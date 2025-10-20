@@ -19,7 +19,7 @@ const displayDescription = computed(() => props.description ?? t('common.loading
 <template>
   <UCard>
     <div class="text-center py-12">
-      <UIcon name="i-heroicons-arrow-path" class="text-6xl text-primary mb-4 mx-auto animate-spin" />
+      <UIcon name="i-heroicons-arrow-path" class="text-6xl text-primary mb-4 mx-auto animate-spin" ></UIcon>
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
         {{ displayMessage }}
       </h3>

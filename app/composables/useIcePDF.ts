@@ -1,4 +1,3 @@
-import jsPDF from 'jspdf'
 import type { IceData } from '@/types/ice'
 
 export const useIcePDF = () => {
@@ -6,6 +5,14 @@ export const useIcePDF = () => {
   const { generateShareableUrl } = useIceUrlShare()
 
   const generatePDF = async (data: IceData, includeQRCode: boolean = true): Promise<void> => {
+    // Ensure this only runs client-side
+    if (import.meta.server) {
+      console.warn('PDF generation is only available client-side')
+      return
+    }
+
+    // Dynamic import to avoid SSR issues
+    const { default: jsPDF } = await import('jspdf')
     const pdf = new jsPDF('p', 'mm', 'a4')
     const pageWidth = pdf.internal.pageSize.getWidth()
     const pageHeight = pdf.internal.pageSize.getHeight()
@@ -218,13 +225,12 @@ export const useIcePDF = () => {
           '• Condividere con soccorritori',
           '• Aggiornare i dati se necessario'
         ]
-        
+
         let instructionY = qrY + 5
         instructions.forEach(instruction => {
           pdf.text(instruction, qrX + qrSize + 10, instructionY)
           instructionY += 5
         })
-
       } catch (error) {
         console.error('Error generating QR code for PDF:', error)
       }
@@ -234,7 +240,7 @@ export const useIcePDF = () => {
     const footerY = pageHeight - 15
     pdf.setFontSize(8)
     pdf.setFont('helvetica', 'normal')
-    pdf.text(`Generato il ${new Date().toLocaleDateString('it-IT')} • Mantieni aggiornate queste informazioni`, 
+    pdf.text(`Generato il ${new Date().toLocaleDateString('it-IT')} • Mantieni aggiornate queste informazioni`,
       pageWidth / 2, footerY, { align: 'center' })
 
     // Save PDF

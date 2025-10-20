@@ -2,7 +2,7 @@
  * Composable to handle loading data from URL with loading state
  * @returns loading state and data ref
  */
-export function useDataLoader<T = any>() {
+export function useDataLoader<T = unknown>() {
   const route = useRoute()
   const { decodeData } = useIceUrlShare()
 
