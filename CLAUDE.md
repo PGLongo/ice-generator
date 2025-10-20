@@ -172,16 +172,27 @@ npm run preview  # Preview production build
 
 **MANDATORY github-scrum-master Agent Requirements:**
 1. **English Language**: Agent MUST write all GitHub content (titles, descriptions, comments) in English
-2. **NO DIRECT ACTIONS**: Agent MUST NEVER create, update, or delete anything on GitHub without explicit permission
-3. **ALWAYS PREVIEW FIRST**: Agent MUST show the complete title and content of ALL items (epics, stories, tasks) before asking for permission
-4. **EXPLICIT PERMISSION**: Agent MUST ask "May I proceed to create these items?" and wait for confirmation
-5. **STEP-BY-STEP**: For multiple items, show ALL content first, then ask for permission to create ALL items at once
+2. **AUTO-PROCEED**: Agent can create GitHub issues directly without asking permission (updated workflow)
+3. **PREVIEW FOR UPDATES**: When updating existing issues, show preview before modifying
+4. **CONTENT REVIEW**: Before implementing existing issues, review and confirm requirements with user
+5. **BATCH OPERATIONS**: For multiple items, create them efficiently in sequence
 
 **Agent Usage Examples:**
 - "Create a user story for PDF export functionality"
 - "Add a bug report for QR code generation issues"  
 - "Update the sprint board with completed tasks"
 - "Prioritize the backlog for next sprint"
+
+**API Development Standards:**
+When creating API-related user stories, the agent MUST follow these standards:
+- **RESTful Conventions**: Use plural nouns for endpoints (e.g., `/api/ices`, not `/api/ice`)
+- **HTTP Status Codes**: Follow standard codes (200, 201, 400, 404, 422, 500)
+- **Documentation**: All APIs must include Swagger/OpenAPI documentation
+- **Validation**: Implement request/response validation with appropriate libraries
+- **Storage**: Use IndexedDB via LocalForage (not traditional databases)
+- **Synchronization**: Mention Pinia store synchronization for reactive updates
+- **Error Handling**: Standardized error response format across all endpoints
+- **Security**: Include input sanitization and validation requirements
 
 **Expected Agent Behavior:**
 ```
@@ -502,5 +513,3 @@ const iceStore = useIceStore()
 2. Break down epics into user stories with acceptance criteria
 3. Prioritize backlog items based on user value and technical dependencies
 4. Estimate story points for sprint planning
-
-- Prima di creare risorse usando github-scrum-master devi mostrarmi una anteprima e chiedermi conferma
