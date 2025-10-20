@@ -70,7 +70,9 @@ export default defineNuxtPlugin({
     // Subscribe to store changes and save to LocalForage
     iceStore.$subscribe(async (_mutation, state) => {
       try {
-        await localforage.setItem('ice-data', state.data)
+        // Convert reactive proxy to plain object for serialization
+        const plainData = JSON.parse(JSON.stringify(state.data))
+        await localforage.setItem('ice-data', plainData)
       } catch (error) {
         console.error('Failed to save ICE data to LocalForage:', error)
 
