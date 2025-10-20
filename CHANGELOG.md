@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/PGLongo/ice-generator/compare/v0.1.2...v0.1.3) (2025-10-20)
+
+
+### Features
+
+* add github-scrum-master agent configuration ([32736ed](https://github.com/PGLongo/ice-generator/commit/32736edb2f82bdc7e11cbfe15ccd9bb832654d0e))
+* add i18n translations for URL data load toast notifications ([a9b1630](https://github.com/PGLongo/ice-generator/commit/a9b1630a382f41951df68217a4f4643c563b91c6))
+* add modal confirmation on delete ([c025db7](https://github.com/PGLongo/ice-generator/commit/c025db7314626e9724db5ce1eef317faba804eb9))
+* add strict TypeScript configuration ([45b7bec](https://github.com/PGLongo/ice-generator/commit/45b7bec16a72d50fca1ca3312690d41c65a03db5))
+* implement LocalForage migration for enhanced data persistence ([26b348a](https://github.com/PGLongo/ice-generator/commit/26b348a291edf4c9c981266c0cac50fcf2024442)), closes [#2](https://github.com/PGLongo/ice-generator/issues/2) [#3](https://github.com/PGLongo/ice-generator/issues/3) [#4](https://github.com/PGLongo/ice-generator/issues/4)
+* rebrand to SmICE with unified landing page and enhanced features ([91e45c5](https://github.com/PGLongo/ice-generator/commit/91e45c5d634ae5f34944b2fc8d99faaf6de265ce))
+
+
+### Bug Fixes
+
+* prevent duplicate toast notifications on URL data load ([0e64f58](https://github.com/PGLongo/ice-generator/commit/0e64f58403d2e1b4fc8d93d41f2a9fff9e250061))
+* replace UDivider with USeparator for Nuxt UI v4 compatibility ([ee88d48](https://github.com/PGLongo/ice-generator/commit/ee88d484fa351858b789000981049d7dd5d4ffae))
+
+
+### Code Refactoring
+
+* remove optional chaining for school object and simplify form bindings ([147283a](https://github.com/PGLongo/ice-generator/commit/147283a60f431e3bfa433ceed0c891c9497e2c48))
+* use useHref composable for phone links in school page ([03d48fd](https://github.com/PGLongo/ice-generator/commit/03d48fd8272dcb7455edcb4a2063ca77aa0140c7))
+
+
+### Documentation
+
+* add github-scrum-master agent workflow documentation ([dd74438](https://github.com/PGLongo/ice-generator/commit/dd744382a148ddbecefb51871a439e86682bae56))
+* enforce strict permission requirements for github-scrum-master agent ([1c0e3fa](https://github.com/PGLongo/ice-generator/commit/1c0e3fa75aa5941c8d4526e80d7d712712e31a96))
+* update CLAUDE.md with cleaner code principles ([64b7b69](https://github.com/PGLongo/ice-generator/commit/64b7b6951a0c3ef63066d5f02a9e9e44e752577e))
+
 ### [0.1.2](https://github.com/PGLongo/ice-generator/compare/v0.1.1...v0.1.2) (2025-10-17)
 
 
