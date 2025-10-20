@@ -4,12 +4,13 @@ import { useIceStore } from '@/stores/ice'
 const { t } = useI18n()
 const toast = useToast()
 const iceStore = useIceStore()
+
 const { copyShareableUrl, getEncodedSize, encodeData, generateShareableUrl } = useIceUrlShare()
 const { generateQRCode } = useQRCode()
 const { generatePDF } = useIcePDF()
 
-// Reset confirmation modal state
-const isResetModalOpen = ref(false)
+// Reset dialog reference
+const resetDialog = ref()
 
 // Note: Data loading from URL is handled by the load-from-url.client.ts plugin
 
@@ -95,22 +96,18 @@ const generateShareLink = async () => {
 
 // Open reset confirmation modal
 const openResetModal = () => {
-  isResetModalOpen.value = true
+  resetDialog.value?.show()
 }
 
 // Reset form - clear store (after confirmation)
 const handleResetConfirm = () => {
   iceStore.clearData()
-  isResetModalOpen.value = false
+  resetDialog.value?.hide()
   toast.add({
     title: t('form.success'),
     description: t('form.resetSuccess'),
     color: 'success'
   })
-}
-
-const handleResetCancel = () => {
-  isResetModalOpen.value = false
 }
 
 // Go to preview page with data in query params (compressed)
@@ -292,13 +289,12 @@ const generateAndDownloadPDF = async () => {
 
     <!-- Reset Confirmation Modal -->
     <DialogCancel
-      v-model:open="isResetModalOpen"
+      ref="resetDialog"
       @confirm="handleResetConfirm"
-      @cancel="handleResetCancel"
     >
       <template #title>
         <div class="flex items-center gap-3">
-          <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-amber-500" ></UIcon>
+          <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-amber-500"></UIcon>
           <span>{{ $t('form.resetConfirmTitle') }}</span>
         </div>
       </template>

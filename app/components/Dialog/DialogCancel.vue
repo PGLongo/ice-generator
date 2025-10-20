@@ -1,7 +1,9 @@
 <script setup lang="ts">
-const props = defineProps<{
+interface Props {
   open?: boolean
-}>()
+}
+
+defineProps<Props>()
 
 const emit = defineEmits<{
   'update:open': [value: boolean]
@@ -9,55 +11,57 @@ const emit = defineEmits<{
   cancel: []
 }>()
 
-const isOpen = computed({
-  get: () => props.open ?? false,
-  set: (value) => emit('update:open', value)
-})
+const { t } = useI18n()
 
 const handleConfirm = () => {
   emit('confirm')
-  isOpen.value = false
 }
 
 const handleCancel = () => {
   emit('cancel')
-  isOpen.value = false
 }
+
+// Reference to DialogBase for method forwarding
+const dialogBaseRef = ref()
+
+// Exposed methods for imperative usage
+const show = () => {
+  dialogBaseRef.value?.show()
+}
+
+const hide = () => {
+  dialogBaseRef.value?.hide()
+}
+
+defineExpose({
+  show,
+  hide
+})
 </script>
 
 <template>
-  <UModal v-model:open="isOpen">
-    <template #header>
-      <slot name="title">
-        {{ $t('dialog.confirmDelete') }}
-      </slot>
-    </template>
-
-    <template #body>
+  <DialogBase
+    ref="dialogBaseRef"
+    :open="open"
+    @update:open="(value: boolean) => emit('update:open', value)"
+    :title="t('dialog.confirmDelete')"
+    :confirm-text="t('dialog.delete')"
+    :cancel-text="t('dialog.cancel')"
+    confirm-color="error"
+    @confirm="handleConfirm"
+    @cancel="handleCancel"
+  >
+    <template #message>
       <slot name="message">
         <div class="space-y-2">
-          <p>{{ $t('dialog.confirmDeleteMessage') }}</p>
-          <p class="text-sm text-gray-500">{{ $t('dialog.confirmDeleteMessageWarning') }}</p>
+          <p>{{ t('dialog.confirmDeleteMessage') }}</p>
+          <p class="text-sm text-gray-500">{{ t('dialog.confirmDeleteMessageWarning') }}</p>
         </div>
       </slot>
     </template>
 
-    <template #footer="{ close }">
-      <div class="flex justify-end gap-3">
-        <UButton
-          color="neutral"
-          variant="outline"
-          @click="() => { handleCancel(); close() }"
-        >
-          {{ $t('dialog.cancel') }}
-        </UButton>
-        <UButton
-          color="error"
-          @click="() => { handleConfirm(); close() }"
-        >
-          {{ $t('dialog.delete') }}
-        </UButton>
-      </div>
+    <template #title>
+      <slot name="title" ></slot>
     </template>
-  </UModal>
+  </DialogBase>
 </template>
