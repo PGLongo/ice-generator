@@ -1,15 +1,16 @@
-# CLAUDE.md - ICE Generator Project Documentation
+# CLAUDE.md - SmICE Project Documentation
 
 ## Project Overview
 
-ICE Generator is a web application built with Nuxt 4 and Nuxt UI that allows users to create, edit, and export emergency contact information (ICE - In Case of Emergency) as standalone HTML pages designed to be stored on NFC tags.
+SmICE is a smart emergency contact platform that unifies ICE (In Case of Emergency) information with modern location tracking technology. Built with Nuxt 4 and Nuxt UI, it bridges the gap between location tracking devices (AirTag, Samsung SmartTag, Tile) and emergency contact information through QR codes, NFC tags, and PDF generation.
 
 ## Project Goals
 
-1. **Create ICE Forms** - Provide a user-friendly interface to input emergency contact information and critical medical details
-2. **Edit & Persist Data** - Allow users to modify their ICE data with persistent storage (localStorage)
-3. **Export to HTML** - Generate standalone, optimized HTML pages that can be stored on NFC tags
-4. **NFC Optimization** - Ensure exported HTML is compact and fits within typical NFC tag memory constraints (2-8KB)
+1. **Smart Integration** - Bridge the gap between location tracking and emergency contact information
+2. **Universal Applications** - Support children, pets, luggage, valuables, elderly care use cases
+3. **PDF Generation** - Create professional emergency cards with embedded QR codes
+4. **NFC Optimization** - Generate compressed URLs optimized for NFC tag storage limits
+5. **Direct Communication** - Enable direct calling/emailing from QR code scans using tel:/mailto: protocols
 
 ## Technical Stack
 
@@ -24,12 +25,13 @@ ICE Generator is a web application built with Nuxt 4 and Nuxt UI that allows use
 ## Project Structure
 
 ```
-ice-generator/
+smice/
 ├── app/
 │   ├── app.vue                          # Main application layout (header, footer, navigation)
 │   ├── pages/
-│   │   ├── index.vue                    # Main form page
-│   │   ├── preview.vue                  # HTML preview page
+│   │   ├── index.vue                    # Landing page with animated hero section
+│   │   ├── form.vue                     # Main ICE form page (moved from index)
+│   │   ├── preview.vue                  # Data preview page with iframe
 │   │   └── school.vue                   # School card page
 │   ├── components/
 │   │   ├── Form/
@@ -38,10 +40,10 @@ ice-generator/
 │   │   │   ├── FormEmergencyContacts.vue # Contacts list with add/remove
 │   │   │   ├── FormAdditionalInfo.vue   # Additional info form section
 │   │   │   └── FormSchoolInfo.vue       # School info form section
-│   │   ├── AppLogo.vue                  # Application logo
-│   │   └── TemplateMenu.vue             # Template selector menu
+│   │   ├── AppLogo.vue                  # SmICE logo with subtitle
+│   │   └── TemplateMenu.vue             # App navigation menu
 │   ├── composables/
-│   │   ├── useIceExport.ts              # HTML generation and export logic
+│   │   ├── useIcePDF.ts                 # PDF generation with embedded QR codes
 │   │   ├── useIceUrlShare.ts            # URL encoding/decoding with compression
 │   │   ├── useQRCode.ts                 # QR code generation (static and reactive)
 │   │   └── useHref.ts                   # Format hrefs (tel:, mailto:)
@@ -56,11 +58,11 @@ ice-generator/
 │           └── main.css                 # Global styles
 ├── i18n/
 │   └── locales/
-│       ├── en.json                      # English translations
-│       └── it.json                      # Italian translations
+│       ├── en.json                      # English translations (with landing section)
+│       └── it.json                      # Italian translations (with landing section)
 ├── public/                              # Static assets
 ├── nuxt.config.ts                       # Nuxt configuration
-├── package.json                         # Project dependencies
+├── package.json                         # Project dependencies (name: "smice")
 ├── tsconfig.json                        # TypeScript configuration
 ├── README.md                            # User-facing documentation
 └── CLAUDE.md                            # This file - AI assistant context
@@ -96,20 +98,18 @@ Fields to include:
 - Form validation with Nuxt UI form components
 - Import/Export data as JSON for backup
 
-### 3. HTML Export
-- Generate standalone HTML with:
-  - Inline CSS (no external dependencies)
-  - Responsive design
-  - Accessible and readable in emergency situations
-  - Minimal file size for NFC compatibility
-- Include QR code option for additional data storage
-- Support multiple languages
+### 3. Smart Export System
+- **PDF Generation**: Professional emergency cards with embedded QR codes using jsPDF
+- **NFC Links**: Compressed URLs optimized for NFC tag storage constraints
+- **QR Codes**: Enhanced with tel:/mailto: protocols for direct calling/emailing
+- **Location Tracker Integration**: Compatible with AirTag, Samsung SmartTag2, Tile
+- **Multi-format Support**: Covers all use cases from children to pets to valuables
 
-### 4. Preview & Testing
-- Live preview of generated HTML
-- File size indicator
-- NFC compatibility checker
-- Print-friendly view
+### 4. SmICE Landing & Preview
+- **Animated Landing Page**: Hero section showing ICE + NFC + QR + Tags → SmICE unity
+- **Nicolò's Story**: Real-world inspiration case study with universal applications
+- **Live Preview**: Iframe-based preview with real-time updates from Pinia store
+- **Use Case Examples**: Children, pets, luggage, elderly care, valuables
 
 ## NFC Tag Considerations
 
@@ -118,11 +118,11 @@ Fields to include:
 - **NTAG216**: 888 bytes user memory
 - **MIFARE Classic 1K**: ~700 bytes user memory
 
-The generated HTML should be:
-- Minified and compressed
-- Use short variable names
-- Inline all styles
-- Consider storing minimal data with link to full page
+SmICE optimizes for NFC storage by:
+- **URL Compression**: Gzip compression using pako library
+- **Smart Routing**: Direct links to forms with pre-filled data
+- **Fallback Strategy**: QR codes for larger data when NFC limits exceeded
+- **Progressive Enhancement**: Works with any NFC-enabled device or app
 
 ## Development Commands
 
@@ -139,6 +139,12 @@ npm run preview  # Preview production build
 - `nuxt`: ^4.1.3
 - `vue`: ^3.5.22
 - `@nuxt/ui`: ^4.0.1
+
+### SmICE-Specific Dependencies
+- `jspdf`: PDF generation for emergency cards
+- `qrcode`: QR code generation with tel:/mailto: protocols
+- `pako`: URL compression for NFC optimization
+- `@nuxtjs/i18n`: Complete internationalization (EN/IT)
 
 ### UI Dependencies (via @nuxt/ui)
 - `@nuxtjs/color-mode`: Dark mode support
@@ -454,31 +460,31 @@ const iceStore = useIceStore()
 - ✅ Multi-language support (EN/IT)
 - ✅ Responsive layout (mobile/tablet/desktop)
 
-#### HTML Export
-- ✅ Standalone HTML generation with inline CSS
-- ✅ Emergency-optimized design:
-  - Large, prominent name display at top
-  - Primary/Secondary contacts with prominent call buttons
-  - Green call-to-action buttons with phone numbers
-  - Email buttons with mailto: links
-  - Clear visual hierarchy
-- ✅ Clickable phone numbers (`tel:` links)
-- ✅ Clickable email addresses (`mailto:` links)
-- ✅ Nuxt UI-inspired styling (Public Sans font, matching colors)
-- ✅ Conditional sections (only shows filled data)
-- ✅ Print-friendly CSS
-- ✅ Mobile-optimized layout
+#### SmICE Export System (v0.1.3)
+- ✅ **PDF Generation** - Professional emergency cards with embedded QR codes using jsPDF
+- ✅ **NFC Optimization** - Compressed URLs using pako for tag storage limits
+- ✅ **Enhanced QR Codes** - tel:/mailto: protocols for direct calling/emailing
+- ✅ **Location Tracker Integration** - AirTag, Samsung SmartTag2, Tile compatibility information
+- ✅ **Removed HTML Export** - Replaced with more practical PDF + QR + NFC solution
+- ✅ Emergency-optimized design maintained in PDF format
+- ✅ Direct communication functionality from QR scans
 
-#### Preview System
-- ✅ Live preview page (`/preview`)
-- ✅ Real-time updates from store
-- ✅ Download HTML from preview
-- ✅ Refresh preview functionality
-- ✅ Iframe with auto-height adjustment
+#### SmICE Landing & Preview System (v0.1.3)
+- ✅ **Landing Page** - Complete redesign with animated hero section (index.vue)
+- ✅ **Animated Transition** - ICE + NFC + QR + Tags → SmICE unity visualization
+- ✅ **Nicolò's Story** - Real-world inspiration with universal use case examples
+- ✅ **Form Separation** - Main form moved to /form route for better UX
+- ✅ **Live Preview** - Iframe-based preview with real-time store updates
+- ✅ **Use Case Integration** - Children, pets, luggage, elderly, valuables
+- ✅ **Location Tracker Info** - AirTag, Samsung SmartTag2, Tile integration guides
 
-#### User Experience
+#### SmICE User Experience (v0.1.3)
+- ✅ **Complete Rebranding** - ICE Generator → SmICE across all components
+- ✅ **Enhanced Navigation** - TemplateMenu → proper app navigation structure
+- ✅ **Updated Branding** - AppLogo with "ICE + NFC + QR + Tags" subtitle
+- ✅ **Package Rename** - package.json name changed to "smice"
+- ✅ **Comprehensive i18n** - Landing page translations in EN/IT
 - ✅ Dark mode support (via Nuxt UI)
-- ✅ Language switcher (EN/IT)
 - ✅ Reset form functionality
 - ✅ Toast notifications for actions
 - ✅ Loading states and error handling
@@ -496,20 +502,23 @@ const iceStore = useIceStore()
 - ✅ Download QR code as PNG from main form
 - ✅ Single library dependency: `qrcode` (8k GitHub stars)
 
-### ⏳ Pending Features
+### ⏳ Pending Features (v0.1.4+)
 
 **IMPORTANT: Use `github-scrum-master` agent to convert these to proper GitHub issues**
 
-- ⏳ NFC size optimization
-- ⏳ PDF export option
-- ⏳ Template system (children, elderly, pets)
-- ⏳ Data encryption option
-- ⏳ Cloud backup (optional)
-- ⏳ PWA features (offline support)
-- ⏳ Multiple profiles support
+- ⏳ **Photo Integration** - Medical/ID card photos in PDFs
+- ⏳ **Template System** - Dedicated pet, elderly, child templates
+- ⏳ **Emergency Notifications** - Alert system integration
+- ⏳ **Medical Templates** - Pre-filled condition/medication templates
+- ⏳ **Data Encryption** - Optional privacy enhancement
+- ⏳ **Cloud Backup** - Privacy-focused optional sync
+- ⏳ **PWA Features** - Offline support and mobile app capabilities
+- ⏳ **Analytics** - Usage insights while maintaining privacy
+- ⏳ **Additional Languages** - Beyond EN/IT support
 
 **Backlog Management Note**: All pending features should be tracked as Epics or User Stories in the GitHub project board. Use the `github-scrum-master` agent to:
-1. Create epics for major features (PDF export, Template system, PWA features)
+1. Create epics for major features (Photo integration, Template system, PWA features)
 2. Break down epics into user stories with acceptance criteria
 3. Prioritize backlog items based on user value and technical dependencies
 4. Estimate story points for sprint planning
+5. Focus on universal appeal beyond just children use cases
