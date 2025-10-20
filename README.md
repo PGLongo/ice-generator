@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚨 ICE Generator
+# 🚨 SmICE
 
 ### Emergency Contact Information Made Easy
 

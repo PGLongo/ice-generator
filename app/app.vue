@@ -18,8 +18,8 @@ useHead({
   }
 })
 
-const title = 'ICE Generator'
-const description = 'Create emergency contact information cards for NFC tags. Secure your emergency information for quick access.'
+const title = 'SmICE'
+const description = 'Smart Integration: ICE + NFC + QR + Tags. The unified solution for emergency contact information.'
 
 useSeoMeta({
   title,
@@ -54,7 +54,7 @@ useSeoMeta({
           to="https://github.com/PGLongo/ice-generator"
           target="_blank"
           icon="i-simple-icons-github"
-          color="gray"
+          color="neutral"
           variant="ghost"
           aria-label="GitHub Repository"
         ></UButton>
@@ -70,7 +70,7 @@ useSeoMeta({
     <UFooter class="print:hidden">
       <template #left>
         <p class="text-sm text-muted">
-          ICE Generator v{{ appVersion }} • {{ new Date().getFullYear() }}
+          SmICE v{{ appVersion }} • {{ new Date().getFullYear() }}
         </p>
       </template>
 

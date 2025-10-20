@@ -58,7 +58,7 @@ const printCard = () => {
         </div>
         <div class="flex gap-3">
           <UButton
-            to="/"
+            to="/form"
             color="neutral"
             variant="outline"
             icon="i-heroicons-arrow-left"
@@ -191,7 +191,7 @@ const printCard = () => {
           <p class="text-gray-500 dark:text-gray-400 mb-6">
             {{ $t('school.noDataDescription') }}
           </p>
-          <UButton to="/" icon="i-heroicons-arrow-left">
+          <UButton to="/form" icon="i-heroicons-arrow-left">
             {{ $t('school.goToForm') }}
           </UButton>
         </div>
