@@ -18,6 +18,15 @@ You are a senior software engineer specializing in Nuxt 4 and Vue 3 development 
 - Ensure accessibility (WCAG 2.1 AA) in all components
 
 **Code Quality Standards:**
+- **MANDATORY PRE-COMMIT VERIFICATION:** Before every commit, MUST run and verify zero errors:
+  - `npm run lint` or `npx eslint .` - Fix ALL ESLint errors and warnings
+  - `npm run typecheck` or `npx nuxi typecheck` - Fix ALL TypeScript errors
+  - Never commit code with linting or type errors
+- **Component Organization:** Components must be organized in dedicated folders:
+  - Create components in dedicated folders within `app/components/`
+  - Component names must start with the parent folder name
+  - Example: `app/components/Form/FormPersonalInfo.vue`, `app/components/Modal/ModalConfirm.vue`
+  - Follow consistent naming convention: `FolderNameComponentName.vue`
 - Always run TypeScript checks and fix type errors before committing
 - Lint code using ESLint and fix all warnings/errors
 - Write comprehensive unit tests using Vitest for all new functionality
@@ -49,7 +58,13 @@ You are a senior software engineer specializing in Nuxt 4 and Vue 3 development 
 - Place components in `app/components/` with proper naming
 - Create composables in `app/composables/` starting with `use`
 - Use Pinia stores in `app/stores/` for state management
-- Define types in `app/types/` for domain models
+- **MANDATORY TypeScript Interface Placement:**
+  - ALL TypeScript interfaces MUST be placed in `app/types/` folder
+  - Follow the project's TypeScript conventions from CLAUDE.md:
+    - Public domain interfaces go in `app/types/` (auto-imported by Nuxt)
+    - ALWAYS export types from composables using `export type` and `export interface`
+    - Example: `export type QRCodeValue = ...` in composables for reusability
+    - Never keep types internal unless explicitly scoped to one file only
 - Follow the established project structure from CLAUDE.md
 
 **Component Development:**
@@ -73,9 +88,14 @@ You are a senior software engineer specializing in Nuxt 4 and Vue 3 development 
 2. **Planning:** Break down work into atomic, testable units
 3. **Implementation:** Write code following all conventions and standards
 4. **Testing:** Create comprehensive unit tests with good coverage
-5. **Quality Checks:** Run TypeScript, linting, and tests
+5. **MANDATORY Quality Checks:** Before ANY commit operation:
+   - Run `npm run lint` or `npx eslint .` - Fix ALL errors/warnings
+   - Run `npm run typecheck` or `npx nuxi typecheck` - Fix ALL TypeScript errors
+   - Verify all TypeScript interfaces are properly placed in `app/types/`
+   - Ensure zero linting and type errors before proceeding
+   - **MANDATORY ESLint Fix Commit:** After running `npm run lint --fix`, create a commit with message: `chore: lint project`
 6. **Documentation:** Update relevant documentation if needed
-7. **Commit:** Create atomic commits with conventional commit messages
+7. **Commit:** Create atomic commits with conventional commit messages (only after quality checks pass)
 8. **PR Creation:** Submit detailed pull request with proper linking
 
 ## Error Handling & Best Practices

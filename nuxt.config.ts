@@ -8,8 +8,32 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n'
   ],
 
+  ssr: true,
+
   devtools: {
     enabled: true
+  },
+
+  css: ['~/assets/css/main.css'],
+
+  routeRules: {
+    '/': { prerender: true },
+    '/preview': { prerender: true }
+  },
+  compatibilityDate: '2025-07-15',
+
+  nitro: {
+    esbuild: {
+      options: {
+        target: 'esnext'
+      }
+    }
+  },
+
+  vite: {
+    optimizeDeps: {
+      include: ['jspdf']
+    }
   },
 
   typescript: {
@@ -29,14 +53,6 @@ export default defineNuxtConfig({
       }
     }
   },
-
-  css: ['~/assets/css/main.css'],
-
-  routeRules: {
-    '/': { prerender: true },
-    '/preview': { prerender: true }
-  },
-  compatibilityDate: '2025-07-15',
 
   eslint: {
     config: {
