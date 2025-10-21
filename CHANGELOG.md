@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/PGLongo/ice-generator/compare/v0.1.3...v0.1.4) (2025-10-21)
+
+
+### Features
+
+* implement imperative API for dialogs with show/hide methods ([c52beb9](https://github.com/PGLongo/ice-generator/commit/c52beb958c074f30ff2a4f82ffde5068782ec525))
+
+
+### Bug Fixes
+
+* bot ([4bac31b](https://github.com/PGLongo/ice-generator/commit/4bac31bd5f814a0168b777516ce54b35c5aad816))
+* resolve LocalForage persistence issues with reactive objects ([b1d8e40](https://github.com/PGLongo/ice-generator/commit/b1d8e40df12405024d3fc1b2f30c0a3efb8d7afb))
+
+
+### Documentation
+
+* update README and CLAUDE.md for SmICE v0.1.3 launch ([e7e5a70](https://github.com/PGLongo/ice-generator/commit/e7e5a704246768f762acbf438e26d418776ffadf))
+
 ### [0.1.3](https://github.com/PGLongo/ice-generator/compare/v0.1.2...v0.1.3) (2025-10-20)
 
 
