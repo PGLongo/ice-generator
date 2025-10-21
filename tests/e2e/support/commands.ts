@@ -20,37 +20,38 @@ import { VIEWPORTS, type ViewportName } from './e2e'
 
 // Command to fill the SmICE form with sample data
 Cypress.Commands.add('fillSmiceForm', () => {
-  // Personal Information
-  cy.get('input[name="name"]').type('Mario Rossi')
-  cy.get('input[name="age"]').type('35')
-  cy.get('input[name="bloodType"]').type('A+')
-  cy.get('input[name="city"]').type('Milano')
-  cy.get('input[name="address"]').type('Via Roma 123')
+  // Personal Information section
+  cy.get('[name="name"] input').type('Mario Rossi')
+  cy.get('[name="age"] input').type('35')
+  cy.get('[name="bloodType"] button').click()
+  cy.contains('A+').click()
+  cy.get('[name="city"] input').type('Milano')
+  cy.get('[name="address"] input').type('Via Roma 123')
 
-  // Medical Information
-  cy.get('textarea[name="allergies"]').type('Penicillina, Polline')
-  cy.get('textarea[name="medicalConditions"]').type('Diabete tipo 2')
-  cy.get('textarea[name="currentMedications"]').type('Metformina 500mg')
-  cy.get('textarea[name="medicalNotes"]').type('Controlli glicemici regolari')
+  // Medical Information section
+  cy.get('[name="allergies"] textarea').type('Penicillina, Polline')
+  cy.get('[name="medicalConditions"] textarea').type('Diabete tipo 2')
+  cy.get('[name="currentMedications"] textarea').type('Metformina 500mg')
+  cy.get('[name="medicalNotes"] textarea').type('Controlli glicemici regolari')
 
-  // Emergency Contacts
-  cy.get('[data-cy="add-emergency-contact"]').click()
-  cy.get('input[name="emergencyContacts.0.name"]').type('Anna Rossi')
-  cy.get('input[name="emergencyContacts.0.relationship"]').type('Moglie')
-  cy.get('input[name="emergencyContacts.0.phone"]').type('+39 333 1234567')
-  cy.get('input[name="emergencyContacts.0.email"]').type('anna.rossi@email.com')
+  // Emergency Contacts section
+  cy.contains('Aggiungi Contatto').click()
+  cy.get('[data-cy="emergency-contact-0"] [name="name"] input').type('Anna Rossi')
+  cy.get('[data-cy="emergency-contact-0"] [name="relationship"] input').type('Moglie')
+  cy.get('[data-cy="emergency-contact-0"] [name="phone"] input').type('+39 333 1234567')
+  cy.get('[data-cy="emergency-contact-0"] [name="email"] input').type('anna.rossi@email.com')
 
-  // Additional Information
-  cy.get('input[name="primaryDoctor"]').type('Dr. Giovanni Bianchi')
-  cy.get('textarea[name="insuranceInfo"]').type('Assicurazione sanitaria privata XYZ')
-  cy.get('textarea[name="specialInstructions"]').type('In caso di emergenza contattare immediatamente il medico')
+  // Additional Information section
+  cy.get('[name="primaryDoctor"] input').type('Dr. Giovanni Bianchi')
+  cy.get('[name="insuranceInfo"] textarea').type('Assicurazione sanitaria privata XYZ')
+  cy.get('[name="specialInstructions"] textarea').type('In caso di emergenza contattare immediatamente il medico')
 
-  // School Information
-  cy.get('input[name="school.name"]').type('Scuola Primaria Manzoni')
-  cy.get('input[name="school.address"]').type('Via Manzoni 45, Milano')
-  cy.get('input[name="school.phone"]').type('+39 02 1234567')
-  cy.get('input[name="school.referent"]').type('Maestra Elena Verdi')
-  cy.get('input[name="school.referentPhone"]').type('+39 333 7654321')
+  // School Information section
+  cy.get('[name="schoolName"] input').type('Scuola Primaria Manzoni')
+  cy.get('[name="schoolAddress"] input').type('Via Manzoni 45, Milano')
+  cy.get('[name="schoolPhone"] input').type('+39 02 1234567')
+  cy.get('[name="schoolReferent"] input').type('Maestra Elena Verdi')
+  cy.get('[name="schoolReferentPhone"] input').type('+39 333 7654321')
 })
 
 // Command to take screenshots at all resolutions
