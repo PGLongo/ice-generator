@@ -14,7 +14,10 @@
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
-    "release:major": "standard-version --release-as major"
+    "release:major": "standard-version --release-as major",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:screenshots": "cypress run --spec 'tests/e2e/specs/smice-screenshots.cy.ts' --headless"
   },
   "dependencies": {
     "@iconify-json/heroicons": "^1.2.3",
@@ -36,9 +39,12 @@
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "@faker-js/faker": "^10.1.0",
     "@nuxt/eslint": "^1.9.0",
     "@types/localforage": "^0.0.33",
     "@types/qrcode": "^1.5.5",
+    "cypress": "^15.5.0",
     "eslint": "^9.37.0",
     "husky": "^9.1.7",
     "standard-version": "^9.5.0",
