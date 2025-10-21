@@ -50,11 +50,19 @@ npm run cypress:open
 
 #### `cy.fillSmiceForm()`
 Automatically fills all form fields with realistic sample data:
-- Personal Information (name, age, blood type, city, address)
-- Medical Information (allergies, conditions, medications, notes)
-- Emergency Contacts (one complete contact)
-- Additional Information (doctor, insurance, instructions)
-- School Information (school details and referent)
+- Personal Information (Mario Rossi, 35 years, A+, Milano, Via Roma 123)
+- Medical Information (allergies: Penicillina/Polline, conditions: Diabete tipo 2, medications: Metformina 500mg)
+- Emergency Contacts (Anna Rossi, Moglie, +39 333 1234567)
+- Additional Information (Dr. Giovanni Bianchi, insurance info, emergency instructions)
+- School Information (real data from Istituto Contubernio D'Albertis, Genova)
+
+#### `cy.fillSchoolInfo()`
+Fills school information section with real data from Genova:
+- School Name: "Istituto Scolastico Paritario Contubernio D'Albertis Scuola dell'infanzia"
+- Address: "Via Amarena 11, Genova"
+- Phone: "010 503306"
+- Referent: "Maestra Valentina" (+39 3206290224)
+- Section: "BLU"
 
 #### `cy.takeResponsiveScreenshots(name)`
 Captures screenshots at all three resolutions with consistent naming:

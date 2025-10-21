@@ -15,6 +15,11 @@ declare global {
        * Take screenshots at all standard resolutions
        */
       takeResponsiveScreenshots(name: string): Chainable<void>
+
+      /**
+       * Fill school information with real data
+       */
+      fillSchoolInfo(): Chainable<void>
     }
   }
 }
@@ -35,9 +40,20 @@ Cypress.Commands.add('fillSmiceForm', () => {
     }
   })
 
-  // Fill any other visible inputs
+  // Fill any other visible inputs including school data
   cy.get('input[type="text"]').then($inputs => {
-    const texts = ['Milano', 'Via Roma 123', 'Dr. Giovanni Bianchi']
+    const texts = [
+      'Milano', 
+      'Via Roma 123', 
+      'Dr. Giovanni Bianchi',
+      'Istituto Scolastico Paritario "Contubernio D\'Albertis" Scuola dell\'infanzia',
+      'Via Amarena 11',
+      'Genova',
+      '010 503306',
+      'Maestra Valentina',
+      '+39 3206290224',
+      'BLU'
+    ]
     $inputs.each((index, input) => {
       if (index < texts.length && index > 1) { // Skip first two already filled
         cy.wrap(input).type(texts[index - 2], { force: true })
@@ -65,6 +81,36 @@ Cypress.Commands.add('fillSmiceForm', () => {
         })
       })
     }
+  })
+
+  // Fill school information with specific command
+  cy.fillSchoolInfo()
+})
+
+// Command to fill school information with real data
+Cypress.Commands.add('fillSchoolInfo', () => {
+  const schoolData = {
+    name: 'Istituto Scolastico Paritario "Contubernio D\'Albertis" Scuola dell\'infanzia',
+    address: 'Via Amarena 11',
+    city: 'Genova', 
+    phone: '010 503306',
+    referentName: 'Maestra Valentina',
+    referentPhone: '+39 3206290224',
+    section: 'BLU'
+  }
+
+  // Try to fill school fields by looking for school-related inputs
+  cy.get('input').then($inputs => {
+    const schoolTexts = Object.values(schoolData)
+    let schoolIndex = 0
+    
+    $inputs.each((index, input) => {
+      // Try to fill the last inputs (likely school fields)
+      if (index >= Math.max(0, $inputs.length - schoolTexts.length) && schoolIndex < schoolTexts.length) {
+        cy.wrap(input).clear().type(schoolTexts[schoolIndex], { force: true })
+        schoolIndex++
+      }
+    })
   })
 })
 
