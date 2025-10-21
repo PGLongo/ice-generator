@@ -41,7 +41,7 @@ useSeoMeta({
         </NuxtLink>
       </template>
 
-      <template #center>
+      <template #default>
         <TemplateMenu></TemplateMenu>
       </template>
 
@@ -58,6 +58,10 @@ useSeoMeta({
           variant="ghost"
           aria-label="GitHub Repository"
         ></UButton>
+      </template>
+
+      <template #body>
+        <TemplateMenu orientation="vertical"></TemplateMenu>
       </template>
     </UHeader>
 
