@@ -22,7 +22,7 @@ describe('SmICE Application Screenshots', () => {
     cy.visit('/form')
     // Wait for page to load completely
     cy.wait(2000)
-    
+
     // Check if we're on the form page by looking for any form element
     cy.get('form, input, textarea').should('exist')
 

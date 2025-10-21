@@ -10,14 +10,14 @@ export default defineConfig({
     defaultCommandTimeout: 10000,
     viewportWidth: 1440,
     viewportHeight: 900,
-    setupNodeEvents(on, config) {
+    setupNodeEvents(_on, _config) {
       // implement node event listeners here
-    },
+    }
   },
   component: {
     devServer: {
       framework: 'nuxt',
-      bundler: 'vite',
-    },
-  },
+      bundler: 'vite'
+    }
+  }
 })
