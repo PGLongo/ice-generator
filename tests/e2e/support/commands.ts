@@ -30,13 +30,13 @@ Cypress.Commands.add('fillSmiceForm', () => {
   cy.wait(1000)
 
   // Try to fill basic personal information with more robust selectors
-  cy.get('input').first().type('Mario Rossi', { force: true })
-  cy.get('input[type="number"]').type('35', { force: true })
+  cy.get('input').first().clear().type('Mario Rossi', { force: true })
+  cy.get('input[type="number"]').clear().type('35', { force: true })
 
   // Try to find and fill text areas
   cy.get('textarea').then($textareas => {
     if ($textareas.length > 0) {
-      cy.wrap($textareas[0]).type('Penicillina, Polline', { force: true })
+      cy.wrap($textareas[0]).clear().type('Penicillina, Polline', { force: true })
     }
   })
 
@@ -56,7 +56,7 @@ Cypress.Commands.add('fillSmiceForm', () => {
     ]
     $inputs.each((index, input) => {
       if (index < texts.length && index > 1) { // Skip first two already filled
-        cy.wrap(input).type(texts[index - 2], { force: true })
+        cy.wrap(input).clear().type(texts[index - 2], { force: true })
       }
     })
   })
