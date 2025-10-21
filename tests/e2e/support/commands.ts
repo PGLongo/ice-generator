@@ -65,21 +65,13 @@ Cypress.Commands.add('fillSmiceForm', () => {
   cy.get('button').contains(/aggiungi|add/i).then($button => {
     if ($button.length > 0) {
       cy.wrap($button).click({ force: true })
-      cy.wait(500)
+      cy.wait(1000) // Wait for contact form to appear
 
-      // Fill emergency contact details (nome, relazione, telefono)
-      cy.get('input').then($inputs => {
-        const emergencyData = ['Anna Rossi', 'Moglie', '+39 333 1234567']
-        let emergencyIndex = 0
-
-        $inputs.each((index, input) => {
-          // Fill the last few inputs (emergency contact fields)
-          if (index >= $inputs.length - 3 && emergencyIndex < emergencyData.length) {
-            cy.wrap(input).clear().type(emergencyData[emergencyIndex], { force: true })
-            emergencyIndex++
-          }
-        })
-      })
+      // Fill emergency contact with specific selectors
+      cy.get('input[name*="contact-name"]').first().clear().type('Anna Rossi', { force: true })
+      cy.get('input[name*="relationship"]').first().clear().type('Moglie', { force: true })
+      cy.get('input[name*="phone"]').first().clear().type('+39 333 1234567', { force: true })
+      cy.get('input[name*="email"]').first().clear().type('anna.rossi@email.com', { force: true })
     }
   })
 
