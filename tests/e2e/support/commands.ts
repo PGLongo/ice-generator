@@ -44,7 +44,7 @@ Cypress.Commands.add('fillSmiceForm', () => {
   cy.get('input[name="primaryDoctor"]').clear().type('Dr. Giovanni Bianchi', { force: true })
   cy.get('input[name="city"]').clear().type('Milano', { force: true })
   cy.get('input[name="address"]').clear().type('Via Roma 123', { force: true })
-  
+
   // Fill insurance and special instructions if present
   cy.get('textarea').then($textareas => {
     if ($textareas.length > 1) {
