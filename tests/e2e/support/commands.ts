@@ -40,25 +40,19 @@ Cypress.Commands.add('fillSmiceForm', () => {
     }
   })
 
-  // Fill any other visible inputs including school data
-  cy.get('input[type="text"]').then($inputs => {
-    const texts = [
-      'Milano', 
-      'Via Roma 123', 
-      'Dr. Giovanni Bianchi',
-      'Istituto Scolastico Paritario "Contubernio D\'Albertis" Scuola dell\'infanzia',
-      'Via Amarena 11',
-      'Genova',
-      '010 503306',
-      'Maestra Valentina',
-      '+39 3206290224',
-      'BLU'
-    ]
-    $inputs.each((index, input) => {
-      if (index < texts.length && index > 1) { // Skip first two already filled
-        cy.wrap(input).clear().type(texts[index - 2], { force: true })
-      }
-    })
+  // Fill basic additional information (without school data)
+  cy.get('input[name="primaryDoctor"]').clear().type('Dr. Giovanni Bianchi', { force: true })
+  cy.get('input[name="city"]').clear().type('Milano', { force: true })
+  cy.get('input[name="address"]').clear().type('Via Roma 123', { force: true })
+  
+  // Fill insurance and special instructions if present
+  cy.get('textarea').then($textareas => {
+    if ($textareas.length > 1) {
+      cy.wrap($textareas[1]).clear().type('Assicurazione sanitaria privata XYZ', { force: true })
+    }
+    if ($textareas.length > 2) {
+      cy.wrap($textareas[2]).clear().type('In caso di emergenza contattare immediatamente il medico', { force: true })
+    }
   })
 
   // Try to add emergency contact if button exists
@@ -81,29 +75,15 @@ Cypress.Commands.add('fillSmiceForm', () => {
 
 // Command to fill school information with real data
 Cypress.Commands.add('fillSchoolInfo', () => {
-  const schoolData = {
-    name: 'Istituto Scolastico Paritario "Contubernio D\'Albertis" Scuola dell\'infanzia',
-    address: 'Via Amarena 11',
-    city: 'Genova', 
-    phone: '010 503306',
-    referentName: 'Maestra Valentina',
-    referentPhone: '+39 3206290224',
-    section: 'BLU'
-  }
-
-  // Try to fill school fields by looking for school-related inputs
-  cy.get('input').then($inputs => {
-    const schoolTexts = Object.values(schoolData)
-    let schoolIndex = 0
-    
-    $inputs.each((index, input) => {
-      // Try to fill the last inputs (likely school fields)
-      if (index >= Math.max(0, $inputs.length - schoolTexts.length) && schoolIndex < schoolTexts.length) {
-        cy.wrap(input).clear().type(schoolTexts[schoolIndex], { force: true })
-        schoolIndex++
-      }
-    })
-  })
+  // Fill school fields with specific selectors
+  cy.get('input[name="schoolName"]').clear().type('Istituto Scolastico Paritario "Contubernio D\'Albertis" Scuola dell\'infanzia', { force: true })
+  cy.get('input[name="schoolPhone"]').clear().type('010 503306', { force: true })
+  cy.get('input[name="schoolCity"]').clear().type('Genova', { force: true })
+  cy.get('input[name="schoolAddress"]').clear().type('Via Amarena 11', { force: true })
+  cy.get('input[name="schoolReferentName"]').clear().type('Maestra Valentina', { force: true })
+  cy.get('input[name="schoolReferentPhone"]').clear().type('+39 3206290224', { force: true })
+  cy.get('input[name="schoolSection"]').clear().type('BLU', { force: true })
+  cy.get('input[name="schoolLogoUrl"]').clear().type('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbNoyPJtWVcDvWsbusFUgVkG2XUrQjXVNRDw&s', { force: true })
 })
 
 // Command to take screenshots at all resolutions
