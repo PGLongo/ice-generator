@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type { School, Student, Referent } from '@/types/school'
+import type { Owner, Address } from '@/types/luggage'
+
 const { t } = useI18n()
 
 useHead({
@@ -7,6 +10,88 @@ useHead({
     { name: 'description', content: t('landing.description') }
   ]
 })
+
+// Example cards data
+interface ExampleCard {
+  type: 'school' | 'luggage'
+  school?: School
+  student?: Student
+  referent?: Referent
+  owner?: Owner
+  address?: Address
+}
+
+const exampleCards: ExampleCard[] = [
+  {
+    type: 'school',
+    school: {
+      name: 'Istituto Comprensivo Leonardo da Vinci',
+      address: 'Via Roma, 123',
+      city: 'Milano, 20100',
+      phone: '+39 02 1234567',
+      logoUrl: 'https://ui-avatars.com/api/?name=LDV&size=200&background=3b82f6&color=fff&bold=true'
+    },
+    student: {
+      name: 'Sofia Rossi',
+      section: '3° B'
+    },
+    referent: {
+      name: 'Maria Rossi',
+      phone: '+39 345 1234567'
+    }
+  },
+  {
+    type: 'luggage',
+    owner: {
+      firstName: 'Marco',
+      lastName: 'Verdi',
+      phone: '+39 348 7654321'
+    },
+    address: {
+      street: 'Via Dante, 56',
+      city: 'Bologna',
+      province: 'BO',
+      postalCode: '40100',
+      country: 'Italia'
+    }
+  },
+  {
+    type: 'school',
+    school: {
+      name: 'Scuola Primaria Giuseppe Verdi',
+      address: 'Piazza Garibaldi, 45',
+      city: 'Roma, 00100',
+      phone: '+39 06 7654321',
+      logoUrl: 'https://ui-avatars.com/api/?name=GV&size=200&background=10b981&color=fff&bold=true'
+    },
+    student: {
+      name: 'Luca Bianchi',
+      section: '1° A'
+    },
+    referent: {
+      name: 'Giuseppe Bianchi',
+      phone: '+39 348 9876543'
+    }
+  },
+  {
+    type: 'school',
+    school: {
+      name: 'Istituto Tecnico Marie Curie',
+      address: 'Corso Italia, 78',
+      city: 'Torino, 10100',
+      phone: '+39 011 5551234',
+      logoUrl: 'https://ui-avatars.com/api/?name=MC&size=200&background=8b5cf6&color=fff&bold=true'
+    },
+    student: {
+      name: 'Emma Ferrari',
+      section: '4° C'
+    },
+    referent: {
+      name: 'Anna Ferrari',
+      phone: '+39 340 1112233'
+    }
+  }
+]
 </script>
 
 <template>
@@ -32,6 +117,36 @@ useHead({
         <p class="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
           {{ $t('landing.description') }}
         </p>
+
+        <!-- Example Cards Carousel -->
+        <div class="mt-16">
+          <h3 class="text-2xl font-bold mb-8">
+            {{ $t('landing.examplesTitle') || 'Esempi di Card Scolastiche' }}
+          </h3>
+          <UCarousel
+            v-slot="{ item }"
+            :items="exampleCards"
+            arrows
+            dots
+            loop
+            :autoplay="{ delay: 4000 }"
+            class="w-full max-w-4xl mx-auto"
+          >
+            <div class="p-4">
+              <CardSchool
+                v-if="item.type === 'school'"
+                :school="item.school"
+                :student="item.student"
+                :referent="item.referent"
+              />
+              <CardLuggage
+                v-else-if="item.type === 'luggage'"
+                :owner="item.owner"
+                :address="item.address"
+              />
+            </div>
+          </UCarousel>
+        </div>
       </div>
     </UContainer>
 
