@@ -26,8 +26,8 @@ useSeoMeta({
   description,
   ogTitle: title,
   ogDescription: description,
-  ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
-  twitterImage: 'https://ui.nuxt.com/assets/templates/nuxt/starter-light.png',
+  ogImage: '/smice-og-image.png',
+  twitterImage: '/smice-og-image.png',
   twitterCard: 'summary_large_image'
 })
 </script>
@@ -41,7 +41,7 @@ useSeoMeta({
         </NuxtLink>
       </template>
 
-      <template #center>
+      <template #default>
         <TemplateMenu></TemplateMenu>
       </template>
 
@@ -58,6 +58,10 @@ useSeoMeta({
           variant="ghost"
           aria-label="GitHub Repository"
         ></UButton>
+      </template>
+
+      <template #body>
+        <TemplateMenu orientation="vertical"></TemplateMenu>
       </template>
     </UHeader>
 

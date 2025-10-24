@@ -1,8 +1,18 @@
 <script setup lang="ts">
+import type { NavigationMenuItem } from '@nuxt/ui'
+
+interface Props {
+  orientation?: 'horizontal' | 'vertical'
+}
+
+withDefaults(defineProps<Props>(), {
+  orientation: 'horizontal'
+})
+
 const { t } = useI18n()
 const route = useRoute()
 
-const menuItems = computed(() => [
+const items = computed<NavigationMenuItem[]>(() => [
   {
     label: 'Home',
     to: '/',
@@ -31,17 +41,9 @@ const menuItems = computed(() => [
 </script>
 
 <template>
-  <nav class="hidden md:flex items-center space-x-1">
-    <UButton
-      v-for="item in menuItems"
-      :key="item.to"
-      :to="item.to"
-      :icon="item.icon"
-      variant="ghost"
-      size="sm"
-      :class="item.active ? 'bg-primary/10 text-primary' : ''"
-    >
-      {{ item.label }}
-    </UButton>
-  </nav>
+  <UNavigationMenu
+    :items="items"
+    :orientation="orientation"
+    :class="orientation === 'vertical' ? '-mx-2.5' : ''"
+  ></UNavigationMenu>
 </template>

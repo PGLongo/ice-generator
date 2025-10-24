@@ -1,11 +1,20 @@
 <script setup lang="ts">
+import { useIceStore } from '@/stores/ice'
 import type { IceData } from '@/types/ice'
 
-const { isLoading, data: iceData, loadData } = useDataLoader<IceData>()
+const iceStore = useIceStore()
+const { isLoading, data, loadData } = useDataLoader<IceData>()
 
 onMounted(async () => {
   await loadData()
+  // If data was loaded from URL, update the store
+  if (data.value) {
+    iceStore.data = data.value
+  }
 })
+
+// Use store data (reactive) instead of URL data only
+const iceData = computed(() => iceStore.data)
 
 const bloodTypeDisplay = computed(() => {
   if (!iceData.value?.bloodType) return ''
