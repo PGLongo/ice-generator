@@ -1,4 +1,4 @@
-import type { School } from './school'
+import type { SchoolData } from './school'
 
 /**
  * Emergency contact information
@@ -40,7 +40,7 @@ export interface IceData {
   specialInstructions?: string
 
   // School Information
-  school: School
+  school: SchoolData
 
   // Metadata
   lastUpdated?: string
