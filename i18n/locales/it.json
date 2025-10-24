@@ -163,10 +163,22 @@
     "noDataDescription": "Compila le informazioni della scuola nel form per generare un biglietto scolastico",
     "goToForm": "Vai al Form"
   },
+  "luggage": {
+    "title": "Etichetta Bagaglio",
+    "subtitle": "Se trovato, contattare il proprietario",
+    "owner": "Proprietario",
+    "phone": "Telefono",
+    "email": "Email",
+    "address": "Indirizzo di Ritorno",
+    "reward": "⭐ Ricompensa offerta per la restituzione",
+    "noData": "Nessun dato bagaglio",
+    "noDataDescription": "Aggiungi informazioni del proprietario e indirizzo per creare un'etichetta bagaglio"
+  },
   "landing": {
     "title": "SmICE",
     "subtitle": "ICE + NFC + QR + Tags",
     "description": "La soluzione unificata che riunisce informazioni di contatto di emergenza, tecnologia NFC, codici QR e tag di tracciamento in un'unica piattaforma intelligente.",
+    "examplesTitle": "Esempi di Card",
     "story": "La Storia Dietro SmICE",
     "storyContent": "\"Papà, tu mi puoi trovare con il tuo AirTag, ma se io ti voglio chiamare quando mi hanno trovato?\" Questa semplice domanda di Nicolò, mio figlio, ha rivelato una lacuna cruciale: i localizzatori ci aiutano a trovare oggetti smarriti, ma non aiutano gli altri a contattarci quando trovano le nostre cose o, cosa più importante, quando trovano noi.",
     "storyProblem": "I tag di localizzazione come AirTag, Samsung SmartTag e Tile sono eccellenti per il tracciamento, ma mancano delle informazioni di contatto di emergenza. SmICE colma questa lacuna creando schede di emergenza digitali che funzionano insieme ai tuoi dispositivi di tracciamento esistenti.",

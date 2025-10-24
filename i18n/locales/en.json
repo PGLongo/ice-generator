@@ -162,10 +162,22 @@
     "noDataDescription": "Please fill in the school information in the form to generate a school card",
     "goToForm": "Go to Form"
   },
+  "luggage": {
+    "title": "Luggage Tag",
+    "subtitle": "If found, please contact owner",
+    "owner": "Owner",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Return Address",
+    "reward": "⭐ Reward offered for safe return",
+    "noData": "No luggage data",
+    "noDataDescription": "Add owner and address information to create a luggage tag"
+  },
   "landing": {
     "title": "SmICE",
     "subtitle": "ICE + NFC + QR + Tags",
     "description": "The unified solution that brings together emergency contact information, NFC technology, QR codes, and tracking tags in one smart platform.",
+    "examplesTitle": "Example Cards",
     "story": "The Story Behind SmICE",
     "storyContent": "\"Dad, you can find me with your AirTag, but how can I call you when someone finds me?\" This simple question from Nicolò, my son, revealed a crucial gap: location trackers help us find lost items, but they don't help others contact us when they find our belongings or, more importantly, when they find us.",
     "storyProblem": "Location tags like AirTag, Samsung SmartTag, and Tile are excellent for tracking, but they lack emergency contact information. SmICE bridges this gap by creating digital emergency cards that work alongside your existing tracking devices.",
