@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/PGLongo/ice-generator/compare/v0.1.4...v0.1.5) (2025-10-24)
+
+
+### Features
+
+* add Cypress configuration for screenshot testing ([5455098](https://github.com/PGLongo/ice-generator/commit/545509849903d02662683e41e3719bc5b88fd220))
+* add Cypress screenshot test specification ([787b072](https://github.com/PGLongo/ice-generator/commit/787b07203b61553aa6658856980f74923ec636d2))
+* add presentation page with social media preview ([420032a](https://github.com/PGLongo/ice-generator/commit/420032a77dc5c5731ee2e58f6156b7ed1572b2bd))
+* improve language selector with flag icons and better UX ([773f249](https://github.com/PGLongo/ice-generator/commit/773f249448c44bdc71efc53fa9b7d5df7ef75aa3))
+* integrate real school data from Genova ([9c8fc23](https://github.com/PGLongo/ice-generator/commit/9c8fc233fd3a831f3d886901fe53397631f694b9))
+* update Cypress commands for Nuxt UI components ([f0b7339](https://github.com/PGLongo/ice-generator/commit/f0b7339eeab27809e5a568eb3e265eea11fd2cb8))
+
+
+### Bug Fixes
+
+* apply ESLint formatting and improve emergency contact handling ([0d2273b](https://github.com/PGLongo/ice-generator/commit/0d2273b079000107617c4533dc1600fbc1aceb43))
+* ensure complete emergency contact filling including phone number ([286b72c](https://github.com/PGLongo/ice-generator/commit/286b72cdd834894a952915c0556bb0b1d496ee56))
+* implement responsive navigation menu with mobile hamburger support ([8d88663](https://github.com/PGLongo/ice-generator/commit/8d88663eb740b2d45ffad90ea13eca75f0646af8))
+* improve Cypress test reliability and language handling ([3009157](https://github.com/PGLongo/ice-generator/commit/30091573d704e2da3c990a48dcd86faeec51215b))
+* prevent data accumulation in form inputs ([b385c83](https://github.com/PGLongo/ice-generator/commit/b385c8366546f19c25279e5ce6bc2271eddc4dc9))
+* screen data ([ee3361b](https://github.com/PGLongo/ice-generator/commit/ee3361b634e7f508917d97f0cf040fe6dcb2a1bc))
+* sync preview page with ICE store data for real-time updates ([463fa01](https://github.com/PGLongo/ice-generator/commit/463fa01567d3c0ffb5e701cee81550bfc3b770ce))
+
 ### [0.1.4](https://github.com/PGLongo/ice-generator/compare/v0.1.3...v0.1.4) (2025-10-21)
 
 
