@@ -71,7 +71,7 @@ const fullAddress = computed(() => {
       <div class="flex-1 flex flex-col justify-center space-y-4 py-4">
         <!-- Full Name - Con icona -->
         <div v-if="fullName" class="flex items-center gap-4">
-          <UIcon name="i-heroicons-user" class="text-3xl text-gray-400 flex-shrink-0" />
+          <UIcon name="i-heroicons-user" class="text-3xl text-gray-400 flex-shrink-0" ></UIcon>
           <p class="text-3xl font-bold text-gray-900 dark:text-white">
             {{ fullName }}
           </p>
@@ -80,7 +80,7 @@ const fullAddress = computed(() => {
         <!-- Phone - Con icona e QR Code -->
         <div v-if="owner?.phone" class="flex items-center justify-between gap-4">
           <div class="flex items-center gap-4 flex-1">
-            <UIcon name="i-heroicons-phone" class="text-3xl text-primary" />
+            <UIcon name="i-heroicons-phone" class="text-3xl text-primary" ></UIcon>
             <a :href="phoneLink" class="text-2xl font-bold text-gray-900 dark:text-white hover:text-primary">
               {{ owner.phone }}
             </a>
@@ -90,7 +90,7 @@ const fullAddress = computed(() => {
 
         <!-- Address - Con icona -->
         <div v-if="hasAddressData" class="flex items-start gap-4">
-          <UIcon name="i-heroicons-map-pin" class="text-3xl text-gray-400 flex-shrink-0" />
+          <UIcon name="i-heroicons-map-pin" class="text-3xl text-gray-400 flex-shrink-0" ></UIcon>
           <p class="text-base text-gray-600 dark:text-gray-300 leading-snug">
             {{ fullAddress }}
           </p>
@@ -102,7 +102,7 @@ const fullAddress = computed(() => {
   <!-- No data message -->
   <UCard v-else>
     <div class="text-center py-12">
-      <UIcon name="i-heroicons-briefcase" class="text-6xl text-gray-300 dark:text-gray-600 mb-4 mx-auto" />
+      <UIcon name="i-heroicons-briefcase" class="text-6xl text-gray-300 dark:text-gray-600 mb-4 mx-auto" ></UIcon>
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
         {{ $t('luggage.noData') || 'No luggage data' }}
       </h3>

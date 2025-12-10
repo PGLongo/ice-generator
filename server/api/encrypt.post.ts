@@ -40,11 +40,12 @@ export default defineEventHandler(async (event) => {
     return {
       encrypted: result
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Encryption error:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Encryption failed'
     throw createError({
-      statusCode: error.statusCode || 500,
-      message: error.message || 'Encryption failed'
+      statusCode: 500,
+      message: errorMessage
     })
   }
 })

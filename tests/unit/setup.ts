@@ -7,7 +7,7 @@ import { vi } from 'vitest'
 
 // Mock window.location if needed
 if (!global.window) {
-  (global as any).window = {
+  (global as typeof globalThis & { window?: Window }).window = {
     location: {
       origin: 'https://example.com',
       pathname: '/app/',
@@ -19,18 +19,18 @@ if (!global.window) {
 
 // Mock navigator.clipboard
 if (!global.navigator) {
-  (global as any).navigator = {}
+  (global as typeof globalThis & { navigator?: Navigator }).navigator = {} as Navigator
 }
 
 if (!global.navigator.clipboard) {
-  (global as any).navigator.clipboard = {
+  (global as typeof globalThis & { navigator?: Navigator }).navigator!.clipboard = {
     writeText: vi.fn()
   }
 }
 
 // Mock crypto.randomUUID for cross-platform compatibility
 if (!global.crypto) {
-  (global as any).crypto = {
+  (global as typeof globalThis & { crypto?: Crypto }).crypto = {
     randomUUID: () => {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
         const r = (Math.random() * 16) | 0

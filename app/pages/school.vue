@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
 
@@ -62,7 +63,7 @@ const printCard = () => {
           name: iceStore.data.school.referentName,
           phone: iceStore.data.school.referentPhone
         }"
-      />
+      ></CardSchool>
     </div>
   </UContainer>
 </template>

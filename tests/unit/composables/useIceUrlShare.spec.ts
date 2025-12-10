@@ -97,7 +97,7 @@ describe('useIceUrlShare', () => {
      */
     it('should serialize minimal data', async () => {
       const { useIceUrlShare } = await import('@/composables/useIceUrlShare')
-      const composable = useIceUrlShare()
+      const _composable = useIceUrlShare()
 
       // Access private function through serialization test
       const serialized = serializeTestData(minimalData)
@@ -452,8 +452,8 @@ describe('useIceUrlShare', () => {
       try {
         await encodeData(minimalData)
         expect.fail('Should have thrown error')
-      } catch (error: any) {
-        expect(error.message).toContain('Encoding failed')
+      } catch (error: unknown) {
+        expect(error instanceof Error && error.message).toContain('Encoding failed')
       }
     })
 
@@ -470,8 +470,8 @@ describe('useIceUrlShare', () => {
       try {
         await encodeData(minimalData)
         expect.fail('Should have thrown error')
-      } catch (error: any) {
-        expect(error.message).toContain('Encoding failed')
+      } catch (error: unknown) {
+        expect(error instanceof Error && error.message).toContain('Encoding failed')
       }
     })
 
@@ -489,7 +489,7 @@ describe('useIceUrlShare', () => {
 
       await encodeData(minimalData)
 
-      const callArgs = (global.$fetch as any).mock.calls[0]
+      const callArgs = (global.$fetch as ReturnType<typeof vi.fn>).mock.calls[0]
       expect(callArgs[0]).toBe('/api/encrypt')
       expect(callArgs[1].method).toBe('POST')
       expect(callArgs[1].body.data).toBeDefined()
@@ -538,7 +538,7 @@ describe('useIceUrlShare', () => {
 
       await decodeData('abc-def_ghi~jkl')
 
-      const callArgs = (global.$fetch as any).mock.calls[0]
+      const callArgs = (global.$fetch as ReturnType<typeof vi.fn>).mock.calls[0]
       const bodyData = callArgs[1].body.encrypted
 
       // Should restore: - → +, _ → /, ~ → :
@@ -711,7 +711,7 @@ describe('useIceUrlShare', () => {
       try {
         await generateShareableUrl(minimalData)
         expect.fail('Should have thrown error')
-      } catch (error: any) {
+      } catch (error: unknown) {
         expect(error).toBeDefined()
       }
     })
@@ -771,7 +771,7 @@ describe('useIceUrlShare', () => {
     it('should return null on server-side (no window)', async () => {
       // Simulate SSR environment
       const originalWindow = global.window
-      ;(global as any).window = undefined
+      ;(global as typeof globalThis & { window?: Window }).window = undefined
 
       const { useIceUrlShare } = await import('@/composables/useIceUrlShare')
       const { getDataFromUrl } = useIceUrlShare()
@@ -781,7 +781,7 @@ describe('useIceUrlShare', () => {
       expect(data).toBeNull()
 
       // Restore window
-      ;(global as any).window = originalWindow
+      ;(global as typeof globalThis & { window?: Window }).window = originalWindow
     })
 
     /**
@@ -987,8 +987,8 @@ describe('useIceUrlShare', () => {
 /**
  * Helper: Serialize test data
  */
-function serializeTestData(data: IceData): any {
-  const compact: any = {}
+function serializeTestData(data: IceData): Record<string, unknown> {
+  const compact: Record<string, unknown> = {}
 
   if (data.name) compact.n = data.name
   if (data.age) compact.a = data.age
@@ -1007,7 +1007,7 @@ function serializeTestData(data: IceData): any {
 
   if (data.emergencyContacts?.length) {
     compact.ec = data.emergencyContacts.map((contact) => {
-      const c: any = {}
+      const c: Record<string, unknown> = {}
       if (contact.id) c.i = contact.id
       if (contact.name) c.n = contact.name
       if (contact.relationship) c.r = contact.relationship
@@ -1018,7 +1018,7 @@ function serializeTestData(data: IceData): any {
   }
 
   if (data.school) {
-    const s: any = {}
+    const s: Record<string, unknown> = {}
     if (data.school.name) s.n = data.school.name
     if (data.school.address) s.a = data.school.address
     if (data.school.city) s.c = data.school.city
@@ -1036,7 +1036,7 @@ function serializeTestData(data: IceData): any {
 /**
  * Helper: Deserialize test data
  */
-function deserializeTestData(compact: any): IceData {
+function deserializeTestData(compact: Record<string, unknown>): IceData {
   const data: IceData = {
     name: compact.n || '',
     age: compact.a || null,
@@ -1058,7 +1058,7 @@ function deserializeTestData(compact: any): IceData {
   }
 
   if (compact.ec?.length) {
-    data.emergencyContacts = compact.ec.map((c: any) => ({
+    data.emergencyContacts = (compact.ec as Record<string, unknown>[]).map((c: Record<string, unknown>) => ({
       id: c.i || crypto.randomUUID(),
       name: c.n || '',
       relationship: c.r || '',

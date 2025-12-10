@@ -50,11 +50,12 @@ export default defineEventHandler(async (event) => {
     return {
       data: decrypted
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Decryption error:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Decryption failed - data may be corrupted'
     throw createError({
-      statusCode: error.statusCode || 500,
-      message: error.message || 'Decryption failed - data may be corrupted'
+      statusCode: 500,
+      message: errorMessage
     })
   }
 })

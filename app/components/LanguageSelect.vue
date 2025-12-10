@@ -11,11 +11,11 @@ const languages = ref([
 
 const selectedLanguage = ref([])
 
-const currentLanguageIcon = computed(() => 
+const currentLanguageIcon = computed(() =>
   languages.value.find(lang => lang.value === locale.value)?.icon ?? 'i-circle-flags-us'
 )
 
-const handleLanguageSelect = (item: any) => {
+const handleLanguageSelect = (item: { value?: string }) => {
   if (item?.value && (item.value === 'en' || item.value === 'it')) {
     setLocale(item.value)
   }
@@ -34,7 +34,7 @@ const handleLanguageSelect = (item: any) => {
         :groups="[{ id: 'languages', items: languages }]"
         :ui="{ input: '[&>input]:h-8 [&>input]:text-sm' }"
         @update:model-value="handleLanguageSelect"
-      />
+      ></UCommandPalette>
     </template>
   </UPopover>
 </template>

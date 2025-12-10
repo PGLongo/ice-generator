@@ -138,12 +138,12 @@ const exampleCards: ExampleCard[] = [
                 :school="item.school"
                 :student="item.student"
                 :referent="item.referent"
-              />
+              ></CardSchool>
               <CardLuggage
                 v-else-if="item.type === 'luggage'"
                 :owner="item.owner"
                 :address="item.address"
-              />
+              ></CardLuggage>
             </div>
           </UCarousel>
         </div>

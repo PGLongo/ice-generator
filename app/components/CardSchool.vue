@@ -58,7 +58,7 @@ const hasData = computed(() => hasSchoolData.value || hasStudentData.value)
         <!-- Indirizzo -->
         <div v-if="school?.address || school?.city" class="mb-3">
           <div class="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300">
-            <UIcon name="i-heroicons-map-pin" class="text-lg" />
+            <UIcon name="i-heroicons-map-pin" class="text-lg" ></UIcon>
             <div>
               <p v-if="school.address" class="text-base">
                 {{ school.address }}
@@ -73,7 +73,7 @@ const hasData = computed(() => hasSchoolData.value || hasStudentData.value)
         <!-- Telefono Scuola -->
         <div v-if="school?.phone" class="mb-2">
           <div class="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-300">
-            <UIcon name="i-heroicons-phone" class="text-lg" />
+            <UIcon name="i-heroicons-phone" class="text-lg" ></UIcon>
             <a :href="schoolPhoneLink" class="text-base font-semibold hover:text-primary">
               {{ school.phone }}
             </a>
@@ -103,7 +103,7 @@ const hasData = computed(() => hasSchoolData.value || hasStudentData.value)
           </p>
         </div>
 
-        <USeparator />
+        <USeparator ></USeparator>
 
         <!-- Referente con QR Code -->
         <div v-if="referent?.name || referent?.phone" class="flex gap-4 items-start">
@@ -114,13 +114,13 @@ const hasData = computed(() => hasSchoolData.value || hasStudentData.value)
             </label>
             <div class="space-y-2">
               <div v-if="referent.name" class="flex items-center gap-2">
-                <UIcon name="i-heroicons-user" class="text-xl text-gray-400" />
+                <UIcon name="i-heroicons-user" class="text-xl text-gray-400" ></UIcon>
                 <p class="text-lg font-semibold text-gray-900 dark:text-white">
                   {{ referent.name }}
                 </p>
               </div>
               <div v-if="referent.phone" class="flex items-center gap-2">
-                <UIcon name="i-heroicons-phone" class="text-xl text-gray-400" />
+                <UIcon name="i-heroicons-phone" class="text-xl text-gray-400" ></UIcon>
                 <a :href="referentPhoneLink" class="text-lg font-semibold text-primary hover:underline">
                   {{ referent.phone }}
                 </a>
@@ -140,7 +140,7 @@ const hasData = computed(() => hasSchoolData.value || hasStudentData.value)
   <!-- Messaggio nessun dato -->
   <UCard v-else>
     <div class="text-center py-12">
-      <UIcon name="i-heroicons-academic-cap" class="text-6xl text-gray-300 dark:text-gray-600 mb-4 mx-auto" />
+      <UIcon name="i-heroicons-academic-cap" class="text-6xl text-gray-300 dark:text-gray-600 mb-4 mx-auto" ></UIcon>
       <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
         {{ $t('school.noData') }}
       </h3>
