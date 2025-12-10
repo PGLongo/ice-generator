@@ -1,8 +1,8 @@
-# CLAUDE.md - SmICE Project Documentation
+# CLAUDE.md - CareCard Project Documentation
 
 ## Project Overview
 
-SmICE is a smart emergency contact platform that unifies ICE (In Case of Emergency) information with modern location tracking technology. Built with Nuxt 4 and Nuxt UI, it bridges the gap between location tracking devices (AirTag, Samsung SmartTag, Tile) and emergency contact information through QR codes, NFC tags, and PDF generation.
+CareCard is a modern emergency contact platform that unifies ICE (In Case of Emergency) information with smart technology. Built with Nuxt 4 and Nuxt UI, it bridges the gap between location tracking devices (AirTag, Samsung SmartTag, Tile) and emergency contact information through QR codes, NFC tags, and PDF generation.
 
 ## Project Goals
 
@@ -25,7 +25,7 @@ SmICE is a smart emergency contact platform that unifies ICE (In Case of Emergen
 ## Project Structure
 
 ```
-smice/
+carecard/
 ├── app/
 │   ├── app.vue                          # Main application layout (header, footer, navigation)
 │   ├── pages/
@@ -40,7 +40,7 @@ smice/
 │   │   │   ├── FormEmergencyContacts.vue # Contacts list with add/remove
 │   │   │   ├── FormAdditionalInfo.vue   # Additional info form section
 │   │   │   └── FormSchoolInfo.vue       # School info form section
-│   │   ├── AppLogo.vue                  # SmICE logo with subtitle
+│   │   ├── AppLogo.vue                  # CareCard logo with subtitle
 │   │   └── TemplateMenu.vue             # App navigation menu
 │   ├── composables/
 │   │   ├── useIcePDF.ts                 # PDF generation with embedded QR codes
@@ -62,7 +62,7 @@ smice/
 │       └── it.json                      # Italian translations (with landing section)
 ├── public/                              # Static assets
 ├── nuxt.config.ts                       # Nuxt configuration
-├── package.json                         # Project dependencies (name: "smice")
+├── package.json                         # Project dependencies (name: "carecard")
 ├── tsconfig.json                        # TypeScript configuration
 ├── README.md                            # User-facing documentation
 └── CLAUDE.md                            # This file - AI assistant context
@@ -105,8 +105,8 @@ Fields to include:
 - **Location Tracker Integration**: Compatible with AirTag, Samsung SmartTag2, Tile
 - **Multi-format Support**: Covers all use cases from children to pets to valuables
 
-### 4. SmICE Landing & Preview
-- **Animated Landing Page**: Hero section showing ICE + NFC + QR + Tags → SmICE unity
+### 4. CareCard Landing & Preview
+- **Animated Landing Page**: Hero section showing ICE + NFC + QR + Tags → CareCard unity
 - **Nicolò's Story**: Real-world inspiration case study with universal applications
 - **Live Preview**: Iframe-based preview with real-time updates from Pinia store
 - **Use Case Examples**: Children, pets, luggage, elderly care, valuables
@@ -118,7 +118,7 @@ Fields to include:
 - **NTAG216**: 888 bytes user memory
 - **MIFARE Classic 1K**: ~700 bytes user memory
 
-SmICE optimizes for NFC storage by:
+CareCard optimizes for NFC storage by:
 - **URL Compression**: Gzip compression using pako library
 - **Smart Routing**: Direct links to forms with pre-filled data
 - **Fallback Strategy**: QR codes for larger data when NFC limits exceeded
@@ -140,7 +140,7 @@ npm run preview  # Preview production build
 - `vue`: ^3.5.22
 - `@nuxt/ui`: ^4.0.1
 
-### SmICE-Specific Dependencies
+### CareCard-Specific Dependencies
 - `jspdf`: PDF generation for emergency cards
 - `qrcode`: QR code generation with tel:/mailto: protocols
 - `pako`: URL compression for NFC optimization
@@ -460,7 +460,7 @@ const iceStore = useIceStore()
 - ✅ Multi-language support (EN/IT)
 - ✅ Responsive layout (mobile/tablet/desktop)
 
-#### SmICE Export System (v0.1.3)
+#### CareCard Export System (v0.1.3)
 - ✅ **PDF Generation** - Professional emergency cards with embedded QR codes using jsPDF
 - ✅ **NFC Optimization** - Compressed URLs using pako for tag storage limits
 - ✅ **Enhanced QR Codes** - tel:/mailto: protocols for direct calling/emailing
@@ -469,20 +469,20 @@ const iceStore = useIceStore()
 - ✅ Emergency-optimized design maintained in PDF format
 - ✅ Direct communication functionality from QR scans
 
-#### SmICE Landing & Preview System (v0.1.3)
+#### CareCard Landing & Preview System (v0.1.3)
 - ✅ **Landing Page** - Complete redesign with animated hero section (index.vue)
-- ✅ **Animated Transition** - ICE + NFC + QR + Tags → SmICE unity visualization
+- ✅ **Animated Transition** - ICE + NFC + QR + Tags → CareCard unity visualization
 - ✅ **Nicolò's Story** - Real-world inspiration with universal use case examples
 - ✅ **Form Separation** - Main form moved to /form route for better UX
 - ✅ **Live Preview** - Iframe-based preview with real-time store updates
 - ✅ **Use Case Integration** - Children, pets, luggage, elderly, valuables
 - ✅ **Location Tracker Info** - AirTag, Samsung SmartTag2, Tile integration guides
 
-#### SmICE User Experience (v0.1.3)
-- ✅ **Complete Rebranding** - ICE Generator → SmICE across all components
+#### CareCard User Experience (v0.1.3)
+- ✅ **Complete Rebranding** - ICE Generator → CareCard across all components
 - ✅ **Enhanced Navigation** - TemplateMenu → proper app navigation structure
 - ✅ **Updated Branding** - AppLogo with "ICE + NFC + QR + Tags" subtitle
-- ✅ **Package Rename** - package.json name changed to "smice"
+- ✅ **Package Rename** - package.json name changed to "carecard"
 - ✅ **Comprehensive i18n** - Landing page translations in EN/IT
 - ✅ Dark mode support (via Nuxt UI)
 - ✅ Reset form functionality
@@ -522,3 +522,5 @@ const iceStore = useIceStore()
 3. Prioritize backlog items based on user value and technical dependencies
 4. Estimate story points for sprint planning
 5. Focus on universal appeal beyond just children use cases
+
+- Always check typescript and eslint error before commit

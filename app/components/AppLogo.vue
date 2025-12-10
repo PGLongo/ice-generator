@@ -7,8 +7,8 @@
 
     <!-- App Name -->
     <div class="flex flex-col">
-      <span class="text-lg font-bold leading-tight">SmICE</span>
-      <span class="text-xs text-muted leading-tight">ICE + NFC + QR + Tags</span>
+      <span class="text-lg font-bold leading-tight">CareCard</span>
+      <span class="text-xs text-muted leading-tight">Your digital emergency card</span>
     </div>
   </div>
 </template>

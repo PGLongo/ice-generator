@@ -8,7 +8,7 @@
     "dataLoadErrorMessage": "Failed to load ICE data from URL"
   },
   "app": {
-    "title": "SmICE",
+    "title": "CareCard",
     "subtitle": "Emergency Contact Information"
   },
   "preview": {
@@ -174,15 +174,15 @@
     "noDataDescription": "Add owner and address information to create a luggage tag"
   },
   "landing": {
-    "title": "SmICE",
+    "title": "CareCard",
     "subtitle": "ICE + NFC + QR + Tags",
     "description": "The unified solution that brings together emergency contact information, NFC technology, QR codes, and tracking tags in one smart platform.",
     "examplesTitle": "Example Cards",
-    "story": "The Story Behind SmICE",
+    "story": "The Story Behind CareCard",
     "storyContent": "\"Dad, you can find me with your AirTag, but how can I call you when someone finds me?\" This simple question from Nicolò, my son, revealed a crucial gap: location trackers help us find lost items, but they don't help others contact us when they find our belongings or, more importantly, when they find us.",
-    "storyProblem": "Location tags like AirTag, Samsung SmartTag, and Tile are excellent for tracking, but they lack emergency contact information. SmICE bridges this gap by creating digital emergency cards that work alongside your existing tracking devices.",
+    "storyProblem": "Location tags like AirTag, Samsung SmartTag, and Tile are excellent for tracking, but they lack emergency contact information. CareCard bridges this gap by creating digital emergency cards that work alongside your existing tracking devices.",
     "useCases": "Beyond Children: Universal Applications", 
-    "useCasesDescription": "While Nicolò's question was just one example that sparked the idea, SmICE serves countless scenarios where contact information is crucial:",
+    "useCasesDescription": "While Nicolò's question was just one example that sparked the idea, CareCard serves countless scenarios where contact information is crucial:",
     "whatIsIce": "What is ICE?",
     "whatIsIceDescription": "ICE (In Case of Emergency) is a program that allows first responders to access your emergency contact information and critical medical details quickly during an emergency.",
     "howItWorks": "How It Works",
@@ -202,7 +202,7 @@
     "feature4Title": "NFC Ready",
     "feature4Description": "Optimized links for programming NFC tags with compressed data that fits all tag types.",
     "integration": "Perfect Integration with Location Trackers",
-    "integrationDescription": "SmICE works seamlessly alongside your existing tracking devices:",
+    "integrationDescription": "CareCard works seamlessly alongside your existing tracking devices:",
     "airtag": "Apple AirTag",
     "airtagDescription": "Add NFC stickers with ICE data to complement AirTag's location tracking. While AirTag helps you find items, ICE helps others contact you.",
     "smarttag": "Samsung Galaxy SmartTag2",
