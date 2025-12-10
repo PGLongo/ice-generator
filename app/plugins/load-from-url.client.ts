@@ -13,7 +13,7 @@ export default defineNuxtPlugin({
     const { t } = nuxtApp['$i18n'] as { t: (key: string) => string }
 
     // Check if there's data in the URL
-    const urlData = getDataFromUrl()
+    const urlData = await getDataFromUrl()
 
     if (urlData) {
       try {

@@ -1,20 +1,14 @@
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
-import type { IceData } from '@/types/ice'
 
 const iceStore = useIceStore()
-const { isLoading, data, loadData } = useDataLoader<IceData>()
 
-onMounted(async () => {
-  await loadData()
-  // If data was loaded from URL, update the store
-  if (data.value) {
-    iceStore.data = data.value
-  }
-})
-
-// Use store data (reactive) instead of URL data only
+// The load-from-url.client.ts plugin handles loading data from URL into the store
+// We just need to use the store data directly
 const iceData = computed(() => iceStore.data)
+
+// Check if we have any meaningful data (name is required)
+const hasData = computed(() => !!iceData.value?.name)
 
 const bloodTypeDisplay = computed(() => {
   if (!iceData.value?.bloodType) return ''
@@ -56,11 +50,8 @@ const formatDate = (dateString: string) => {
 <template>
   <UContainer class="py-12">
     <div class="max-w-4xl mx-auto">
-      <!-- Loading state -->
-      <LoadingState v-if="isLoading" ></LoadingState>
-
       <!-- No Data State -->
-      <div v-else-if="!iceData" class="text-center py-12">
+      <div v-if="!hasData" class="text-center py-12">
         <UIcon name="i-heroicons-exclamation-triangle" class="w-16 h-16 mx-auto text-gray-400 mb-4"></UIcon>
         <h1 class="text-2xl font-bold mb-2">{{ $t('preview.noData') }}</h1>
         <p class="text-gray-500 mb-6">{{ $t('preview.noDataDescription') }}</p>

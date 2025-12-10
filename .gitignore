@@ -22,5 +22,12 @@ logs
 .env
 .env.*
 !.env.example
+
+# Temporary documentation files
+TESTING*.md
+TEST*.md
+TESTS*.md
+
+# E2E screenshots
 tests/e2e/screenshots/smice-screenshots.cy.ts
 tests/e2e/screenshots/social-images.cy.ts

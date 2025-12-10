@@ -190,7 +190,7 @@ export const useIcePDF = () => {
     // QR Code (if requested)
     if (includeQRCode) {
       try {
-        const shareableUrl = generateShareableUrl(data)
+        const shareableUrl = await generateShareableUrl(data)
         const qrCodeDataUrl = await generateQRCode(shareableUrl, {
           width: 200,
           margin: 2

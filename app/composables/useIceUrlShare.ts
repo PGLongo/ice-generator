@@ -1,5 +1,4 @@
 import type { IceData } from '@/types/ice'
-import pako from 'pako'
 
 interface CompactData {
   n?: string
@@ -41,7 +40,14 @@ interface CompactSchool {
 
 /**
  * Composable for encoding/decoding ICE data to/from URL query parameters
- * Uses optimized serialization + gzip compression + Base64 encoding
+ * Uses server-side AES-256-GCM encryption for secure data sharing
+ *
+ * Flow:
+ * 1. Client serializes data to compact format
+ * 2. Client sends to /api/encrypt endpoint
+ * 3. Server encrypts with secret key (never leaves server)
+ * 4. Client embeds encrypted string in URL/QR
+ * 5. On scan, /api/decrypt decodes the data
  *
  * Field abbreviations for minimal size:
  * n=name, a=age, dob=dateOfBirth, b=bloodType, c=city, ad=address,
@@ -211,9 +217,9 @@ export const useIceUrlShare = () => {
   }
 
   /**
-   * Encode ICE data to a compressed URL-safe Base64 string
+   * Encode ICE data using server-side encryption
    */
-  const encodeData = (data: IceData): string => {
+  const encodeData = async (data: IceData): Promise<string> => {
     try {
       // Serialize to compact format
       const compact = serializeData(data)
@@ -221,17 +227,22 @@ export const useIceUrlShare = () => {
       // Convert to JSON string
       const jsonString = JSON.stringify(compact)
 
-      // Compress with gzip (level 9 for maximum compression)
-      const compressed = pako.gzip(jsonString, { level: 9 })
+      // Send to server for encryption
+      const response = await $fetch<{ encrypted: string }>('/api/encrypt', {
+        method: 'POST',
+        body: { data: jsonString }
+      })
 
-      // Convert to Base64
-      const base64 = btoa(String.fromCharCode(...compressed))
+      if (!response.encrypted) {
+        throw new Error('Server returned invalid encrypted data')
+      }
 
       // Make URL-safe by replacing characters
-      const urlSafe = base64
+      const urlSafe = response.encrypted
         .replace(/\+/g, '-')
         .replace(/\//g, '_')
         .replace(/=/g, '')
+        .replace(/:/g, '~') // Replace : with ~ for URL safety
 
       return urlSafe
     } catch (error) {
@@ -241,34 +252,28 @@ export const useIceUrlShare = () => {
   }
 
   /**
-   * Decode compressed URL-safe Base64 string back to ICE data
+   * Decode encrypted string back to ICE data using server-side decryption
    */
-  const decodeData = (encoded: string): IceData | null => {
+  const decodeData = async (encoded: string): Promise<IceData | null> => {
     try {
-      // Restore Base64 characters
-      let base64 = encoded
+      // Restore encrypted string from URL-safe format
+      const encrypted = encoded
         .replace(/-/g, '+')
         .replace(/_/g, '/')
+        .replace(/~/g, ':') // Restore : separator
 
-      // Add padding if needed
-      while (base64.length % 4) {
-        base64 += '='
+      // Send to server for decryption
+      const response = await $fetch<{ data: string }>('/api/decrypt', {
+        method: 'POST',
+        body: { encrypted }
+      })
+
+      if (!response.data) {
+        throw new Error('Server returned invalid decrypted data')
       }
-
-      // Decode from Base64
-      const binaryString = atob(base64)
-
-      // Convert to Uint8Array
-      const bytes = new Uint8Array(binaryString.length)
-      for (let i = 0; i < binaryString.length; i++) {
-        bytes[i] = binaryString.charCodeAt(i)
-      }
-
-      // Decompress with gunzip
-      const decompressed = pako.ungzip(bytes, { to: 'string' })
 
       // Parse JSON
-      const compact = JSON.parse(decompressed)
+      const compact = JSON.parse(response.data)
 
       // Deserialize back to full format
       const data = deserializeData(compact)
@@ -283,8 +288,8 @@ export const useIceUrlShare = () => {
   /**
    * Generate shareable URL with encoded data (points to /preview)
    */
-  const generateShareableUrl = (data: IceData, baseUrl?: string): string => {
-    const encoded = encodeData(data)
+  const generateShareableUrl = async (data: IceData, baseUrl?: string): Promise<string> => {
+    const encoded = await encodeData(data)
 
     // If baseUrl is provided, use it
     if (baseUrl) {
@@ -305,7 +310,7 @@ export const useIceUrlShare = () => {
   /**
    * Extract and decode data from current URL query params
    */
-  const getDataFromUrl = (): IceData | null => {
+  const getDataFromUrl = async (): Promise<IceData | null> => {
     if (typeof window === 'undefined') return null
 
     const params = new URLSearchParams(window.location.search)
@@ -313,7 +318,7 @@ export const useIceUrlShare = () => {
 
     if (!encodedData) return null
 
-    return decodeData(encodedData)
+    return await decodeData(encodedData)
   }
 
   /**
@@ -321,7 +326,7 @@ export const useIceUrlShare = () => {
    */
   const copyShareableUrl = async (data: IceData): Promise<boolean> => {
     try {
-      const url = generateShareableUrl(data)
+      const url = await generateShareableUrl(data)
       await navigator.clipboard.writeText(url)
       return true
     } catch (error) {
@@ -333,9 +338,9 @@ export const useIceUrlShare = () => {
   /**
    * Get estimated size of encoded data (in bytes)
    */
-  const getEncodedSize = (data: IceData): number => {
+  const getEncodedSize = async (data: IceData): Promise<number> => {
     try {
-      const encoded = encodeData(data)
+      const encoded = await encodeData(data)
       return new Blob([encoded]).size
     } catch {
       return 0

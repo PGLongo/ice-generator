@@ -1,18 +1,10 @@
 <script setup lang="ts">
 import { useIceStore } from '@/stores/ice'
-import type { IceData } from '@/types/ice'
 
 const iceStore = useIceStore()
-const { isLoading, data, loadData } = useDataLoader<IceData>()
 
-// Load data from URL query params on mount
-onMounted(async () => {
-  await loadData()
-  // If data was loaded from URL, update the store
-  if (data.value) {
-    iceStore.data = data.value
-  }
-})
+// The load-from-url.client.ts plugin handles loading data from URL into the store
+// We just need to use the store data directly
 
 const printCard = () => {
   window.print()
@@ -53,12 +45,8 @@ const printCard = () => {
         </div>
       </div>
 
-      <!-- Loading state -->
-      <LoadingState v-if="isLoading" />
-
       <!-- Card biglietto scuola -->
       <CardSchool
-        v-else
         :school="{
           name: iceStore.data.school.name,
           address: iceStore.data.school.address,

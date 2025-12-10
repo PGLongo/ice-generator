@@ -28,7 +28,7 @@ const onSubmit = async () => {
 
   try {
     // Generate shareable URL
-    const shareableUrl = generateShareableUrl(iceStore.data)
+    const shareableUrl = await generateShareableUrl(iceStore.data)
 
     // Generate QR code as data URL
     const qrCodeDataUrl = await generateQRCode(shareableUrl, {
@@ -73,7 +73,7 @@ const generateShareLink = async () => {
 
   try {
     const success = await copyShareableUrl(iceStore.data)
-    const size = getEncodedSize(iceStore.data)
+    const size = await getEncodedSize(iceStore.data)
     const sizeKB = (size / 1024).toFixed(2)
 
     if (success) {
