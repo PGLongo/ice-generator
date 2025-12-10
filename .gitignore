@@ -29,5 +29,5 @@ TEST*.md
 TESTS*.md
 
 # E2E screenshots
-tests/e2e/screenshots/smice-screenshots.cy.ts
+tests/e2e/screenshots/carecard-screenshots.cy.ts
 tests/e2e/screenshots/social-images.cy.ts

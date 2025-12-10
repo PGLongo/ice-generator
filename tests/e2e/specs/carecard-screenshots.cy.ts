@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('SmICE Application Screenshots', () => {
+describe('CareCard Application Screenshots', () => {
   beforeEach(() => {
     // Clear any existing data
     cy.window().then((win) => {
@@ -10,7 +10,7 @@ describe('SmICE Application Screenshots', () => {
 
   it('should capture landing page screenshots', () => {
     cy.visit('/')
-    cy.contains('SmICE').should('be.visible')
+    cy.contains('CareCard').should('be.visible')
 
     // Wait for animations to complete
     cy.wait(2000)

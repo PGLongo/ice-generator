@@ -18,7 +18,7 @@ useHead({
   }
 })
 
-const title = 'SmICE'
+const title = 'CareCard'
 const description = 'Smart Integration: ICE + NFC + QR + Tags. The unified solution for emergency contact information.'
 
 useSeoMeta({
@@ -26,8 +26,8 @@ useSeoMeta({
   description,
   ogTitle: title,
   ogDescription: description,
-  ogImage: '/smice-og-image.png',
-  twitterImage: '/smice-og-image.png',
+  ogImage: '/carecard-og-image.png',
+  twitterImage: '/carecard-og-image.png',
   twitterCard: 'summary_large_image'
 })
 </script>
@@ -74,7 +74,7 @@ useSeoMeta({
     <UFooter class="print:hidden">
       <template #left>
         <p class="text-sm text-muted">
-          SmICE v{{ appVersion }} • {{ new Date().getFullYear() }}
+          CareCard v{{ appVersion }} • {{ new Date().getFullYear() }}
         </p>
       </template>
 

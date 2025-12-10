@@ -1,10 +1,10 @@
-# SmICE Cypress Screenshot Testing
+# CareCard Cypress Screenshot Testing
 
-This directory contains Cypress end-to-end tests specifically designed to capture screenshots of the SmICE application at various resolutions for documentation and visual testing purposes.
+This directory contains Cypress end-to-end tests specifically designed to capture screenshots of the CareCard application at various resolutions for documentation and visual testing purposes.
 
 ## Overview
 
-The screenshot tests cover all main pages of the SmICE application:
+The screenshot tests cover all main pages of the CareCard application:
 - Landing page (`/`)
 - Form page (`/form`) with filled sample data
 - Preview page (`/preview`)
@@ -44,7 +44,7 @@ npm run cypress:open
 - `cypress.config.ts`: Main Cypress configuration
 - `tests/e2e/support/e2e.ts`: Support file with viewport definitions
 - `tests/e2e/support/commands.ts`: Custom Cypress commands
-- `tests/e2e/specs/smice-screenshots.cy.ts`: Main screenshot test specification
+- `tests/e2e/specs/carecard-screenshots.cy.ts`: Main screenshot test specification
 
 ### Custom Commands
 

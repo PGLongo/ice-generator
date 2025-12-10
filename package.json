@@ -20,7 +20,7 @@
     "release:major": "standard-version --release-as major",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "cypress:screenshots": "cypress run --spec 'tests/e2e/specs/smice-screenshots.cy.ts' --headless",
+    "cypress:screenshots": "cypress run --spec 'tests/e2e/specs/carecard-screenshots.cy.ts' --headless",
     "cypress:social-images": "cypress run --spec 'tests/e2e/specs/social-images.cy.ts' --headless"
   },
   "dependencies": {

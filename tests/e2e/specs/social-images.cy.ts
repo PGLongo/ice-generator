@@ -14,18 +14,18 @@ describe('Social Media Images - ogImage and twitterImage', () => {
     // Wait for page to fully load (scrollbars already hidden via CSS)
     cy.wait(1000)
 
-    // Verify SmICE title in h1 is visible (not the one in hidden header)
-    cy.get('h1.presentation-title').should('be.visible').and('contain', 'SmICE')
+    // Verify CareCard title in h1 is visible (not the one in hidden header)
+    cy.get('h1.presentation-title').should('be.visible').and('contain', 'CareCard')
 
     // Check Open Graph image meta tag
     cy.get('meta[property="og:image"]')
       .should('exist')
-      .and('have.attr', 'content', '/smice-og-image.png')
+      .and('have.attr', 'content', '/carecard-og-image.png')
 
     // Check Twitter image meta tag
     cy.get('meta[name="twitter:image"]')
       .should('exist')
-      .and('have.attr', 'content', '/smice-og-image.png')
+      .and('have.attr', 'content', '/carecard-og-image.png')
 
     // Check Twitter card type
     cy.get('meta[name="twitter:card"]')
@@ -48,12 +48,12 @@ describe('Social Media Images - ogImage and twitterImage', () => {
     // Check Open Graph image meta tag
     cy.get('meta[property="og:image"]')
       .should('exist')
-      .and('have.attr', 'content', '/smice-og-image.png')
+      .and('have.attr', 'content', '/carecard-og-image.png')
 
     // Check Twitter image meta tag
     cy.get('meta[name="twitter:image"]')
       .should('exist')
-      .and('have.attr', 'content', '/smice-og-image.png')
+      .and('have.attr', 'content', '/carecard-og-image.png')
 
     // Take a screenshot for documentation
     cy.screenshot('social-images-form-page', {
@@ -71,12 +71,12 @@ describe('Social Media Images - ogImage and twitterImage', () => {
     // Check Open Graph image meta tag
     cy.get('meta[property="og:image"]')
       .should('exist')
-      .and('have.attr', 'content', '/smice-og-image.png')
+      .and('have.attr', 'content', '/carecard-og-image.png')
 
     // Check Twitter image meta tag
     cy.get('meta[name="twitter:image"]')
       .should('exist')
-      .and('have.attr', 'content', '/smice-og-image.png')
+      .and('have.attr', 'content', '/carecard-og-image.png')
 
     // Take a screenshot for documentation
     cy.screenshot('social-images-preview-page', {
@@ -94,12 +94,12 @@ describe('Social Media Images - ogImage and twitterImage', () => {
     // Check Open Graph image meta tag
     cy.get('meta[property="og:image"]')
       .should('exist')
-      .and('have.attr', 'content', '/smice-og-image.png')
+      .and('have.attr', 'content', '/carecard-og-image.png')
 
     // Check Twitter image meta tag
     cy.get('meta[name="twitter:image"]')
       .should('exist')
-      .and('have.attr', 'content', '/smice-og-image.png')
+      .and('have.attr', 'content', '/carecard-og-image.png')
 
     // Take a screenshot for documentation
     cy.screenshot('social-images-school-page', {
@@ -109,7 +109,7 @@ describe('Social Media Images - ogImage and twitterImage', () => {
   })
 
   it('should verify social image is accessible via HTTP request', () => {
-    const imageUrl = '/smice-og-image.png'
+    const imageUrl = '/carecard-og-image.png'
 
     // Make a request to verify the image is accessible
     cy.request({
@@ -141,7 +141,7 @@ describe('Social Media Images - ogImage and twitterImage', () => {
       cy.get('meta[name="twitter:image"]').should('exist')
 
       // Verify presentation title in h1 is visible (not the one in hidden header)
-      cy.get('h1.presentation-title').should('be.visible').and('contain', 'SmICE')
+      cy.get('h1.presentation-title').should('be.visible').and('contain', 'CareCard')
 
       // Take screenshot at this viewport (with clear names for public folder)
       cy.screenshot(`presentation-${viewport.name}`, {
@@ -158,7 +158,7 @@ describe('Social Media Images - ogImage and twitterImage', () => {
     // Check title
     cy.get('meta[property="og:title"]')
       .should('exist')
-      .and('have.attr', 'content', 'SmICE')
+      .and('have.attr', 'content', 'CareCard')
 
     // Check description
     cy.get('meta[property="og:description"]')

@@ -7,7 +7,7 @@ const colorMode = useColorMode()
 colorMode.preference = 'dark'
 
 useHead({
-  title: 'SmICE - Presentation',
+  title: 'CareCard - Presentation',
   meta: [
     { name: 'description', content: t('landing.description') }
   ],
@@ -25,7 +25,7 @@ useHead({
         <!-- Static Title (no animation) -->
         <div class="relative">
           <h1 class="presentation-title">
-            SmICE
+            CareCard
           </h1>
         </div>
 

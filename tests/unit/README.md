@@ -1,6 +1,6 @@
-# SmICE Unit Tests
+# CareCard Unit Tests
 
-Comprehensive unit test suite for the SmICE server-side encryption system, covering API routes and client-side composables.
+Comprehensive unit test suite for the CareCard server-side encryption system, covering API routes and client-side composables.
 
 ## Test Structure
 

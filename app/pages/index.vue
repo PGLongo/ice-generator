@@ -106,7 +106,7 @@ const exampleCards: ExampleCard[] = [
             <div class="animated-word" data-word="NFC">+ NFC</div>
             <div class="animated-word" data-word="QR">+ QR</div>
             <div class="animated-word" data-word="Tags">+ Tags</div>
-            <div class="animated-word final-word" data-word="SmICE">SmICE</div>
+            <div class="animated-word final-word" data-word="CareCard">CareCard</div>
           </div>
         </div>
 
@@ -559,7 +559,7 @@ const exampleCards: ExampleCard[] = [
   animation-delay: 4.8s;
 }
 
-.animated-word.final-word[data-word="SmICE"] {
+.animated-word.final-word[data-word="CareCard"] {
   animation-delay: 6.4s;
   background: linear-gradient(135deg, #10b981, #3b82f6, #8b5cf6);
   background-clip: text;

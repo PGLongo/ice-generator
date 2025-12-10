@@ -1,4 +1,4 @@
-// Custom Cypress commands for SmICE testing
+// Custom Cypress commands for CareCard testing
 
 import { VIEWPORTS } from './e2e'
 
@@ -7,7 +7,7 @@ declare global {
   namespace Cypress {
     interface Chainable {
       /**
-       * Fill the SmICE form with sample data
+       * Fill the CareCard form with sample data
        */
       fillSmiceForm(): Chainable<void>
 
@@ -24,7 +24,7 @@ declare global {
   }
 }
 
-// Command to fill the SmICE form with sample data
+// Command to fill the CareCard form with sample data
 Cypress.Commands.add('fillSmiceForm', () => {
   // Wait for form to be ready
   cy.wait(1000)
