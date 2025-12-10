@@ -15,7 +15,9 @@ const currentLanguageIcon = computed(() =>
   languages.value.find(lang => lang.value === locale.value)?.icon ?? 'i-circle-flags-us'
 )
 
-const handleLanguageSelect = (item: { value?: string }) => {
+const handleLanguageSelect = (items: unknown) => {
+  // Cast the item to our expected type since UCommandPalette has different typing
+  const item = items as { value?: string }
   if (item?.value && (item.value === 'en' || item.value === 'it')) {
     setLocale(item.value)
   }
