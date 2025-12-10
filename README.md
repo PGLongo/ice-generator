@@ -2,7 +2,7 @@
 
 **Your digital emergency card - Always with you, always ready**
 
-CareCard is a modern emergency contact platform that unifies ICE (In Case of Emergency) information with smart technology. Create digital emergency cards with QR codes, NFC tags, and PDF generation for universal compatibility.
+CareCard is a modern emergency contact platform that creates digital emergency cards with smart technology. Generate QR codes, NFC tags, and PDF cards for universal compatibility and instant access to emergency information.
 
 ![CareCard Demo](https://via.placeholder.com/800x400/3B82F6/FFFFFF?text=CareCard+Demo)
 

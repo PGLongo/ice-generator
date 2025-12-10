@@ -39,7 +39,7 @@ const onSubmit = async () => {
     // Create download link
     const link = document.createElement('a')
     link.href = qrCodeDataUrl
-    link.download = `ICE-${iceStore.data.name.replace(/\s+/g, '-')}-QRCode.png`
+    link.download = `Emergency-${iceStore.data.name.replace(/\s+/g, '-')}-QRCode.png`
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)

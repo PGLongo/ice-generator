@@ -102,8 +102,7 @@ const exampleCards: ExampleCard[] = [
         <!-- Animated Title Transition -->
         <div class="relative mb-8">
           <div class="animated-title-container">
-            <div class="animated-word" data-word="ICE">ICE</div>
-            <div class="animated-word" data-word="NFC">+ NFC</div>
+            <div class="animated-word" data-word="NFC">NFC</div>
             <div class="animated-word" data-word="QR">+ QR</div>
             <div class="animated-word" data-word="Tags">+ Tags</div>
             <div class="animated-word final-word" data-word="CareCard">CareCard</div>
@@ -543,24 +542,20 @@ const exampleCards: ExampleCard[] = [
   animation: wordFlow 8s infinite, gradientShift 3s ease-in-out infinite;
 }
 
-.animated-word[data-word="ICE"] {
+.animated-word[data-word="NFC"] {
   animation-delay: 0s;
 }
 
-.animated-word[data-word="NFC"] {
+.animated-word[data-word="QR"] {
   animation-delay: 1.6s;
 }
 
-.animated-word[data-word="QR"] {
+.animated-word[data-word="Tags"] {
   animation-delay: 3.2s;
 }
 
-.animated-word[data-word="Tags"] {
-  animation-delay: 4.8s;
-}
-
 .animated-word.final-word[data-word="CareCard"] {
-  animation-delay: 6.4s;
+  animation-delay: 4.8s;
   background: linear-gradient(135deg, #10b981, #3b82f6, #8b5cf6);
   background-clip: text;
   -webkit-background-clip: text;

@@ -64,7 +64,7 @@ const formatDate = (dateString: string) => {
         </UButton>
       </div>
 
-      <!-- ICE Card Display -->
+      <!-- Emergency Card Display -->
       <div v-else class="space-y-6">
         <!-- Header Card with Name -->
         <UCard>

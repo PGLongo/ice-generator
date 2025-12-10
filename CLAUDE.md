@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-CareCard is a modern emergency contact platform that unifies ICE (In Case of Emergency) information with smart technology. Built with Nuxt 4 and Nuxt UI, it bridges the gap between location tracking devices (AirTag, Samsung SmartTag, Tile) and emergency contact information through QR codes, NFC tags, and PDF generation.
+CareCard is a modern emergency contact platform that unifies emergency contact information with smart technology. Built with Nuxt 4 and Nuxt UI, it bridges the gap between location tracking devices (AirTag, Samsung SmartTag, Tile) and emergency contact information through QR codes, NFC tags, and PDF generation.
 
 ## Project Goals
 
@@ -30,7 +30,7 @@ carecard/
 │   ├── app.vue                          # Main application layout (header, footer, navigation)
 │   ├── pages/
 │   │   ├── index.vue                    # Landing page with animated hero section
-│   │   ├── form.vue                     # Main ICE form page (moved from index)
+│   │   ├── form.vue                     # Main emergency form page (moved from index)
 │   │   ├── preview.vue                  # Data preview page with iframe
 │   │   └── school.vue                   # School card page
 │   ├── components/
@@ -48,7 +48,7 @@ carecard/
 │   │   ├── useQRCode.ts                 # QR code generation (static and reactive)
 │   │   └── useHref.ts                   # Format hrefs (tel:, mailto:)
 │   ├── stores/
-│   │   └── ice.ts                       # Pinia store for ICE data
+│   │   └── ice.ts                       # Pinia store for emergency data
 │   ├── types/
 │   │   └── ice.ts                       # TypeScript interfaces (IceData, EmergencyContact)
 │   ├── plugins/
@@ -70,7 +70,7 @@ carecard/
 
 ## Key Features to Implement
 
-### 1. ICE Data Form
+### 1. Emergency Data Form
 Fields to include:
 - **Personal Information**
   - Full Name
@@ -106,7 +106,7 @@ Fields to include:
 - **Multi-format Support**: Covers all use cases from children to pets to valuables
 
 ### 4. CareCard Landing & Preview
-- **Animated Landing Page**: Hero section showing ICE + NFC + QR + Tags → CareCard unity
+- **Animated Landing Page**: Hero section showing NFC + QR + Tags → CareCard unity
 - **Nicolò's Story**: Real-world inspiration case study with universal applications
 - **Live Preview**: Iframe-based preview with real-time updates from Pinia store
 - **Use Case Examples**: Children, pets, luggage, elderly care, valuables
@@ -205,8 +205,8 @@ When creating API-related user stories, the agent MUST follow these standards:
 Agent: I will prepare the following items for creation:
 
 EPIC:
-Title: "Add PDF Export Feature for ICE Cards"
-Description: "Enable users to export ICE information as PDF files..."
+Title: "Add PDF Export Feature for Emergency Cards"
+Description: "Enable users to export emergency information as PDF files..."
 Labels: epic, feature
 Story Points: 13
 
@@ -256,7 +256,7 @@ May I proceed to create these items in the GitHub project board?
 ### TypeScript Types
 - **Types location**: `app/types/ice.ts` - All TypeScript interfaces for the domain model
 - **Main interfaces**:
-  - `IceData` - Complete ICE data structure with personal, medical, and emergency contact information
+  - `IceData` - Complete emergency data structure with personal, medical, and emergency contact information
   - `EmergencyContact` - Single emergency contact with name, relationship, phone, email
 - **Auto-imported**: Nuxt auto-imports types from `app/types/` so you can use them without explicit imports in Vue components
 - **Best practice**: Public domain interfaces go in `app/types/`, internal/implementation interfaces stay in their respective files
@@ -266,7 +266,7 @@ May I proceed to create these items in the GitHub project board?
   - Never keep types internal unless explicitly needed only within that file
 
 ### State Management
-- **Pinia Store**: All ICE data is stored in a single reactive Pinia store (`useIceStore`)
+- **Pinia Store**: All emergency data is stored in a single reactive Pinia store (`useIceStore`)
 - **Store location**: `app/stores/ice.ts` (imports types from `@/types/ice`)
 - **Auto-persistence**: Plugin (`app/plugins/pinia.client.ts`) uses `$subscribe` to automatically save to localStorage
 - **Direct store access**: ALL form components access the store directly via `useIceStore()`
@@ -440,7 +440,7 @@ const iceStore = useIceStore()
 - ✅ Auto-persist plugin for localStorage
 
 #### Data Management
-- ✅ ICE Store (Pinia) with full data structure
+- ✅ Emergency Store (Pinia) with full data structure
   - Personal Information (name, age, blood type)
   - Medical Information (allergies, conditions, medications, notes)
   - Emergency Contacts (unlimited, with phone/email)
@@ -471,7 +471,7 @@ const iceStore = useIceStore()
 
 #### CareCard Landing & Preview System (v0.1.3)
 - ✅ **Landing Page** - Complete redesign with animated hero section (index.vue)
-- ✅ **Animated Transition** - ICE + NFC + QR + Tags → CareCard unity visualization
+- ✅ **Animated Transition** - NFC + QR + Tags → CareCard unity visualization
 - ✅ **Nicolò's Story** - Real-world inspiration with universal use case examples
 - ✅ **Form Separation** - Main form moved to /form route for better UX
 - ✅ **Live Preview** - Iframe-based preview with real-time store updates
@@ -479,9 +479,9 @@ const iceStore = useIceStore()
 - ✅ **Location Tracker Info** - AirTag, Samsung SmartTag2, Tile integration guides
 
 #### CareCard User Experience (v0.1.3)
-- ✅ **Complete Rebranding** - ICE Generator → CareCard across all components
+- ✅ **Complete Rebranding** - Emergency Card Generator → CareCard across all components
 - ✅ **Enhanced Navigation** - TemplateMenu → proper app navigation structure
-- ✅ **Updated Branding** - AppLogo with "ICE + NFC + QR + Tags" subtitle
+- ✅ **Updated Branding** - AppLogo with "NFC + QR + Tags" subtitle
 - ✅ **Package Rename** - package.json name changed to "carecard"
 - ✅ **Comprehensive i18n** - Landing page translations in EN/IT
 - ✅ Dark mode support (via Nuxt UI)

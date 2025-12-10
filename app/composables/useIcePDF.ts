@@ -22,7 +22,7 @@ export const useIcePDF = () => {
     // Title
     pdf.setFontSize(24)
     pdf.setFont('helvetica', 'bold')
-    pdf.text('🆘 ICE - In Case of Emergency', pageWidth / 2, yPosition, { align: 'center' })
+    pdf.text('🆘 Emergency Contact Card', pageWidth / 2, yPosition, { align: 'center' })
     yPosition += 15
 
     // Name
@@ -244,7 +244,7 @@ export const useIcePDF = () => {
       pageWidth / 2, footerY, { align: 'center' })
 
     // Save PDF
-    const filename = `ICE-${data.name.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`
+    const filename = `Emergency-${data.name.replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`
     pdf.save(filename)
   }
 
