@@ -14,10 +14,6 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "release": "standard-version",
-    "release:minor": "standard-version --release-as minor",
-    "release:patch": "standard-version --release-as patch",
-    "release:major": "standard-version --release-as major",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress:screenshots": "cypress run --spec 'tests/e2e/specs/carecard-screenshots.cy.ts' --headless",
@@ -56,7 +52,6 @@
     "husky": "^9.1.7",
     "jsdom": "^27.2.0",
     "playwright-core": "^1.56.1",
-    "standard-version": "^9.5.0",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4",
     "vue-tsc": "^3.1.1"
