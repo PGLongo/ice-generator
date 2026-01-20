@@ -8,9 +8,11 @@ const selectedColor = ref('#10B77F')
 const selectedIcon = ref('i-heroicons-shopping-bag')
 const ctaTitle = ref('Shop Now')
 const destinationUrl = ref('https://instagram.com/store')
+const profileName = ref('@carecard_app')
+const backgroundImageUrl = ref('')
 
 const isValid = computed(() => {
-  return ctaTitle.value.trim().length > 0 && destinationUrl.value.trim().length > 0
+  return ctaTitle.value.trim().length > 0 && destinationUrl.value.trim().length > 0 && profileName.value.trim().length > 0
 })
 
 const colors = [
@@ -21,6 +23,22 @@ const colors = [
   '#F97316', // Orange
   '#EC4899'  // Pink
 ]
+
+const generatePreview = () => {
+    if (!isValid.value) return
+
+    const data = {
+        profileName: profileName.value,
+        ctaTitle: ctaTitle.value,
+        destinationUrl: destinationUrl.value,
+        color: selectedColor.value,
+        icon: selectedIcon.value,
+        backgroundImageUrl: backgroundImageUrl.value
+    }
+
+    const encodedData = btoa(JSON.stringify(data))
+    navigateTo(`/social-preview?data=${encodedData}`)
+}
 </script>
 
 <template>
@@ -33,10 +51,9 @@ const colors = [
       <div class="flex items-center px-4 py-3 border-b border-gray-800/60">
         <UButton
           icon="i-heroicons-chevron-left"
-          color="gray"
+          color="neutral"
           variant="ghost"
-          class="-ml-2 mr-2 hover:bg-white/5"
-          :ui="{ rounded: 'rounded-full' }"
+          class="-ml-2 mr-2 hover:bg-white/5 rounded-full"
           @click="$router.back()"
         />
         <h1 class="text-lg font-semibold tracking-wide">Configure CTA</h1>
@@ -52,6 +69,21 @@ const colors = [
           </div>
           
           <div class="space-y-4">
+            <div>
+              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">Nome Profilo <span class="text-red-500">*</span></span>
+              <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
+                <div class="flex items-center text-gray-200">
+                  <UIcon name="i-heroicons-user" class="w-4 h-4 mr-3 text-gray-600 shrink-0" />
+                  <input
+                    v-model="profileName"
+                    type="text"
+                    placeholder="Es. @carecard_app"
+                    class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
+                  />
+                </div>
+              </div>
+            </div>
+
             <div>
               <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">Titolo CTA <span class="text-red-500">*</span></span>
               <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
@@ -76,6 +108,21 @@ const colors = [
                     v-model="destinationUrl"
                     type="url"
                     placeholder="https://example.com"
+                    class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">URL Immagine Sfondo</span>
+              <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
+                <div class="flex items-center text-gray-200">
+                  <UIcon name="i-heroicons-photo" class="w-4 h-4 mr-3 text-gray-600 shrink-0" />
+                  <input
+                    v-model="backgroundImageUrl"
+                    type="url"
+                    placeholder="https://example.com/image.jpg"
                     class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
                   />
                 </div>
@@ -178,6 +225,7 @@ const colors = [
             boxShadow: isValid ? '0 4px 14px 0 rgba(16, 183, 127, 0.39)' : 'none'
           }"
           :disabled="!isValid"
+          @click="generatePreview"
         >
           Generate Preview
           <UIcon name="i-heroicons-sparkles" class="w-4 h-4 animate-pulse" v-if="isValid" />

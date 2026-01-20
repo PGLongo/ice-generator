@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import packageJson from '../package.json'
+// @ts-ignore
+import packageJson from '../../package.json'
 
+// @ts-ignore
 const { locale } = useI18n()
 
 // App version from package.json
