@@ -1,0 +1,3 @@
+[submodule ".abs-agentic"]
+	path = .abs-agentic
+	url = git@github.com:altea-abs/abs-agentic-developer.git
