@@ -1,9 +1,5 @@
 <script setup lang="ts">
-// @ts-ignore
 import packageJson from '../../package.json'
-
-// @ts-ignore
-const { locale } = useI18n()
 
 // App version from package.json
 const appVersion = packageJson.version
@@ -121,7 +117,7 @@ onMounted(() => {
     </header>
 
     <UMain>
-      <slot />
+      <slot ></slot>
     </UMain>
 
     <USeparator icon="i-simple-icons-nuxtdotjs" class="print:hidden"></USeparator>

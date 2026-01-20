@@ -1,6 +1,6 @@
 # Integrazione Scraping Instagram
 
-**Stato**: in-progress
+**Stato**: completed
 **Creato**: 2026-01-20
 **Ultimo aggiornamento**: 2026-01-20
 
@@ -30,7 +30,7 @@ Il sistema utilizzerà un approccio ibrido:
 
 ## Step
 
-- [ ] Creare endpoint server API `server/api/instagram/scrape.get.ts` per fetch HTML raw.
-- [ ] Creare composable `app/composables/useInstagramProfileScrape.ts` con logica fetch, parsing, validazione e cache.
-- [ ] Implementare UI di test/integrazione in `app/pages/social-preview.vue` (input username + button).
-- [ ] Verificare il funzionamento con username validi e gestire errori (404, CORS, invalid format).
+- [x] Creare endpoint server API `server/api/instagram/scrape.get.ts` per fetch HTML raw.
+- [x] Creare composable `app/composables/useInstagramProfileScrape.ts` con logica fetch, parsing, validazione e cache.
+- [x] Implementare UI di test/integrazione in `app/pages/social-preview.vue` (input username + button).
+- [x] Verificare il funzionamento con username validi e gestire errori (404, CORS, invalid format).

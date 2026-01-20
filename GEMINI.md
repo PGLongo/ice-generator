@@ -32,6 +32,7 @@ carecard/
 │   │   ├── index.vue                    # Landing page with animated hero section
 │   │   ├── form.vue                     # Main emergency form page (moved from index)
 │   │   ├── preview.vue                  # Data preview page with iframe
+│   │   ├── social-preview.vue           # Social card preview page
 │   │   ├── school.vue                   # School card page
 │   ├── components/
 │   │   ├── Form/
@@ -46,7 +47,8 @@ carecard/
 │   │   ├── useIcePDF.ts                 # PDF generation with embedded QR codes
 │   │   ├── useIceUrlShare.ts            # URL encoding/decoding with compression
 │   │   ├── useQRCode.ts                 # QR code generation (static and reactive)
-│   │   └── useHref.ts                   # Format hrefs (tel:, mailto:)
+│   │   ├── useHref.ts                   # Format hrefs (tel:, mailto:)
+│   │   └── useInstagramProfileScrape.ts # Instagram profile scraping logic
 │   ├── stores/
 │   │   └── ice.ts                       # Pinia store for emergency data
 │   ├── types/
@@ -60,6 +62,10 @@ carecard/
 │   └── locales/
 │       ├── en.json                      # English translations (with landing section)
 │       └── it.json                      # Italian translations (with landing section)
+├── server/
+│   └── api/
+│       └── instagram/
+│           └── scrape.get.ts            # Instagram scraping proxy endpoint
 ├── public/                              # Static assets
 ├── nuxt.config.ts                       # Nuxt configuration
 ├── package.json                         # Project dependencies (name: "carecard")
@@ -501,6 +507,12 @@ const iceStore = useIceStore()
 - ✅ QR code in school card (call referent directly)
 - ✅ Download QR code as PNG from main form
 - ✅ Single library dependency: `qrcode` (8k GitHub stars)
+
+#### Social Features (v0.1.4)
+- ✅ **Instagram Scraping** - Server-side proxy for fetching public profiles
+- ✅ **Profile Data Extraction** - Intelligent parsing of meta tags (Full Name, Avatar)
+- ✅ **Scraping Composable** - `useInstagramProfileScrape` with validation and caching
+- ✅ **Preview Integration** - Test UI in social preview page
 
 ### ⏳ Pending Features (v0.1.4+)
 
