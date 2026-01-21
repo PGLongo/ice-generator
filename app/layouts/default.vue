@@ -49,14 +49,14 @@ onMounted(() => {
           </NuxtLink>
 
           <!-- Desktop Navigation -->
-          <nav class="hidden lg:flex items-center space-x-1">
+          <nav v-if="route.path !== '/'" class="hidden lg:flex items-center space-x-1">
             <TemplateMenu></TemplateMenu>
           </nav>
 
           <!-- Actions Section -->
           <div class="flex items-center space-x-3">
             <!-- Quick Actions -->
-            <div class="hidden md:flex items-center space-x-2">
+            <div v-if="route.path !== '/'" class="hidden md:flex items-center space-x-2">
               <UButton
                 to="/form"
                 size="sm"
@@ -98,8 +98,8 @@ onMounted(() => {
         <div v-if="isMobileMenuOpen" class="mobile-nav lg:hidden">
           <UContainer>
             <div class="mobile-nav-content">
-              <TemplateMenu orientation="vertical"></TemplateMenu>
-              <div class="mobile-actions">
+              <TemplateMenu v-if="route.path !== '/'" orientation="vertical"></TemplateMenu>
+              <div v-if="route.path !== '/'" class="mobile-actions">
                 <UButton
                   to="/form"
                   size="lg"
