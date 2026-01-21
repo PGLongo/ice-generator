@@ -122,7 +122,9 @@ const exampleCards: ExampleCard[] = [
               <div class="animated-word" data-word="NFC">NFC</div>
               <div class="animated-word" data-word="QR">+ QR</div>
               <div class="animated-word" data-word="Tags">+ Tags</div>
-              <div class="animated-word final-word" data-word="CareCard">CareCard</div>
+              <div class="animated-word final-word" data-word="CareCard">
+                <img src="/CareCard.svg" alt="CareCard" class="h-16 md:h-20 lg:h-24 inline-block align-middle" />
+              </div>
             </div>
           </div>
 

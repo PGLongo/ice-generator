@@ -1,11 +1,8 @@
 <template>
   <div class="logo-container">
-    <!-- Modern Icon with Gradient -->
+    <!-- Logo Image -->
     <div class="icon-wrapper">
-      <div class="icon-gradient">
-        <UIcon name="i-heroicons-heart" class="heart-icon" ></UIcon>
-        <UIcon name="i-heroicons-shield-check" class="shield-icon" ></UIcon>
-      </div>
+      <img src="/CareCard.svg" alt="Logo" class="logo-image" />
     </div>
 
     <!-- App Name with Modern Typography -->
@@ -26,50 +23,31 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.logo-container:hover {
+  transform: translateY(-1px);
+}
+
 .icon-wrapper {
   position: relative;
-  width: 40px;
+  width: auto;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.icon-gradient {
-  position: relative;
-  width: 100%;
+.logo-image {
   height: 100%;
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+  width: auto;
+  object-fit: contain;
+  /* Filter to drop shadow matching the text style if needed */
+  filter: drop-shadow(0 4px 6px rgba(0, 204, 255, 0.2));
   transition: all 0.3s ease;
 }
 
-.icon-gradient:hover {
+.logo-image:hover {
   transform: rotate(5deg) scale(1.1);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.35);
-}
-
-.heart-icon {
-  width: 16px;
-  height: 16px;
-  color: white;
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  animation: heartbeat 2s ease-in-out infinite;
-}
-
-.shield-icon {
-  width: 20px;
-  height: 20px;
-  color: white;
-  position: absolute;
-  bottom: 4px;
-  right: 4px;
+  filter: drop-shadow(0 8px 12px rgba(0, 204, 255, 0.3));
 }
 
 .text-content {
@@ -87,14 +65,16 @@
 }
 
 .care-text {
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  /* Cyan gradient */
+  background: linear-gradient(135deg, #00ccff, #0099ff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .card-text {
-  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  /* Blue gradient */
+  background: linear-gradient(135deg, #0066ff, #00ccff);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
