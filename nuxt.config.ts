@@ -121,5 +121,11 @@ export default defineNuxtConfig({
       ],
       scan: true
     }
+  },
+
+  ui: {
+    theme: {
+      colors: ['primary', 'secondary', 'neutral', 'error', 'warning', 'success', 'info']
+    }
   }
 })

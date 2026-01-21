@@ -4,15 +4,29 @@
 @theme static {
   --font-sans: 'Public Sans', sans-serif;
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  /* Primary: CareCard Blue (#0066ff) */
+  --color-carecard-blue-50: #eff6ff;
+  --color-carecard-blue-100: #dbeafe;
+  --color-carecard-blue-200: #bfdbfe;
+  --color-carecard-blue-300: #93c5fd;
+  --color-carecard-blue-400: #60a5fa;
+  --color-carecard-blue-500: #0066ff;
+  --color-carecard-blue-600: #0052cc;
+  --color-carecard-blue-700: #003d99;
+  --color-carecard-blue-800: #002966;
+  --color-carecard-blue-900: #001433;
+  --color-carecard-blue-950: #000a1a;
+
+  /* Secondary: CareCard Cyan (#00ccff) */
+  --color-carecard-cyan-50: #f0f9ff;
+  --color-carecard-cyan-100: #e0f2fe;
+  --color-carecard-cyan-200: #bae6fd;
+  --color-carecard-cyan-300: #7dd3fc;
+  --color-carecard-cyan-400: #38bdf8;
+  --color-carecard-cyan-500: #00ccff;
+  --color-carecard-cyan-600: #00a3cc;
+  --color-carecard-cyan-700: #007a99;
+  --color-carecard-cyan-800: #005266;
+  --color-carecard-cyan-900: #002933;
+  --color-carecard-cyan-950: #00141a;
 }
