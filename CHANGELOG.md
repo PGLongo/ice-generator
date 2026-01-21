@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.1](https://github.com/PGLongo/ice-generator/compare/v1.0.0...v1.0.1) (2026-01-21)
+
+
+### Bug Fixes
+
+* **instagram:** update userAgents for vercel ([255ded2](https://github.com/PGLongo/ice-generator/commit/255ded26bdcf05902376e124bb1b537881f82d20))
+
 ## [1.0.0](https://github.com/PGLongo/ice-generator/compare/v0.3.0...v1.0.0) (2026-01-21)
 
 
