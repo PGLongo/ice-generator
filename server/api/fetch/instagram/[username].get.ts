@@ -20,10 +20,10 @@ export default defineEventHandler(async (event) => {
     const url = `https://www.instagram.com/${username}/`
 
     const userAgents = [
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/115.0',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15'
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15',
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0'
     ]
 
     let lastError: unknown = null
@@ -56,8 +56,20 @@ export default defineEventHandler(async (event) => {
             const response = await fetch(url, {
                 headers: {
                     'User-Agent': ua,
-                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                    'Accept-Language': 'en-US,en;q=0.5'
+                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+                    'Accept-Language': 'en-US,en;q=0.9',
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache',
+                    'Sec-Ch-Ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
+                    'Sec-Ch-Ua-Mobile': '?0',
+                    'Sec-Ch-Ua-Platform': '"macOS"',
+                    'Sec-Fetch-Dest': 'document',
+                    'Sec-Fetch-Mode': 'navigate',
+                    'Sec-Fetch-Site': 'none',
+                    'Sec-Fetch-User': '?1',
+                    'Upgrade-Insecure-Requests': '1',
+                    'Referer': 'https://www.google.com/'
                 }
             })
 
@@ -71,11 +83,17 @@ export default defineEventHandler(async (event) => {
             const ogTitle = extractMeta(html, 'og:title')
             const ogImage = extractMeta(html, 'og:image')
 
+            // Check if we hit the login wall
+            if (ogTitle === 'Instagram') {
+                console.warn('[Instagram Scrape] Hit login wall (Title: Instagram)')
+                lastError = createError({ statusCode: 403, statusMessage: 'Instagram requires login (IP blocked)' })
+                continue
+            }
+
             if (ogTitle || ogImage) {
                 let fullName = ogTitle || username
 
                 // Remove unwanted suffix common in Instagram title
-                // e.g., "Name (@user) • Instagram photos and videos"
                 // or "@user • Instagram photos and videos"
                 if (ogTitle) {
                     // Try to extract Name from "Name (@user)"
@@ -90,6 +108,13 @@ export default defineEventHandler(async (event) => {
                         // If it's just the username (starts with @), fallback to username
                         if (fullName.startsWith('@')) fullName = username
                     }
+                }
+
+                if (fullName === 'Instagram') {
+                    // Double check: if extraction resulted in "Instagram", it's invalid
+                    console.warn('[Instagram Scrape] Invalid parsed name (Instagram)')
+                    lastError = createError({ statusCode: 403, statusMessage: 'Instagram requires login' })
+                    continue
                 }
 
                 return {
