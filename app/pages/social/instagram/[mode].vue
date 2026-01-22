@@ -66,6 +66,9 @@ const textColor = computed(() => {
   if (!decodedData.value?.color) return '#000000'
   return getContrastColor(decodedData.value.color)
 })
+const showSidebar = computed(() => {
+  return route.params['mode'] === 'preview'
+})
 </script>
 
 <template>
@@ -132,7 +135,7 @@ const textColor = computed(() => {
         </div>
 
         <!-- Actions Sidebar -->
-        <div id="actions-sidebar" class="actions-sidebar">
+        <div v-if="showSidebar" id="actions-sidebar" class="actions-sidebar">
           <!-- Live Preview Header -->
           <div class="text-center lg:text-left space-y-2">
             <AppTitle text="Live Preview" />
