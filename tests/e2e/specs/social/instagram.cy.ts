@@ -19,9 +19,10 @@ describe('Social Instagram Pages', () => {
     cy.visit(socialConfigUrl)
 
     // Fill Required Fields
-    cy.get('input[placeholder="Es. @carecard_app"]').clear().type('@test_profile')
-    cy.get('input[placeholder="Es. Shop Now"]').clear().type('My CTA')
-    cy.get('input[placeholder="https://example.com"]').clear().type('https://test.com')
+    cy.get('input[placeholder="Es. DungeonStore Genova"]').clear().type('DungeonStore Genova')
+    cy.get('input[placeholder="Es. @dungeonstore_genova"]').clear().type('@dungeonstore_genova')
+    cy.get('input[placeholder="Es. Shop Now"]').clear().type('Seguimi')
+    cy.get('input[placeholder="https://example.com/image.jpg"]').clear().type('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ37dT6xYe5KVvPAVsPATkA1Quoa0FLAZwBiw&s')
 
     // Wait for Vue to update model
     cy.wait(500)
@@ -47,7 +48,7 @@ describe('Social Instagram Pages', () => {
     cy.url().should('include', socialPreviewUrl)
 
     // Check if preview loads
-    cy.contains('My CTA').should('be.visible')
+    cy.contains('Seguimi').should('be.visible')
     cy.contains('button', 'Copy URL').should('exist')
   })
 
