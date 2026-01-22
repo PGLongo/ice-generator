@@ -11,6 +11,10 @@ const props = defineProps({
     defaultBackground: {
         type: String,
         default: ''
+    },
+    defaultBackground: {
+        type: String,
+        default: ''
     }
 })
 

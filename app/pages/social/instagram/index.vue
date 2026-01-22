@@ -1,19 +1,25 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-definePageMeta({
-  layout: false
-})
+
 
 const { search, filteredIcons } = useIcons()
 const selectedColor = ref('#10B77F')
 const selectedIcon = ref('i-heroicons-shopping-bag')
-const ctaTitle = ref('Shop Now')
-const destinationUrl = ref('https://instagram.com/store')
-const profileName = ref('@carecard_app')
+const formCtaTitle = ref('Shop Now')
+const name = ref('DungeonStore Genova')
+const handle = ref('@dungeonstore_genova')
 const backgroundImageUrl = ref('')
+const profileImageUrl = ref('')
+const router = useRouter()
+const isGenerating = ref(false)
+
+const destinationUrl = computed(() => {
+    const cleanHandle = handle.value.replace('@', '').trim()
+    return cleanHandle ? `https://instagram.com/${cleanHandle}` : ''
+})
 
 const isValid = computed(() => {
-  return ctaTitle.value.trim().length > 0 && destinationUrl.value.trim().length > 0 && profileName.value.trim().length > 0
+  return formCtaTitle.value.trim().length > 0 && handle.value.trim().length > 0 && name.value.trim().length > 0
 })
 
 const colors = [
@@ -25,39 +31,44 @@ const colors = [
   '#EC4899' // Pink
 ]
 
-const generatePreview = () => {
+
+const generatePreview = async () => {
     if (!isValid.value) return
+    isGenerating.value = true
 
     const data = {
-        profileName: profileName.value,
-        ctaTitle: ctaTitle.value,
+        name: name.value,
+        handle: handle.value,
+        ctaTitle: formCtaTitle.value,
         destinationUrl: destinationUrl.value,
         color: selectedColor.value,
         icon: selectedIcon.value,
-        backgroundImageUrl: backgroundImageUrl.value
+        backgroundImageUrl: backgroundImageUrl.value,
+        profileImageUrl: profileImageUrl.value
     }
 
-    const encodedData = btoa(JSON.stringify(data))
-    navigateTo(`/social-preview?data=${encodedData}`)
+    // Robust encoding for UTF-8 support
+    const jsonString = JSON.stringify(data)
+    const encodedData = btoa(unescape(encodeURIComponent(jsonString)))
+    
+    try {
+        await router.push({
+            path: '/social/instagram/preview',
+            query: { data: encodedData }
+        })
+    } catch (e) {
+        console.error('Navigation error:', e)
+        // Fallback
+        window.location.href = `/social/instagram/preview?data=${encodedData}`
+    }
 }
 </script>
 
 <template>
-  <!-- Main Container: Fixed height, strict overflow handling -->
-  <div class="fixed inset-0 bg-[#0B1120] text-gray-200 flex flex-col font-sans overflow-hidden z-50">
-    <!-- Top Fixed Config Section -->
-    <div class="shrink-0 z-10 bg-[#0B1120] border-b border-gray-800/60 shadow-lg">
-      <!-- Header -->
-      <div class="flex items-center px-4 py-3 border-b border-gray-800/60">
-        <UButton
-          icon="i-heroicons-chevron-left"
-          color="neutral"
-          variant="ghost"
-          class="-ml-2 mr-2 hover:bg-white/5 rounded-full"
-          @click="$router.back()"
-        ></UButton>
-        <h1 class="text-lg font-semibold tracking-wide">Configure CTA</h1>
-      </div>
+  <!-- Main Container: Standard flow within layout -->
+  <div class="bg-[#0B1120] text-gray-200 font-sans min-h-[calc(100vh-64px)]">
+    <!-- Config Section -->
+    <div class="bg-[#0B1120]">
 
       <!-- Static content that should NOT scroll -->
       <div class="p-5 pb-0 max-w-md mx-auto w-full space-y-5">
@@ -70,14 +81,31 @@ const generatePreview = () => {
 
           <div class="space-y-4">
             <div>
-              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">Nome Profilo <span class="text-red-500">*</span></span>
+              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">Nome (es. Negozio) <span class="text-red-500">*</span></span>
               <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
                 <div class="flex items-center text-gray-200">
-                  <UIcon name="i-heroicons-user" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
+                  <UIcon name="i-heroicons-identification" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
                   <input
-                    v-model="profileName"
+                    data-cy="input-name"
+                    v-model="name"
                     type="text"
-                    placeholder="Es. @carecard_app"
+                    placeholder="Es. DungeonStore Genova"
+                    class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">Instagram Handle <span class="text-red-500">*</span></span>
+              <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
+                <div class="flex items-center text-gray-200">
+                  <UIcon name="i-heroicons-at-symbol" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
+                  <input
+                    data-cy="input-handle"
+                    v-model="handle"
+                    type="text"
+                    placeholder="Es. @dungeonstore_genova"
                     class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
                   />
                 </div>
@@ -90,24 +118,10 @@ const generatePreview = () => {
                 <div class="flex items-center text-gray-200">
                   <UIcon name="i-heroicons-tag" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
                   <input
-                    v-model="ctaTitle"
+                    data-cy="input-cta"
+                    v-model="formCtaTitle"
                     type="text"
                     placeholder="Es. Shop Now"
-                    class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">Link Destinazione <span class="text-red-500">*</span></span>
-              <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
-                <div class="flex items-center text-gray-200">
-                  <UIcon name="i-heroicons-link" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
-                  <input
-                    v-model="destinationUrl"
-                    type="url"
-                    placeholder="https://example.com"
                     class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
                   />
                 </div>
@@ -120,9 +134,26 @@ const generatePreview = () => {
                 <div class="flex items-center text-gray-200">
                   <UIcon name="i-heroicons-photo" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
                   <input
+                    data-cy="input-bg-url"
                     v-model="backgroundImageUrl"
                     type="url"
                     placeholder="https://example.com/image.jpg"
+                    class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">URL Immagine Profilo</span>
+              <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
+                <div class="flex items-center text-gray-200">
+                  <UIcon name="i-heroicons-user-circle" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
+                  <input
+                    data-cy="input-profile-url"
+                    v-model="profileImageUrl"
+                    type="url"
+                    placeholder="https://example.com/avatar.jpg"
                     class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
                   />
                 </div>
@@ -185,8 +216,8 @@ const generatePreview = () => {
       </div>
     </div>
 
-    <!-- Scrollable Icon Grid ONLY -->
-    <div class="flex-1 overflow-y-auto custom-scrollbar bg-[#0B1120]">
+    <!-- Icon Grid Section -->
+    <div class="bg-[#0B1120]">
       <div class="p-5 pt-2 max-w-md mx-auto w-full">
         <div class="bg-[#111827] p-4 rounded-xl border border-gray-800/60 min-h-[300px]">
           <div v-if="filteredIcons.length > 0" class="grid grid-cols-5 gap-3">
@@ -218,22 +249,24 @@ const generatePreview = () => {
     </div>
 
     <!-- Footer Action -->
-    <div class="p-4 safe-area-bottom border-t border-gray-800/60 bg-[#0B1120] shrink-0 z-10 shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
+
       <div class="max-w-md mx-auto w-full pb-4">
         <button
+          type="button"
           class="w-full py-3.5 rounded-xl font-bold text-white shadow-lg transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 text-sm tracking-wide disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
           :style="{
             backgroundColor: isValid ? '#10B77F' : '#374151',
             boxShadow: isValid ? '0 4px 14px 0 rgba(16, 183, 127, 0.39)' : 'none'
           }"
-          :disabled="!isValid"
+          :disabled="!isValid || isGenerating"
           @click="generatePreview"
         >
-          Generate Preview
-          <UIcon name="i-heroicons-sparkles" class="w-4 h-4 animate-pulse" v-if="isValid" ></UIcon>
+          {{ isGenerating ? 'Generating...' : 'Generate Preview' }}
+          <span data-cy="debug-cta" class="hidden">{{ formCtaTitle }}</span>
+          <UIcon name="i-heroicons-sparkles" class="w-4 h-4 animate-pulse" v-if="isValid && !isGenerating" ></UIcon>
+          <UIcon name="i-heroicons-arrow-path" class="w-4 h-4 animate-spin" v-if="isGenerating" ></UIcon>
         </button>
       </div>
-    </div>
   </div>
 </template>
 

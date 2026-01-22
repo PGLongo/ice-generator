@@ -32,7 +32,10 @@ carecard/
 │   │   ├── index.vue                    # Landing page with animated hero section
 │   │   ├── form.vue                     # Main emergency form page (moved from index)
 │   │   ├── preview.vue                  # Data preview page with iframe
-│   │   ├── social-preview.vue           # Social card preview page
+│   │   ├── social/
+│   │   │   └── instagram/
+│   │   │       ├── index.vue            # Social card configuration
+│   │   │       └── preview.vue          # Social card preview page
 │   │   ├── school.vue                   # School card page
 │   ├── components/
 │   │   ├── Form/
@@ -513,6 +516,7 @@ const iceStore = useIceStore()
 - ✅ **Profile Data Extraction** - Intelligent parsing of meta tags (Full Name, Avatar)
 - ✅ **Scraping Composable** - `useInstagramProfileScrape` with validation and caching
 - ✅ **Preview Integration** - Test UI in social preview page
+- ✅ **Refactoring** - Social pages structure organized (`/social/instagram/`)
 
 ### ⏳ Pending Features (v0.1.4+)
 
