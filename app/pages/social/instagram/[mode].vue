@@ -66,9 +66,41 @@ const textColor = computed(() => {
   if (!decodedData.value?.color) return '#000000'
   return getContrastColor(decodedData.value.color)
 })
+import { useClipboard } from '@vueuse/core'
+
 const showSidebar = computed(() => {
-  return route.params['mode'] === 'preview'
+  return route.params['mode'] === 'share'
 })
+
+// Copy Functionality
+const { copy } = useClipboard()
+const toast = useToast()
+
+const copyShareLink = async () => {
+  if (!decodedData.value) return
+
+  try {
+    // Construct the share URL
+    const baseUrl = window.location.origin
+    const shareUrl = `${baseUrl}/social/instagram/share?data=${route.query['data']}`
+    
+    await copy(shareUrl)
+    
+    toast.add({
+      title: 'Link Copiato!',
+      description: 'Il link alla tua anteprima è stato copiato negli appunti.',
+      icon: 'i-heroicons-check-circle',
+      color: 'success'
+    })
+  } catch (err) {
+    toast.add({
+      title: 'Errore',
+      description: 'Impossibile copiare il link.',
+      icon: 'i-heroicons-exclamation-circle',
+      color: 'error'
+    })
+  }
+}
 </script>
 
 <template>
@@ -152,6 +184,7 @@ const showSidebar = computed(() => {
                 icon="i-heroicons-link"
                 class="relative overflow-hidden group transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] bg-gradient-to-r from-[#00ccff] to-[#0099ff] hover:from-[#00b8e6] hover:to-[#008ae6] text-white border-0 shadow-lg hover:shadow-[#00ccff]/20 py-4 rounded-2xl font-bold text-white shadow-xl"
                 :ui="{ rounded: 'rounded-2xl' }"
+                @click="copyShareLink"
               >
                 <span class="relative z-10">Copia Link Condivisibile</span>
               </UButton>
