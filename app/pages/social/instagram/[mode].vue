@@ -66,7 +66,7 @@ const textColor = computed(() => {
   if (!decodedData.value?.color) return '#000000'
   return getContrastColor(decodedData.value.color)
 })
-import { useClipboard } from '@vueuse/core'
+import { useClipboard, useShare } from '@vueuse/core'
 
 const showSidebar = computed(() => {
   return route.params['mode'] === 'share'
@@ -76,15 +76,16 @@ const showSidebar = computed(() => {
 const { copy } = useClipboard()
 const toast = useToast()
 
+const getShareUrl = () => {
+  const baseUrl = window.location.origin
+  return `${baseUrl}/social/instagram/share?data=${route.query['data']}`
+}
+
 const copyShareLink = async () => {
   if (!decodedData.value) return
 
   try {
-    // Construct the share URL
-    const baseUrl = window.location.origin
-    const shareUrl = `${baseUrl}/social/instagram/share?data=${route.query['data']}`
-    
-    await copy(shareUrl)
+    await copy(getShareUrl())
     
     toast.add({
       title: 'Link Copiato!',
@@ -99,6 +100,30 @@ const copyShareLink = async () => {
       icon: 'i-heroicons-exclamation-circle',
       color: 'error'
     })
+  }
+}
+
+// Native Share Functionality
+const { share, isSupported: isShareSupported } = useShare()
+
+const nativeShare = async () => {
+  if (!decodedData.value) return
+
+  // Fallback to copy if native share not supported
+  if (!isShareSupported.value) {
+    await copyShareLink()
+    return
+  }
+
+  try {
+    await share({
+      title: `CareCard Instagram Preview: ${decodedData.value.name}`,
+      text: `Controlla l'anteprima della configurazione Instagram di ${decodedData.value.name}!`,
+      url: getShareUrl()
+    })
+  } catch (err) {
+    // User cancelled or error - ignore or optional logging
+    console.debug('Share cancelled or failed', err)
   }
 }
 </script>
@@ -196,6 +221,7 @@ const copyShareLink = async () => {
                 icon="i-heroicons-share"
                 class="relative overflow-hidden group transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/20 py-4 rounded-2xl font-bold text-white shadow-xl"
                 :ui="{ rounded: 'rounded-2xl' }"
+                @click="nativeShare"
               >
                 <span class="relative z-10">Condividi Anteprima</span>
               </UButton>
