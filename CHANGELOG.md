@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/PGLongo/ice-generator/compare/v1.0.0...v1.1.0) (2026-01-22)
+
+
+### Features
+
+* add app logo ([a0db27a](https://github.com/PGLongo/ice-generator/commit/a0db27ac1fc679fade10d421ba438b34a95f4926))
+* change base color css ([1179575](https://github.com/PGLongo/ice-generator/commit/11795759e498a9d22bfe57c0d5a6cfe5f7477c5a))
+* **preview:** improve layout ([15e3767](https://github.com/PGLongo/ice-generator/commit/15e37676687e10cea17d5a722ddf928d743feb9e))
+* **social:** allow custom profile image in instagram generator ([2ee5cf2](https://github.com/PGLongo/ice-generator/commit/2ee5cf2200cdb9a38ba89fc8e41ebf977a128b28))
+* **social:** implement copy link functionality for instagram share ([c2cae83](https://github.com/PGLongo/ice-generator/commit/c2cae833171bcbe2b50e0cc517f960b034c128ae))
+* **social:** implement native share with fallback ([f7abc5c](https://github.com/PGLongo/ice-generator/commit/f7abc5cc0dacee50a7d1d2f7fb5e7b5fd4d37d6c))
+* **social:** update form for manual data entry ([7625b48](https://github.com/PGLongo/ice-generator/commit/7625b4846dee8a34a33d1db2d7111246602eb636))
+* **social:** update preview to show manual data ([58d40e9](https://github.com/PGLongo/ice-generator/commit/58d40e94699efc14839765696166031be6bc3a4e))
+
+
+### Bug Fixes
+
+* home layout ([aa89497](https://github.com/PGLongo/ice-generator/commit/aa89497a7f69b0165a4131cde5fc4a242e20d8f3))
+* ig layout ([c635096](https://github.com/PGLongo/ice-generator/commit/c635096a58fdacf177ead523424194e4772463e3))
+* **instagram:** remove default props ([6ac5e87](https://github.com/PGLongo/ice-generator/commit/6ac5e8700b2d70ae2a12db1dfa16963b8e5a11ba))
+* **instagram:** update userAgents for vercel ([255ded2](https://github.com/PGLongo/ice-generator/commit/255ded26bdcf05902376e124bb1b537881f82d20))
+* scrollable layout ([391987f](https://github.com/PGLongo/ice-generator/commit/391987fd9fad2fe9dcafc37d46999705d8c47808))
+* showSidebar ([33310c7](https://github.com/PGLongo/ice-generator/commit/33310c73e754ef81b401685fde2d098fb1251eb8))
+
 ## [1.0.0](https://github.com/PGLongo/ice-generator/compare/v0.3.0...v1.0.0) (2026-01-21)
 
 
