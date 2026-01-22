@@ -4,23 +4,18 @@
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="h-dvh overflow-hidden flex flex-col">
     <!-- Reusable Header -->
     <AppHeader />
 
-    <UMain class="flex-1 flex flex-col">
+    <UMain class="flex-1 w-full relative min-h-0 overflow-y-auto">
       <slot />
     </UMain>
 
     <USeparator icon="i-simple-icons-nuxtdotjs" class="print:hidden" />
-
     <!-- Reusable Footer -->
     <AppFooter />
 
     <UNotifications />
   </div>
 </template>
-
-<style scoped>
-/* Scoped styles moved to components */
-</style>

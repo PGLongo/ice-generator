@@ -1,9 +1,12 @@
 <script setup lang="ts">
+definePageMeta({
+  layout: 'fullscreen'
+})
 
 const props = defineProps({
     defaultAvatar: {
         type: String,
-        default: 'https://cdn-icons-png.flaticon.com/512/847/847969.png'
+        default: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ37dT6xYe5KVvPAVsPATkA1Quoa0FLAZwBiw&s'
     },
     defaultBackground: {
         type: String,
@@ -84,7 +87,6 @@ watch(() => route.query['data'], (data) => {
             <!-- Floating CTA Card (Bottom) -->
             <div id="story-cta-container" class="absolute bottom-12 left-6 right-6 z-20 animate-fade-in-up">
               <div class="bg-black/60 backdrop-blur-xl border border-white/10 p-5 rounded-2xl shadow-xl text-center">
-                <div class="text-[10px] uppercase tracking-widest text-white/80 mb-3 font-semibold">Limited Time Offer</div>
                 <button
                   id="btn-cta-preview"
                   data-cy="cta-button"
@@ -106,10 +108,7 @@ watch(() => route.query['data'], (data) => {
         <div id="actions-sidebar" class="actions-sidebar">
           <!-- Live Preview Header -->
           <div class="text-center lg:text-left space-y-2">
-            <h1 id="preview-heading" class="text-4xl font-extrabold tracking-tight">
-              <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#00ccff] to-[#0099ff]">Live </span>
-              <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#0066ff] to-[#00ccff]">Preview</span>
-            </h1>
+            <AppTitle text="Live Preview" />
             <p id="preview-subtext" class="text-gray-400 text-sm font-medium">Visualizzazione in tempo reale dello stile {{ decodedData.name }}.</p>
           </div>
 
@@ -155,14 +154,12 @@ watch(() => route.query['data'], (data) => {
 </template>
 
 <style scoped>
-/* Fullscreen layout */
+/* Fullscreen layout handled by fullscreen layout */
 .preview-page {
   display: flex;
   flex-direction: column;
   flex: 1;
   height: 100%;
-  min-height: 0;
-  overflow: hidden;
 }
 
 .preview-loading {

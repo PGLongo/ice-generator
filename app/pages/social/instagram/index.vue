@@ -67,17 +67,6 @@ const generatePreview = async () => {
   <div class="bg-[#0B1120] text-gray-200 font-sans min-h-[calc(100vh-64px)]">
     <!-- Config Section -->
     <div class="bg-[#0B1120]">
-      <!-- Header -->
-      <div class="flex items-center px-4 py-3 border-b border-gray-800/60">
-        <UButton
-          icon="i-heroicons-chevron-left"
-          color="neutral"
-          variant="ghost"
-          class="-ml-2 mr-2 hover:bg-white/5 rounded-full"
-          @click="$router.back()"
-        ></UButton>
-        <h1 class="text-lg font-semibold tracking-wide">Configure CTA</h1>
-      </div>
 
       <!-- Static content that should NOT scroll -->
       <div class="p-5 pb-0 max-w-md mx-auto w-full space-y-5">
@@ -242,7 +231,7 @@ const generatePreview = async () => {
     </div>
 
     <!-- Footer Action -->
-    <div class="p-4 safe-area-bottom border-t border-gray-800/60 bg-[#0B1120] shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
+
       <div class="max-w-md mx-auto w-full pb-4">
         <button
           type="button"
@@ -260,7 +249,6 @@ const generatePreview = async () => {
           <UIcon name="i-heroicons-arrow-path" class="w-4 h-4 animate-spin" v-if="isGenerating" ></UIcon>
         </button>
       </div>
-    </div>
   </div>
 </template>
 
