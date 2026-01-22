@@ -121,11 +121,11 @@ onMounted(async () => {
       </div>
     </template>
 
-    <div v-else class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+    <div v-else class="flex-1 flex flex-col items-center justify-center p-6 text-center relative z-10">
       <UIcon name="i-heroicons-exclamation-triangle" class="w-12 h-12 text-red-500 mb-4" ></UIcon>
       <h1 class="text-xl font-bold text-white mb-2">Impossibile caricare l'anteprima</h1>
       <p class="text-gray-400">Dati mancanti o non validi.</p>
-      <UButton to="/social" color="neutral" variant="ghost" class="mt-6">Torna alla configurazione</UButton>
+      <UButton to="/social/instagram" color="neutral" variant="ghost" class="mt-6">Torna alla configurazione</UButton>
     </div>
   </div>
 </template>

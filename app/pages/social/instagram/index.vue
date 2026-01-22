@@ -11,6 +11,8 @@ const ctaTitle = ref('Shop Now')
 const destinationUrl = ref('https://instagram.com/store')
 const profileName = ref('@carecard_app')
 const backgroundImageUrl = ref('')
+const router = useRouter()
+const isGenerating = ref(false)
 
 const isValid = computed(() => {
   return ctaTitle.value.trim().length > 0 && destinationUrl.value.trim().length > 0 && profileName.value.trim().length > 0
@@ -25,8 +27,10 @@ const colors = [
   '#EC4899' // Pink
 ]
 
-const generatePreview = () => {
+
+const generatePreview = async () => {
     if (!isValid.value) return
+    isGenerating.value = true
 
     const data = {
         profileName: profileName.value,
@@ -38,7 +42,15 @@ const generatePreview = () => {
     }
 
     const encodedData = btoa(JSON.stringify(data))
-    navigateTo(`/social-preview?data=${encodedData}`)
+    console.log('Navigating to preview with data', data)
+    
+    try {
+        await router.push(`/social/instagram/preview?data=${encodedData}`)
+    } catch (e) {
+        console.error('Navigation error:', e)
+        // Fallback
+        window.location.href = `/social/instagram/preview?data=${encodedData}`
+    }
 }
 </script>
 
@@ -221,16 +233,18 @@ const generatePreview = () => {
     <div class="p-4 safe-area-bottom border-t border-gray-800/60 bg-[#0B1120] shrink-0 z-10 shadow-[0_-5px_15px_rgba(0,0,0,0.3)]">
       <div class="max-w-md mx-auto w-full pb-4">
         <button
+          type="button"
           class="w-full py-3.5 rounded-xl font-bold text-white shadow-lg transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 text-sm tracking-wide disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
           :style="{
             backgroundColor: isValid ? '#10B77F' : '#374151',
             boxShadow: isValid ? '0 4px 14px 0 rgba(16, 183, 127, 0.39)' : 'none'
           }"
-          :disabled="!isValid"
+          :disabled="!isValid || isGenerating"
           @click="generatePreview"
         >
-          Generate Preview
-          <UIcon name="i-heroicons-sparkles" class="w-4 h-4 animate-pulse" v-if="isValid" ></UIcon>
+          {{ isGenerating ? 'Generating...' : 'Generate Preview' }}
+          <UIcon name="i-heroicons-sparkles" class="w-4 h-4 animate-pulse" v-if="isValid && !isGenerating" ></UIcon>
+          <UIcon name="i-heroicons-arrow-path" class="w-4 h-4 animate-spin" v-if="isGenerating" ></UIcon>
         </button>
       </div>
     </div>
