@@ -69,7 +69,7 @@ const textColor = computed(() => {
 import { useClipboard, useShare } from '@vueuse/core'
 
 const showSidebar = computed(() => {
-  return route.params['mode'] === 'share'
+  return route.params['mode'] === 'preview'
 })
 
 // Copy Functionality
