@@ -8,14 +8,19 @@ const { search, filteredIcons } = useIcons()
 const selectedColor = ref('#10B77F')
 const selectedIcon = ref('i-heroicons-shopping-bag')
 const ctaTitle = ref('Shop Now')
-const destinationUrl = ref('https://instagram.com/store')
-const profileName = ref('@carecard_app')
+const name = ref('DungeonStore Genova')
+const handle = ref('@dungeonstore_genova')
 const backgroundImageUrl = ref('')
 const router = useRouter()
 const isGenerating = ref(false)
 
+const destinationUrl = computed(() => {
+    const cleanHandle = handle.value.replace('@', '').trim()
+    return cleanHandle ? `https://instagram.com/${cleanHandle}` : ''
+})
+
 const isValid = computed(() => {
-  return ctaTitle.value.trim().length > 0 && destinationUrl.value.trim().length > 0 && profileName.value.trim().length > 0
+  return ctaTitle.value.trim().length > 0 && handle.value.trim().length > 0 && name.value.trim().length > 0
 })
 
 const colors = [
@@ -33,7 +38,8 @@ const generatePreview = async () => {
     isGenerating.value = true
 
     const data = {
-        profileName: profileName.value,
+        name: name.value,
+        handle: handle.value,
         ctaTitle: ctaTitle.value,
         destinationUrl: destinationUrl.value,
         color: selectedColor.value,
@@ -82,14 +88,29 @@ const generatePreview = async () => {
 
           <div class="space-y-4">
             <div>
-              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">Nome Profilo <span class="text-red-500">*</span></span>
+              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">Nome (es. Negozio) <span class="text-red-500">*</span></span>
               <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
                 <div class="flex items-center text-gray-200">
-                  <UIcon name="i-heroicons-user" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
+                  <UIcon name="i-heroicons-identification" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
                   <input
-                    v-model="profileName"
+                    v-model="name"
                     type="text"
-                    placeholder="Es. @carecard_app"
+                    placeholder="Es. DungeonStore Genova"
+                    class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">Instagram Handle <span class="text-red-500">*</span></span>
+              <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
+                <div class="flex items-center text-gray-200">
+                  <UIcon name="i-heroicons-at-symbol" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
+                  <input
+                    v-model="handle"
+                    type="text"
+                    placeholder="Es. @dungeonstore_genova"
                     class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
                   />
                 </div>
@@ -105,21 +126,6 @@ const generatePreview = async () => {
                     v-model="ctaTitle"
                     type="text"
                     placeholder="Es. Shop Now"
-                    class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">Link Destinazione <span class="text-red-500">*</span></span>
-              <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
-                <div class="flex items-center text-gray-200">
-                  <UIcon name="i-heroicons-link" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
-                  <input
-                    v-model="destinationUrl"
-                    type="url"
-                    placeholder="https://example.com"
                     class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
                   />
                 </div>
