@@ -9,6 +9,7 @@ const formCtaTitle = ref('Shop Now')
 const name = ref('DungeonStore Genova')
 const handle = ref('@dungeonstore_genova')
 const backgroundImageUrl = ref('')
+const profileImageUrl = ref('')
 const router = useRouter()
 const isGenerating = ref(false)
 
@@ -42,7 +43,8 @@ const generatePreview = async () => {
         destinationUrl: destinationUrl.value,
         color: selectedColor.value,
         icon: selectedIcon.value,
-        backgroundImageUrl: backgroundImageUrl.value
+        backgroundImageUrl: backgroundImageUrl.value,
+        profileImageUrl: profileImageUrl.value
     }
 
     // Robust encoding for UTF-8 support
@@ -136,6 +138,22 @@ const generatePreview = async () => {
                     v-model="backgroundImageUrl"
                     type="url"
                     placeholder="https://example.com/image.jpg"
+                    class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <span class="block text-[10px] uppercase tracking-wider font-bold text-gray-500 mb-2 pl-1">URL Immagine Profilo</span>
+              <div class="bg-[#111827] px-4 py-2.5 rounded-xl border border-gray-800/60 transition-colors focus-within:border-emerald-500/50 focus-within:ring-1 focus-within:ring-emerald-500/50">
+                <div class="flex items-center text-gray-200">
+                  <UIcon name="i-heroicons-user-circle" class="w-4 h-4 mr-3 text-gray-600 shrink-0" ></UIcon>
+                  <input
+                    data-cy="input-profile-url"
+                    v-model="profileImageUrl"
+                    type="url"
+                    placeholder="https://example.com/avatar.jpg"
                     class="bg-transparent border-none text-sm font-medium w-full focus:outline-none placeholder-gray-600"
                   />
                 </div>

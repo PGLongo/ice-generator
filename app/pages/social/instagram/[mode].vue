@@ -26,6 +26,7 @@ const decodedData = ref<{
   name: string
   handle: string
   backgroundImageUrl?: string
+  profileImageUrl?: string
 } | null>(null)
 
 // Reactive decoding
@@ -154,7 +155,7 @@ const nativeShare = async () => {
               <div id="story-avatar-container" class="relative w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500">
                 <img 
                   id="story-avatar-image"
-                  :src="props.defaultAvatar" 
+                  :src="decodedData?.profileImageUrl || props.defaultAvatar" 
                   class="w-full h-full rounded-full border-2 border-black object-cover bg-white"
                 />
               </div>
