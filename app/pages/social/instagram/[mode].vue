@@ -6,11 +6,15 @@ definePageMeta({
 const props = defineProps({
     defaultAvatar: {
         type: String,
-        default: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ37dT6xYe5KVvPAVsPATkA1Quoa0FLAZwBiw&s'
+        default: ''
     },
     defaultBackground: {
         type: String,
-        default: '/background-preview.png'
+        default: ''
+    },
+    defaultBackground: {
+        type: String,
+        default: ''
     }
 })
 
