@@ -8,10 +8,7 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    defaultBackground: {
-        type: String,
-        default: ''
-    },
+    
     defaultBackground: {
         type: String,
         default: ''
