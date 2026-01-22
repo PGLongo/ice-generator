@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/PGLongo/ice-generator/compare/v1.0.0...v1.1.0) (2026-01-22)
+
+
+### Features
+
+* add app logo ([a0db27a](https://github.com/PGLongo/ice-generator/commit/a0db27ac1fc679fade10d421ba438b34a95f4926))
+* change base color css ([1179575](https://github.com/PGLongo/ice-generator/commit/11795759e498a9d22bfe57c0d5a6cfe5f7477c5a))
+
+
+### Bug Fixes
+
+* home layout ([aa89497](https://github.com/PGLongo/ice-generator/commit/aa89497a7f69b0165a4131cde5fc4a242e20d8f3))
+* **instagram:** remove default props ([6ac5e87](https://github.com/PGLongo/ice-generator/commit/6ac5e8700b2d70ae2a12db1dfa16963b8e5a11ba))
+* **instagram:** update userAgents for vercel ([255ded2](https://github.com/PGLongo/ice-generator/commit/255ded26bdcf05902376e124bb1b537881f82d20))
+
 ## [1.0.0](https://github.com/PGLongo/ice-generator/compare/v0.3.0...v1.0.0) (2026-01-21)
 
 
