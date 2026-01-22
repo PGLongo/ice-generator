@@ -128,6 +128,19 @@ const nativeShare = async () => {
     console.debug('Share cancelled or failed', err)
   }
 }
+
+// Auto-Redirect Timer
+const showRedirectAlert = ref(true)
+
+const navigateToProfile = () => {
+  if (decodedData.value?.destinationUrl) {
+    window.location.href = decodedData.value.destinationUrl
+  }
+}
+
+onMounted(() => {
+  // Timer is now handled automatically by AlertRedirect when rendered
+})
 </script>
 
 <template>
@@ -179,6 +192,7 @@ const nativeShare = async () => {
                     backgroundColor: 'var(--btn-color)',
                     color: textColor
                   }"
+                  @click="navigateToProfile"
                 >
                   <!-- Shine Overlay -->
                   <div class="cta-shine-effect"></div>
@@ -188,6 +202,13 @@ const nativeShare = async () => {
                     <UIcon :name="decodedData?.icon || 'i-heroicons-shopping-bag'" class="w-5 h-5 cta-icon" />
                   </div>
                 </button>
+
+                <!-- Timer Alert Component -->
+                <AlertRedirect 
+                  v-if="!showSidebar && showRedirectAlert && decodedData?.destinationUrl" 
+                  :url="decodedData.destinationUrl" 
+                  @close="showRedirectAlert = false"
+                />
               </div>
             </div>
 
