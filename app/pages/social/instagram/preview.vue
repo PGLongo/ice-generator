@@ -23,12 +23,10 @@ const decodedData = ref<{
   destinationUrl: string
   color: string
   icon: string
-  profileName: string
+  name: string
+  handle: string
   backgroundImageUrl?: string
 } | null>(null)
-
-// Instagram Scrape logic
-const { profile: scrapeProfile, fetchProfile } = useInstagramProfile()
 
 // Initialize
 onMounted(async () => {
@@ -38,18 +36,7 @@ onMounted(async () => {
       // Decode data
       const json = atob(data)
       decodedData.value = JSON.parse(json)
-
-      // Auto-fetch profile if username exists
-      if (decodedData.value?.profileName) {
-        const username = decodedData.value.profileName.startsWith('@')
-          ? decodedData.value.profileName.slice(1)
-          : decodedData.value.profileName
-        fetchProfile(username)
-      }
-
-      if (decodedData.value?.destinationUrl) {
-        isLoading.value = false
-      }
+      isLoading.value = false
     } catch (e) {
       console.error('Failed to decode data', e)
       isLoading.value = false
@@ -73,7 +60,6 @@ onMounted(async () => {
 
     <template v-else-if="decodedData">
       <!-- Main Content -->
-      <!-- Main Content -->
       <div class="flex-1 flex flex-col items-center justify-center p-6 space-y-8 relative z-10 w-full max-w-md mx-auto">
         <!-- Preview Card -->
         <div class="bg-white/10 to-transparent backdrop-blur-xl border border-white/20 p-8 rounded-3xl shadow-2xl w-full">
@@ -81,14 +67,14 @@ onMounted(async () => {
           <div class="flex flex-col items-center space-y-4 animate-fade-in-up">
             <div class="relative">
               <img
-                :src="scrapeProfile?.profileImageUrl || props.defaultAvatar"
+                :src="decodedData?.backgroundImageUrl || props.defaultAvatar"
                 alt="Profile"
                 class="w-24 h-24 rounded-full border-4 border-[#0B1120] relative z-10 shadow-xl object-cover"
               />
             </div>
             <div class="text-center">
-              <h1 class="text-2xl font-bold text-white tracking-tight">{{ scrapeProfile?.fullName || decodedData?.profileName }}</h1>
-              <p v-if="scrapeProfile" class="text-gray-400 text-sm mt-1">@{{ scrapeProfile.username }}</p>
+              <h1 class="text-2xl font-bold text-white tracking-tight">{{ decodedData?.name }}</h1>
+              <p class="text-gray-400 text-sm mt-1">{{ decodedData.handle }}</p>
             </div>
           </div>
 
