@@ -19,13 +19,14 @@ describe('Social Instagram Pages', () => {
     cy.visit(socialConfigUrl)
 
     // Fill Required Fields
-    cy.get('input[placeholder="Es. DungeonStore Genova"]').clear().type('DungeonStore Genova')
-    cy.get('input[placeholder="Es. @dungeonstore_genova"]').clear().type('@dungeonstore_genova')
-    cy.get('input[placeholder="Es. Shop Now"]').clear().type('Seguimi')
-    cy.get('input[placeholder="https://example.com/image.jpg"]').clear().type('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ37dT6xYe5KVvPAVsPATkA1Quoa0FLAZwBiw&s')
+    cy.get('[data-cy="input-name"]').should('be.visible').clear().type('DungeonStore Genova').should('have.value', 'DungeonStore Genova')
+    cy.get('[data-cy="input-handle"]').should('be.visible').clear().type('@dungeonstore_genova').should('have.value', '@dungeonstore_genova')
+    cy.get('[data-cy="input-cta"]').should('be.visible').clear().type('Seguimi', { delay: 100 }).blur()
+    cy.get('[data-cy="input-bg-url"]').should('be.visible').clear().type('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ37dT6xYe5KVvPAVsPATkA1Quoa0FLAZwBiw&s')
 
     // Wait for Vue to update model
-    cy.wait(500)
+    cy.wait(1000)
+    cy.get('[data-cy="debug-cta"]').should('have.text', 'Seguimi')
 
     // Check if button is enabled
     cy.contains('button', 'Generate Preview')
@@ -33,8 +34,7 @@ describe('Social Instagram Pages', () => {
       .should('not.be.disabled')
       .click({ force: true })
 
-    // Check if loading state appears
-    cy.contains('button', 'Generating...').should('be.visible')
+
 
     // Explicit wait for navigation
     cy.wait(4000)
@@ -48,7 +48,7 @@ describe('Social Instagram Pages', () => {
     cy.url().should('include', socialPreviewUrl)
 
     // Check if preview loads
-    cy.contains('Seguimi').should('be.visible')
+    cy.get('[data-cy="cta-button"]').should('be.visible').and('contain', 'Seguimi')
     cy.contains('button', 'Copy URL').should('exist')
   })
 

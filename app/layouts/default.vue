@@ -37,9 +37,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div class="flex flex-col h-dvh overflow-hidden">
     <!-- Modern Toolbar with Gradient Background -->
-    <header class="modern-header print:hidden sticky top-0 z-50">
+    <header class="modern-header print:hidden sticky top-0 z-50 flex-shrink-0">
       <div class="header-background"></div>
       <div class="header-content">
         <UContainer class="flex items-center justify-between py-4">
@@ -116,13 +116,13 @@ onMounted(() => {
       </div>
     </header>
 
-    <UMain>
+    <UMain class="flex-1 min-h-0 flex flex-col overflow-y-auto">
       <slot ></slot>
     </UMain>
 
     <USeparator icon="i-simple-icons-nuxtdotjs" class="print:hidden"></USeparator>
 
-    <UFooter class="print:hidden">
+    <UFooter class="print:hidden flex-shrink-0">
       <template #left>
         <p class="text-sm text-muted">
           CareCard v{{ appVersion }} • {{ new Date().getFullYear() }}
