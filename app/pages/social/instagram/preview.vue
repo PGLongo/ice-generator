@@ -45,6 +45,27 @@ watch(() => route.query['data'], (data) => {
     isLoading.value = false
   }
 }, { immediate: true })
+// Helper to determine text color based on background brightness
+const getContrastColor = (hexcolor: string) => {
+  // If invalid hex, default to black
+  if (!hexcolor || hexcolor[0] !== '#') return '#000000'
+  
+  // Convert to RGB value
+  const r = parseInt(hexcolor.substring(1, 3), 16)
+  const g = parseInt(hexcolor.substring(3, 5), 16)
+  const b = parseInt(hexcolor.substring(5, 7), 16)
+  
+  // Calculate YIQ ratio
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
+  
+  // Return black for light colors, white for dark colors
+  return (yiq >= 128) ? '#000000' : '#FFFFFF'
+}
+
+const textColor = computed(() => {
+  if (!decodedData.value?.color) return '#000000'
+  return getContrastColor(decodedData.value.color)
+})
 </script>
 
 <template>
@@ -90,14 +111,20 @@ watch(() => route.query['data'], (data) => {
                 <button
                   id="btn-cta-preview"
                   data-cy="cta-button"
-                  class="w-full py-4 rounded-xl font-bold text-black shadow-lg transition-transform transform active:scale-[0.98] flex items-center justify-center gap-2 hover:brightness-110"
+                  class="cta-shine-btn w-full py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 relative overflow-hidden group"
                   :style="{
-                    backgroundColor: decodedData?.color || '#00E5FF',
-                    boxShadow: `0 4px 20px 0 ${decodedData?.color || '#00E5FF'}60`
+                    '--btn-color': decodedData?.color || '#00E5FF',
+                    backgroundColor: 'var(--btn-color)',
+                    color: textColor
                   }"
                 >
-                  <span class="text-sm">{{ decodedData?.ctaTitle }}</span>
-                  <UIcon :name="decodedData?.icon || 'i-heroicons-shopping-bag'" class="w-4 h-4" />
+                  <!-- Shine Overlay -->
+                  <div class="cta-shine-effect"></div>
+                  
+                  <span class="text-lg uppercase tracking-wide relative z-10 font-black">{{ decodedData?.ctaTitle }}</span>
+                  <div class="cta-icon-wrapper relative z-10 flex items-center justify-center rounded-full w-8 h-8 bg-white/20 backdrop-blur-sm shadow-inner overflow-hidden">
+                    <UIcon :name="decodedData?.icon || 'i-heroicons-shopping-bag'" class="w-5 h-5 cta-icon" />
+                  </div>
                 </button>
               </div>
             </div>
@@ -243,6 +270,78 @@ watch(() => route.query['data'], (data) => {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Button Animations */
+.cta-shine-btn {
+  animation: pulseGlow 3s infinite ease-in-out;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.cta-shine-btn:active {
+  transform: scale(0.98);
+}
+
+.cta-shine-btn:hover {
+  filter: brightness(1.1);
+}
+
+.cta-shine-btn:hover .cta-icon-wrapper {
+  transform: scale(1.1) rotate(5deg);
+  background-color: rgba(255,255,255,0.3);
+}
+
+.cta-icon-wrapper {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: wiggle 3s infinite ease-in-out;
+}
+
+.cta-icon {
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  10% { transform: rotate(-10deg); }
+  20% { transform: rotate(8deg); }
+  30% { transform: rotate(-8deg); }
+  40% { transform: rotate(5deg); }
+  50% { transform: rotate(0deg); }
+}
+
+.cta-shine-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    110deg, 
+    transparent 30%, 
+    rgba(255, 255, 255, 0.5) 50%, 
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  animation: shineReflect 5s infinite 2s ease-in-out; /* Run every 5s, 2s delay */
+  z-index: 5;
+  pointer-events: none;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px 0 color-mix(in srgb, var(--btn-color), transparent 50%);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px 5px color-mix(in srgb, var(--btn-color), transparent 30%);
+  }
+}
+
+@keyframes shineReflect {
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  20% { transform: translateX(150%) skewX(-20deg); }
+  100% { transform: translateX(150%) skewX(-20deg); }
 }
 
 .animate-fade-in-up {
