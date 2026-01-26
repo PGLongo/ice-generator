@@ -9,7 +9,8 @@
   },
   "app": {
     "title": "CareCard",
-    "subtitle": "Emergency Contact Information"
+    "subtitle": "Emergency Contact Information",
+    "tagline": "Share what matters, instantly"
   },
   "preview": {
     "title": "Emergency Card Preview",
@@ -175,8 +176,9 @@
   },
   "landing": {
     "title": "CareCard",
-    "subtitle": "NFC + QR + Tags",
-    "description": "The unified solution that brings together emergency contact information, NFC technology, QR codes, and tracking tags in one smart platform.",
+    "subtitle": "Share what matters, instantly",
+    "badge": "🚀 Everything that matters, always with you",
+    "description": "The information that can make a difference, always within reach. Create digital emergency cards accessible via QR code, NFC or shareable links.",
     "examplesTitle": "Example Cards",
     "story": "The Story Behind CareCard",
     "storyContent": "\"Dad, you can find me with your AirTag, but how can I call you when someone finds me?\" This simple question from Nicolò, my son, revealed a crucial gap: location trackers help us find lost items, but they don't help others contact us when they find our belongings or, more importantly, when they find us.",

@@ -10,7 +10,7 @@
       <h1 class="app-name">
         <span class="care-text">Care</span><span class="card-text">Card</span>
       </h1>
-      <p class="tagline">Your digital emergency card</p>
+      <p class="tagline">{{ $t('app.tagline') }}</p>
     </div>
   </div>
 </template>
