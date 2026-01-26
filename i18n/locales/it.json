@@ -9,7 +9,8 @@
   },
   "app": {
     "title": "CareCard",
-    "subtitle": "Informazioni di Contatto di Emergenza"
+    "subtitle": "Informazioni di Contatto di Emergenza",
+    "tagline": "Condividi ciò che conta, istantaneamente"
   },
   "preview": {
     "title": "Anteprima Scheda Emergenza",
@@ -176,8 +177,9 @@
   },
   "landing": {
     "title": "CareCard",
-    "subtitle": "NFC + QR + Tags",
-    "description": "La soluzione unificata che riunisce informazioni di contatto di emergenza, tecnologia NFC, codici QR e tag di tracciamento in un'unica piattaforma intelligente.",
+    "subtitle": "Condividi ciò che conta, istantaneamente",
+    "badge": "🚀 Tutto ciò che conta, sempre con te",
+    "description": "Le informazioni che possono fare la differenza, sempre a portata di mano. Crea schede di emergenza digitali accessibili via QR code, NFC o link condivisibili.",
     "examplesTitle": "Esempi di Card",
     "story": "La Storia Dietro CareCard",
     "storyContent": "\"Papà, tu mi puoi trovare con il tuo AirTag, ma se io ti voglio chiamare quando mi hanno trovato?\" Questa semplice domanda di Nicolò, mio figlio, ha rivelato una lacuna cruciale: i localizzatori ci aiutano a trovare oggetti smarriti, ma non aiutano gli altri a contattarci quando trovano le nostre cose o, cosa più importante, quando trovano noi.",

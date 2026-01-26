@@ -114,7 +114,7 @@ const exampleCards: ExampleCard[] = [
           <div class="relative mb-8">
             <div class="hero-badge mb-6">
               <UBadge variant="soft" size="lg" class="px-4 py-2 text-sm font-medium">
-                🚀 La tua sicurezza, digitale e intelligente
+                {{ $t('landing.badge') }}
               </UBadge>
             </div>
 
