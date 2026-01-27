@@ -92,9 +92,7 @@ const useCases = computed(() => [
           </UBadge>
 
           <!-- Title -->
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-            {{ $t('app.title') }}
-          </h1>
+          <AppTitle :text="$t('app.title')" class="mb-6 !text-5xl md:!text-6xl lg:!text-7xl" />
 
           <!-- Subtitle -->
           <p class="text-xl md:text-2xl text-muted mb-4">
