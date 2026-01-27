@@ -21,7 +21,7 @@ watch(() => route.path, () => {
 // Landing page navigation links
 const landingLinks = [
   { label: 'Storia', href: '#story' },
-  { label: 'Features', href: '#features' },
+  { label: 'Caratteristiche', href: '#features' },
   { label: 'Come Funziona', href: '#how-it-works' },
   { label: 'Esempi', href: '#use-cases' }
 ]
