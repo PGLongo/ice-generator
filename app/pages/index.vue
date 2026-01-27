@@ -62,6 +62,21 @@ const useCases = computed(() => [
     emoji: '🧳',
     title: t('landing.useCase3Title'),
     description: t('landing.useCase3Description')
+  },
+  {
+    emoji: '💻',
+    title: t('landing.useCase4Title'),
+    description: t('landing.useCase4Description')
+  },
+  {
+    emoji: '♿',
+    title: t('landing.useCase5Title'),
+    description: t('landing.useCase5Description')
+  },
+  {
+    emoji: '🔧',
+    title: t('landing.useCase6Title'),
+    description: t('landing.useCase6Description')
   }
 ])
 </script>
