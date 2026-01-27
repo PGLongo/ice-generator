@@ -23,7 +23,7 @@ const landingLinks = [
   { label: 'Storia', href: '#story' },
   { label: 'Features', href: '#features' },
   { label: 'Come Funziona', href: '#how-it-works' },
-  { label: 'Use Cases', href: '#use-cases' }
+  { label: 'Esempi', href: '#use-cases' }
 ]
 
 // Close mobile menu on outside click
