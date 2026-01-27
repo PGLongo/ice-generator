@@ -281,9 +281,19 @@ const useCases = computed(() => [
           <h2 class="text-3xl md:text-4xl font-bold mb-4">
             {{ $t('landing.useCases') }}
           </h2>
-          <p class="text-muted max-w-2xl mx-auto">
+          <p class="text-muted max-w-2xl mx-auto mb-4">
             {{ $t('landing.useCasesDescription') }}
           </p>
+          <div class="flex justify-center gap-3">
+            <UBadge variant="subtle" size="sm">
+              <UIcon name="i-lucide-qr-code" class="w-3 h-3 mr-1" />
+              QR Code
+            </UBadge>
+            <UBadge variant="subtle" size="sm">
+              <UIcon name="i-lucide-nfc" class="w-3 h-3 mr-1" />
+              NFC
+            </UBadge>
+          </div>
         </div>
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
