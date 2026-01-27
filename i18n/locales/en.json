@@ -1,4 +1,10 @@
 {
+  "nav": {
+    "story": "Story",
+    "features": "Features",
+    "howItWorks": "How It Works",
+    "examples": "Examples"
+  },
   "common": {
     "loading": "Loading data...",
     "loadingDescription": "Decoding data from link",

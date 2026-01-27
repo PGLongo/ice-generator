@@ -1,4 +1,10 @@
 {
+  "nav": {
+    "story": "Storia",
+    "features": "Caratteristiche",
+    "howItWorks": "Come Funziona",
+    "examples": "Esempi"
+  },
   "common": {
     "loading": "Caricamento dati in corso...",
     "loadingDescription": "Sto decodificando i dati dal link",
