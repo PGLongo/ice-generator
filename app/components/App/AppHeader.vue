@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
 // Mobile menu state
 const isMobileMenuOpen = ref(false)
 
@@ -15,6 +17,14 @@ const route = useRoute()
 watch(() => route.path, () => {
   isMobileMenuOpen.value = false
 })
+
+// Landing page navigation links
+const landingLinks = computed(() => [
+  { label: t('landing.story'), href: '#story' },
+  { label: t('landing.features'), href: '#features' },
+  { label: t('landing.howItWorks'), href: '#how-it-works' },
+  { label: t('landing.useCases'), href: '#use-cases' }
+])
 
 // Close mobile menu on outside click
 onMounted(() => {
@@ -43,7 +53,18 @@ onMounted(() => {
           </NuxtLink>
 
           <!-- Desktop Navigation -->
-          <nav v-if="route.path !== '/'" class="hidden lg:flex items-center space-x-1">
+          <nav v-if="route.path === '/'" class="hidden lg:flex items-center space-x-1">
+            <UButton
+              v-for="link in landingLinks"
+              :key="link.href"
+              :to="link.href"
+              variant="ghost"
+              size="sm"
+            >
+              {{ link.label }}
+            </UButton>
+          </nav>
+          <nav v-else class="hidden lg:flex items-center space-x-1">
             <TemplateMenu></TemplateMenu>
           </nav>
 
@@ -92,7 +113,22 @@ onMounted(() => {
         <div v-if="isMobileMenuOpen" class="mobile-nav lg:hidden">
           <UContainer>
             <div class="mobile-nav-content">
-              <TemplateMenu v-if="route.path !== '/'" orientation="vertical"></TemplateMenu>
+              <!-- Landing page mobile nav -->
+              <div v-if="route.path === '/'" class="flex flex-col space-y-2">
+                <UButton
+                  v-for="link in landingLinks"
+                  :key="link.href"
+                  :to="link.href"
+                  variant="ghost"
+                  size="lg"
+                  class="justify-start"
+                  @click="closeMobileMenu"
+                >
+                  {{ link.label }}
+                </UButton>
+              </div>
+              <!-- Other pages mobile nav -->
+              <TemplateMenu v-else orientation="vertical"></TemplateMenu>
               <div v-if="route.path !== '/'" class="mobile-actions">
                 <UButton
                   to="/form"

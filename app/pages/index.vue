@@ -84,8 +84,8 @@ const useCases = computed(() => [
 <template>
   <div class="relative">
     <!-- Hero Section -->
-    <section class="relative pt-16 md:pt-24 lg:pt-32 pb-16">
-      <LandingHeroBackground />
+    <section class="relative pt-10 pb-16">
+      <LandingHeroBackground ></LandingHeroBackground>
 
       <UContainer class="relative z-10">
         <div class="text-center max-w-4xl mx-auto">
@@ -99,7 +99,7 @@ const useCases = computed(() => [
           </UBadge>
 
           <!-- Title -->
-          <AppTitle :text="$t('app.title')" class="mb-6 !text-5xl md:!text-6xl lg:!text-7xl" />
+          <AppTitle :text="$t('app.title')" class="mb-6 !text-5xl md:!text-6xl lg:!text-7xl" ></AppTitle>
 
           <!-- Subtitle -->
           <p class="text-xl md:text-2xl text-muted mb-4">
@@ -134,15 +134,15 @@ const useCases = computed(() => [
           <!-- Trust Indicators -->
           <div class="flex flex-wrap justify-center items-center gap-6 text-sm text-muted">
             <div class="flex items-center gap-2">
-              <UIcon name="i-lucide-shield-check" class="w-4 h-4 text-green-500" />
+              <UIcon name="i-lucide-shield-check" class="w-4 h-4 text-green-500" ></UIcon>
               <span>100% Privacy</span>
             </div>
             <div class="flex items-center gap-2">
-              <UIcon name="i-lucide-github" class="w-4 h-4 text-primary" />
+              <UIcon name="i-lucide-github" class="w-4 h-4 text-primary" ></UIcon>
               <span>Open Source</span>
             </div>
             <div class="flex items-center gap-2">
-              <UIcon name="i-lucide-smartphone" class="w-4 h-4 text-purple-500" />
+              <UIcon name="i-lucide-smartphone" class="w-4 h-4 text-purple-500" ></UIcon>
               <span>Universal</span>
             </div>
           </div>
@@ -151,10 +151,10 @@ const useCases = computed(() => [
     </section>
 
     <!-- Separator -->
-    <USeparator :ui="{ border: 'border-primary/20' }" />
+    <USeparator :ui="{ border: 'border-primary/20' }" ></USeparator>
 
     <!-- Story Section -->
-    <section class="py-20">
+    <section id="story" class="py-20 scroll-mt-20">
       <UContainer>
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-12">
@@ -179,7 +179,7 @@ const useCases = computed(() => [
               <UCard :ui="{ body: 'p-5' }">
                 <div class="flex items-start gap-4">
                   <div class="flex-shrink-0 w-10 h-10 bg-amber-500/10 rounded-lg flex items-center justify-center">
-                    <UIcon name="i-lucide-alert-triangle" class="w-5 h-5 text-amber-500" />
+                    <UIcon name="i-lucide-alert-triangle" class="w-5 h-5 text-amber-500" ></UIcon>
                   </div>
                   <div>
                     <h3 class="font-semibold mb-1">Il Problema</h3>
@@ -191,7 +191,7 @@ const useCases = computed(() => [
               <UCard :ui="{ body: 'p-5' }">
                 <div class="flex items-start gap-4">
                   <div class="flex-shrink-0 w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center">
-                    <UIcon name="i-lucide-lightbulb" class="w-5 h-5 text-green-500" />
+                    <UIcon name="i-lucide-lightbulb" class="w-5 h-5 text-green-500" ></UIcon>
                   </div>
                   <div>
                     <h3 class="font-semibold mb-1">La Soluzione</h3>
@@ -206,12 +206,12 @@ const useCases = computed(() => [
     </section>
 
     <!-- Separator -->
-    <USeparator :ui="{ border: 'border-primary/20' }" />
+    <USeparator :ui="{ border: 'border-primary/20' }" ></USeparator>
 
     <!-- Features Section -->
-    <section class="relative py-20 overflow-hidden">
-      <div class="absolute rounded-full -left-10 top-10 size-[300px] z-0 bg-primary opacity-10 blur-[150px]" />
-      <div class="absolute rounded-full -right-10 -bottom-10 size-[300px] z-0 bg-primary opacity-10 blur-[150px]" />
+    <section id="features" class="relative py-20 overflow-hidden scroll-mt-20">
+      <div class="absolute rounded-full -left-10 top-10 size-[300px] z-0 bg-primary opacity-10 blur-[150px]" ></div>
+      <div class="absolute rounded-full -right-10 -bottom-10 size-[300px] z-0 bg-primary opacity-10 blur-[150px]" ></div>
 
       <UContainer class="relative z-10">
         <div class="text-center mb-16">
@@ -229,7 +229,7 @@ const useCases = computed(() => [
           >
             <div class="flex justify-center mb-4">
               <div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center">
-                <UIcon :name="feature.icon" class="w-7 h-7 text-primary" />
+                <UIcon :name="feature.icon" class="w-7 h-7 text-primary" ></UIcon>
               </div>
             </div>
             <h3 class="text-lg font-semibold mb-2">{{ feature.title }}</h3>
@@ -240,7 +240,7 @@ const useCases = computed(() => [
     </section>
 
     <!-- Separator -->
-    <USeparator :ui="{ border: 'border-primary/20' }" />
+    <USeparator :ui="{ border: 'border-primary/20' }" ></USeparator>
 
     <!-- How It Works Section -->
     <section class="py-20">
@@ -272,10 +272,10 @@ const useCases = computed(() => [
     </section>
 
     <!-- Separator -->
-    <USeparator :ui="{ border: 'border-primary/20' }" />
+    <USeparator :ui="{ border: 'border-primary/20' }" ></USeparator>
 
-    <!-- Use Cases Section (Condensed) -->
-    <section class="py-20">
+    <!-- Use Cases Section -->
+    <section id="use-cases" class="py-20 scroll-mt-20">
       <UContainer>
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold mb-4">
@@ -286,11 +286,11 @@ const useCases = computed(() => [
           </p>
           <div class="flex justify-center gap-3">
             <UBadge variant="subtle" size="sm">
-              <UIcon name="i-lucide-qr-code" class="w-3 h-3 mr-1" />
+              <UIcon name="i-lucide-qr-code" class="w-3 h-3 mr-1" ></UIcon>
               QR Code
             </UBadge>
             <UBadge variant="subtle" size="sm">
-              <UIcon name="i-lucide-nfc" class="w-3 h-3 mr-1" />
+              <UIcon name="i-lucide-nfc" class="w-3 h-3 mr-1" ></UIcon>
               NFC
             </UBadge>
           </div>
@@ -313,7 +313,7 @@ const useCases = computed(() => [
 
     <!-- CTA Section -->
     <section class="relative py-24 overflow-hidden">
-      <LandingStarsBg />
+      <LandingStarsBg ></LandingStarsBg>
 
       <UContainer class="relative z-10">
         <div class="text-center max-w-3xl mx-auto">
