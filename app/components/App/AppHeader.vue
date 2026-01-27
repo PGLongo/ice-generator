@@ -19,12 +19,12 @@ watch(() => route.path, () => {
 })
 
 // Landing page navigation links
-const landingLinks = [
-  { label: 'Storia', href: '#story' },
-  { label: 'Caratteristiche', href: '#features' },
-  { label: 'Come Funziona', href: '#how-it-works' },
-  { label: 'Esempi', href: '#use-cases' }
-]
+const landingLinks = computed(() => [
+  { label: t('nav.story'), href: '#story' },
+  { label: t('nav.features'), href: '#features' },
+  { label: t('nav.howItWorks'), href: '#how-it-works' },
+  { label: t('nav.examples'), href: '#use-cases' }
+])
 
 // Close mobile menu on outside click
 onMounted(() => {
