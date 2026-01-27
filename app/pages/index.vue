@@ -69,14 +69,6 @@ const useCases = computed(() => [
 <template>
   <div class="relative">
     <!-- Hero Section -->
-    <div class="hidden lg:block">
-      <UColorModeImage
-        light="/images/light/line-1.svg"
-        dark="/images/dark/line-1.svg"
-        class="absolute pointer-events-none left-0 top-0 object-cover h-[650px]"
-      />
-    </div>
-
     <section class="relative pt-16 md:pt-24 lg:pt-32 pb-16">
       <LandingHeroBackground />
 
@@ -236,15 +228,7 @@ const useCases = computed(() => [
     <USeparator :ui="{ border: 'border-primary/20' }" />
 
     <!-- How It Works Section -->
-    <section class="relative py-20">
-      <template v-if="false">
-        <UColorModeImage
-          light="/images/light/line-3.svg"
-          dark="/images/dark/line-3.svg"
-          class="absolute -top-10 sm:top-0 right-1/2 h-24"
-        />
-      </template>
-
+    <section class="py-20">
       <UContainer>
         <div class="text-center mb-16">
           <h2 class="text-3xl md:text-4xl font-bold mb-4">
