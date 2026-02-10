@@ -29,6 +29,37 @@ const links = computed<NavigationMenuItem[][]>(() => [[
     icon: 'i-heroicons-academic-cap',
     to: '/school',
     onSelect: () => { open.value = false }
+  },
+  {
+    label: 'Social',
+    icon: 'i-lucide-share-2',
+    defaultOpen: false,
+    children: [
+      {
+        label: 'Instagram',
+        icon: 'i-simple-icons-instagram',
+        to: '/social/instagram',
+        onSelect: () => { open.value = false }
+      },
+      {
+        label: 'Facebook',
+        icon: 'i-simple-icons-facebook',
+        disabled: true,
+        badge: 'Soon'
+      },
+      {
+        label: 'TikTok',
+        icon: 'i-simple-icons-tiktok',
+        disabled: true,
+        badge: 'Soon'
+      },
+      {
+        label: 'X',
+        icon: 'i-simple-icons-x',
+        disabled: true,
+        badge: 'Soon'
+      }
+    ]
   }
 ], [
   {
