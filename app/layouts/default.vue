@@ -106,7 +106,15 @@ const groups = computed(() => [{
 
     <UDashboardSearch :groups="groups" ></UDashboardSearch>
 
-    <slot ></slot>
+    <UDashboardPanel>
+      <template #header>
+        <UDashboardNavbar></UDashboardNavbar>
+      </template>
+
+      <template #body>
+        <slot ></slot>
+      </template>
+    </UDashboardPanel>
 
     <UNotifications ></UNotifications>
   </UDashboardGroup>
