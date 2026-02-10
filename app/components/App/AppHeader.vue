@@ -42,80 +42,80 @@ onMounted(() => {
 </script>
 
 <template>
-    <!-- Modern Toolbar with Gradient Background -->
-    <header class="modern-header print:hidden sticky top-0 z-50 flex-shrink-0">
-      <div class="header-background"></div>
-      <div class="header-content">
-        <UContainer class="flex items-center justify-between py-4">
-          <!-- Logo Section -->
-          <NuxtLink to="/" class="logo-section group">
-            <AppLogo></AppLogo>
-          </NuxtLink>
+  <!-- Modern Toolbar with Gradient Background -->
+  <header class="modern-header print:hidden sticky top-0 z-50 flex-shrink-0">
+    <div class="header-background"></div>
+    <div class="header-content">
+      <UContainer class="flex items-center justify-between py-4">
+        <!-- Logo Section -->
+        <NuxtLink to="/" class="logo-section group">
+          <AppLogo></AppLogo>
+        </NuxtLink>
 
-          <!-- Desktop Navigation (Landing links) -->
-          <nav class="hidden lg:flex items-center space-x-1">
+        <!-- Desktop Navigation (Landing links) -->
+        <nav class="hidden lg:flex items-center space-x-1">
+          <UButton
+            v-for="link in landingLinks"
+            :key="link.href"
+            :to="link.href"
+            variant="ghost"
+            size="sm"
+          >
+            {{ link.label }}
+          </UButton>
+        </nav>
+
+        <!-- Actions Section -->
+        <div class="flex items-center space-x-3">
+          <!-- Settings Group -->
+          <div class="flex items-center space-x-2 settings-group">
+            <LanguageSelect></LanguageSelect>
+            <UColorModeButton class="color-mode-btn"></UColorModeButton>
             <UButton
-              v-for="link in landingLinks"
-              :key="link.href"
-              :to="link.href"
+              to="https://github.com/PGLongo/ice-generator"
+              target="_blank"
+              icon="i-simple-icons-github"
               variant="ghost"
               size="sm"
-            >
-              {{ link.label }}
-            </UButton>
-          </nav>
-
-          <!-- Actions Section -->
-          <div class="flex items-center space-x-3">
-            <!-- Settings Group -->
-            <div class="flex items-center space-x-2 settings-group">
-              <LanguageSelect></LanguageSelect>
-              <UColorModeButton class="color-mode-btn"></UColorModeButton>
-              <UButton
-                to="https://github.com/PGLongo/ice-generator"
-                target="_blank"
-                icon="i-simple-icons-github"
-                variant="ghost"
-                size="sm"
-                class="github-btn"
-                aria-label="GitHub Repository"
-              ></UButton>
-            </div>
-
-            <!-- Mobile Menu Toggle -->
-            <UButton
-              icon="i-heroicons-bars-3"
-              variant="ghost"
-              size="sm"
-              class="lg:hidden mobile-menu-btn"
-              @click="toggleMobileMenu"
-              aria-label="Menu"
+              class="github-btn"
+              aria-label="GitHub Repository"
             ></UButton>
           </div>
-        </UContainer>
 
-        <!-- Mobile Navigation Panel -->
-        <div v-if="isMobileMenuOpen" class="mobile-nav lg:hidden">
-          <UContainer>
-            <div class="mobile-nav-content">
-              <div class="flex flex-col space-y-2">
-                <UButton
-                  v-for="link in landingLinks"
-                  :key="link.href"
-                  :to="link.href"
-                  variant="ghost"
-                  size="lg"
-                  class="justify-start"
-                  @click="closeMobileMenu"
-                >
-                  {{ link.label }}
-                </UButton>
-              </div>
-            </div>
-          </UContainer>
+          <!-- Mobile Menu Toggle -->
+          <UButton
+            icon="i-heroicons-bars-3"
+            variant="ghost"
+            size="sm"
+            class="lg:hidden mobile-menu-btn"
+            @click="toggleMobileMenu"
+            aria-label="Menu"
+          ></UButton>
         </div>
+      </UContainer>
+
+      <!-- Mobile Navigation Panel -->
+      <div v-if="isMobileMenuOpen" class="mobile-nav lg:hidden">
+        <UContainer>
+          <div class="mobile-nav-content">
+            <div class="flex flex-col space-y-2">
+              <UButton
+                v-for="link in landingLinks"
+                :key="link.href"
+                :to="link.href"
+                variant="ghost"
+                size="lg"
+                class="justify-start"
+                @click="closeMobileMenu"
+              >
+                {{ link.label }}
+              </UButton>
+            </div>
+          </div>
+        </UContainer>
       </div>
-    </header>
+    </div>
+  </header>
 </template>
 
 <style scoped>

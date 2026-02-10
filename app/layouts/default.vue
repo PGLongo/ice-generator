@@ -77,7 +77,7 @@ const groups = computed(() => [{
       </template>
 
       <template #default="{ collapsed }">
-        <UDashboardSearchButton :collapsed="collapsed" class="bg-transparent ring-default" />
+        <UDashboardSearchButton :collapsed="collapsed" class="bg-transparent ring-default" ></UDashboardSearchButton>
 
         <UNavigationMenu
           :collapsed="collapsed"
@@ -85,7 +85,7 @@ const groups = computed(() => [{
           orientation="vertical"
           tooltip
           popover
-        />
+        ></UNavigationMenu>
 
         <UNavigationMenu
           :collapsed="collapsed"
@@ -93,21 +93,21 @@ const groups = computed(() => [{
           orientation="vertical"
           tooltip
           class="mt-auto"
-        />
+        ></UNavigationMenu>
       </template>
 
       <template #footer="{ collapsed }">
         <div class="flex items-center" :class="collapsed ? 'flex-col gap-2' : 'gap-2'">
-          <LanguageSelect />
-          <UColorModeButton />
+          <LanguageSelect ></LanguageSelect>
+          <UColorModeButton ></UColorModeButton>
         </div>
       </template>
     </UDashboardSidebar>
 
-    <UDashboardSearch :groups="groups" />
+    <UDashboardSearch :groups="groups" ></UDashboardSearch>
 
-    <slot />
+    <slot ></slot>
 
-    <UNotifications />
+    <UNotifications ></UNotifications>
   </UDashboardGroup>
 </template>
