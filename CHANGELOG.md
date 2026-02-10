@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/PGLongo/ice-generator/compare/v1.1.0...v1.2.0) (2026-02-10)
+
+
+### Features
+
+* **i18n:** add navigation link translations ([cbbd707](https://github.com/PGLongo/ice-generator/commit/cbbd7074a28c89ea83a61fb4cf2e63cb7c7e5403))
+* implement auto-redirect timer with composable and alert component ([95ec37d](https://github.com/PGLongo/ice-generator/commit/95ec37de0e49293ebf1d93f23c93f9269a8826b7))
+* **ui:** add Bluesky to social menu ([43fd600](https://github.com/PGLongo/ice-generator/commit/43fd600715a03f7dd81678bdb8365bbcc330d98e))
+* **ui:** add collapsible Social menu to dashboard sidebar ([3df347d](https://github.com/PGLongo/ice-generator/commit/3df347dd28d023afb57475ffcdf7f07fba71c773))
+* **ui:** add navigation links to landing page sections ([3f59d86](https://github.com/PGLongo/ice-generator/commit/3f59d86116110975255c2ccdc1cd975523cb15fe))
+* **ui:** add QR Code and NFC badges to use cases section ([876b578](https://github.com/PGLongo/ice-generator/commit/876b578c151039b1278c0e2f886581e284faa6a3))
+* **ui:** assign landing layout to index page ([97efcbc](https://github.com/PGLongo/ice-generator/commit/97efcbc96cb0772b1769c894e5c4a084e4efb942))
+* **ui:** create landing layout from current default ([d34ea74](https://github.com/PGLongo/ice-generator/commit/d34ea74bc32c3613ba60d23b1683cea7668a48b5))
+* **ui:** read app version from git tag via runtimeConfig ([c404cdf](https://github.com/PGLongo/ice-generator/commit/c404cdfeba252c5ddda520e013a3207043f41e0d))
+* **ui:** redesign landing page in Nuxt Landing Template style ([cfe1364](https://github.com/PGLongo/ice-generator/commit/cfe136419939a9bf9a82307e050740b7a240a220))
+* **ui:** replace Medical Equipment with Social Media use case ([cc4c1bb](https://github.com/PGLongo/ice-generator/commit/cc4c1bb2b01564d9a7a20cd12ac141286803e1b1))
+* **ui:** replace Work Equipment with Keys use case ([13fcb13](https://github.com/PGLongo/ice-generator/commit/13fcb1320db227a7e787cfec6cb77135ec7471f3))
+* **ui:** restore all 6 use cases in landing page ([92ce9f2](https://github.com/PGLongo/ice-generator/commit/92ce9f296b7d5ca7dc6f38f55212830da17d58c6))
+* **ui:** restore Story section in landing page ([cbb398a](https://github.com/PGLongo/ice-generator/commit/cbb398addb7ac971bcfe2430372342e46a23dfdf))
+* **ui:** rewrite default layout as dashboard with sidebar ([22363a4](https://github.com/PGLongo/ice-generator/commit/22363a442246700c6077723fcced89ed5094c447))
+* **ui:** show app version in dashboard sidebar footer ([c7aec4d](https://github.com/PGLongo/ice-generator/commit/c7aec4d63ef6cfdee323794d2ce23b363904e073))
+
+
+### Bug Fixes
+
+* **ci:** set release-please target-branch to main ([6b51961](https://github.com/PGLongo/ice-generator/commit/6b51961b161f3bca4e397f95a20a6fad7be50c53))
+* **ui:** add CareCard logo and name to dashboard navbar ([e44a426](https://github.com/PGLongo/ice-generator/commit/e44a42649e405f736b838ee586cacf1e8aed1cb3))
+* **ui:** add DashboardPanel with navbar for mobile toggle ([2ed505d](https://github.com/PGLongo/ice-generator/commit/2ed505ddbe49357229b181ece8f049289ae5fb4a))
+* **ui:** hide navbar logo on desktop to avoid duplication ([7d59b1e](https://github.com/PGLongo/ice-generator/commit/7d59b1e8761c374c046624d51752be9c7de64629))
+* **ui:** remove duplicate v prefix from version display ([2c9fd85](https://github.com/PGLongo/ice-generator/commit/2c9fd857afca94d2a8695a9ec287dd8e7897c106))
+
 ## [1.1.0](https://github.com/PGLongo/ice-generator/compare/v1.0.0...v1.1.0) (2026-01-22)
 
 
