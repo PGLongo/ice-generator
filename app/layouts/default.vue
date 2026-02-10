@@ -2,7 +2,6 @@
 import type { NavigationMenuItem } from '@nuxt/ui'
 
 const { t } = useI18n()
-const route = useRoute()
 
 const open = ref(false)
 
@@ -39,22 +38,6 @@ const links = computed<NavigationMenuItem[][]>(() => [[
     target: '_blank'
   }
 ]])
-
-const groups = computed(() => [{
-  id: 'links',
-  label: 'Go to',
-  items: links.value.flat()
-}, {
-  id: 'code',
-  label: 'Code',
-  items: [{
-    id: 'source',
-    label: 'View page source',
-    icon: 'i-simple-icons-github',
-    to: `https://github.com/nicololongo/ice-generator/blob/main/app/pages${route.path === '/' ? '/index' : route.path}.vue`,
-    target: '_blank'
-  }]
-}])
 </script>
 
 <template>
@@ -77,8 +60,6 @@ const groups = computed(() => [{
       </template>
 
       <template #default="{ collapsed }">
-        <UDashboardSearchButton :collapsed="collapsed" class="bg-transparent ring-default" ></UDashboardSearchButton>
-
         <UNavigationMenu
           :collapsed="collapsed"
           :items="links[0]"
@@ -103,8 +84,6 @@ const groups = computed(() => [{
         </div>
       </template>
     </UDashboardSidebar>
-
-    <UDashboardSearch :groups="groups" ></UDashboardSearch>
 
     <UDashboardPanel>
       <template #header>
