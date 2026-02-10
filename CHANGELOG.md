@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.1](https://github.com/PGLongo/ice-generator/compare/v1.2.0...v1.2.1) (2026-02-10)
+
+
+### Bug Fixes
+
+* **config:** read app version from package.json instead of git tag ([12a4889](https://github.com/PGLongo/ice-generator/commit/12a4889ca9f55905ba63d4b48cdb3e8c522d53b2))
+
 ## [1.2.0](https://github.com/PGLongo/ice-generator/compare/v1.1.0...v1.2.0) (2026-02-10)
 
 
