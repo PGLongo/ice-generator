@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
+import packageJson from '../../package.json'
 
 const { t } = useI18n()
+const appVersion = packageJson.version
 
 const open = ref(false)
 
@@ -119,6 +121,7 @@ const links = computed<NavigationMenuItem[][]>(() => [[
           <LanguageSelect ></LanguageSelect>
           <UColorModeButton ></UColorModeButton>
         </div>
+        <p v-if="!collapsed" class="text-xs text-muted text-center mt-2">v{{ appVersion }}</p>
       </template>
     </UDashboardSidebar>
 
