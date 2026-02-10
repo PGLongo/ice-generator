@@ -108,7 +108,16 @@ const groups = computed(() => [{
 
     <UDashboardPanel>
       <template #header>
-        <UDashboardNavbar></UDashboardNavbar>
+        <UDashboardNavbar>
+          <template #left>
+            <NuxtLink to="/" class="flex items-center gap-2">
+              <img src="/CareCard.svg" alt="CareCard" class="h-6 w-auto" />
+              <span class="font-extrabold text-base">
+                <span class="text-[var(--ui-color-carecard-cyan-500,#00ccff)]">Care</span><span class="text-[var(--ui-color-carecard-blue-500,#0066ff)]">Card</span>
+              </span>
+            </NuxtLink>
+          </template>
+        </UDashboardNavbar>
       </template>
 
       <template #body>
