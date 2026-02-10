@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
-import packageJson from '../../package.json'
 
 const { t } = useI18n()
-const appVersion = packageJson.version
+const { appVersion } = useRuntimeConfig().public
 
 const open = ref(false)
 
