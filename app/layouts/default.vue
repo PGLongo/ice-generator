@@ -120,7 +120,7 @@ const links = computed<NavigationMenuItem[][]>(() => [[
           <LanguageSelect ></LanguageSelect>
           <UColorModeButton ></UColorModeButton>
         </div>
-        <p v-if="!collapsed" class="text-xs text-muted text-center mt-2">v{{ appVersion }}</p>
+        <p v-if="!collapsed" class="text-xs text-muted text-center mt-2">{{ appVersion }}</p>
       </template>
     </UDashboardSidebar>
 
