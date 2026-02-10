@@ -58,6 +58,12 @@ const links = computed<NavigationMenuItem[][]>(() => [[
         icon: 'i-simple-icons-x',
         disabled: true,
         badge: 'Soon'
+      },
+      {
+        label: 'Bluesky',
+        icon: 'i-simple-icons-bluesky',
+        disabled: true,
+        badge: 'Soon'
       }
     ]
   }
