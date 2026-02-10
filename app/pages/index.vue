@@ -1,4 +1,6 @@
 <script setup lang="ts">
+definePageMeta({ layout: 'landing' })
+
 const { t } = useI18n()
 
 useHead({
