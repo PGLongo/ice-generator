@@ -52,8 +52,8 @@ onMounted(() => {
             <AppLogo></AppLogo>
           </NuxtLink>
 
-          <!-- Desktop Navigation -->
-          <nav v-if="route.path === '/'" class="hidden lg:flex items-center space-x-1">
+          <!-- Desktop Navigation (Landing links) -->
+          <nav class="hidden lg:flex items-center space-x-1">
             <UButton
               v-for="link in landingLinks"
               :key="link.href"
@@ -64,24 +64,9 @@ onMounted(() => {
               {{ link.label }}
             </UButton>
           </nav>
-          <nav v-else class="hidden lg:flex items-center space-x-1">
-            <TemplateMenu></TemplateMenu>
-          </nav>
 
           <!-- Actions Section -->
           <div class="flex items-center space-x-3">
-            <!-- Quick Actions -->
-            <div v-if="route.path !== '/'" class="hidden md:flex items-center space-x-2">
-              <UButton
-                to="/form"
-                size="sm"
-                icon="i-heroicons-plus-circle"
-                class="cta-button"
-              >
-                Crea Card
-              </UButton>
-            </div>
-
             <!-- Settings Group -->
             <div class="flex items-center space-x-2 settings-group">
               <LanguageSelect></LanguageSelect>
@@ -113,8 +98,7 @@ onMounted(() => {
         <div v-if="isMobileMenuOpen" class="mobile-nav lg:hidden">
           <UContainer>
             <div class="mobile-nav-content">
-              <!-- Landing page mobile nav -->
-              <div v-if="route.path === '/'" class="flex flex-col space-y-2">
+              <div class="flex flex-col space-y-2">
                 <UButton
                   v-for="link in landingLinks"
                   :key="link.href"
@@ -125,19 +109,6 @@ onMounted(() => {
                   @click="closeMobileMenu"
                 >
                   {{ link.label }}
-                </UButton>
-              </div>
-              <!-- Other pages mobile nav -->
-              <TemplateMenu v-else orientation="vertical"></TemplateMenu>
-              <div v-if="route.path !== '/'" class="mobile-actions">
-                <UButton
-                  to="/form"
-                  size="lg"
-                  icon="i-heroicons-plus-circle"
-                  class="w-full cta-button"
-                  @click="closeMobileMenu"
-                >
-                  Crea la tua Card
                 </UButton>
               </div>
             </div>
@@ -189,22 +160,6 @@ onMounted(() => {
 
 .logo-section:hover {
   transform: translateY(-1px);
-}
-
-/* CTA Button */
-.cta-button {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-  border: none;
-  color: white;
-  font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
-}
-
-.cta-button:hover {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.35);
 }
 
 /* Settings Group */
@@ -269,15 +224,6 @@ onMounted(() => {
   gap: 24px;
 }
 
-.mobile-actions {
-  padding-top: 16px;
-  border-top: 1px solid rgba(226, 232, 240, 0.5);
-}
-
-.dark .mobile-actions {
-  border-top: 1px solid rgba(51, 65, 85, 0.5);
-}
-
 /* Animations */
 @keyframes slideDown {
   from {
@@ -290,52 +236,11 @@ onMounted(() => {
   }
 }
 
-/* Navigation Menu Enhancements */
-:deep(.navigation-menu) {
-  gap: 0.5rem;
-}
-
-:deep(.navigation-menu a) {
-  transition: all 0.3s ease;
-  border-radius: 8px;
-  font-weight: 500;
-  position: relative;
-  overflow: hidden;
-}
-
-:deep(.navigation-menu a:hover) {
-  background: rgba(59, 130, 246, 0.1);
-  transform: translateY(-1px);
-}
-
-:deep(.navigation-menu a.router-link-active) {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.1));
-  color: #3b82f6;
-  font-weight: 600;
-}
-
-:deep(.navigation-menu a.router-link-active::before) {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 2px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-  border-radius: 1px;
-}
-
 /* Responsive Improvements */
 @media (max-width: 768px) {
   .settings-group {
     padding: 6px;
     gap: 0.375rem;
-  }
-
-  .cta-button {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
   }
 }
 
