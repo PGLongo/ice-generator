@@ -32,6 +32,12 @@ const links = computed<NavigationMenuItem[][]>(() => [[
     onSelect: () => { open.value = false }
   },
   {
+    label: t('schoolForm.title'),
+    icon: 'i-heroicons-user-group',
+    to: '/form/school',
+    onSelect: () => { open.value = false }
+  },
+  {
     label: 'Social',
     icon: 'i-lucide-share-2',
     defaultOpen: false,
