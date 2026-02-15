@@ -6,6 +6,7 @@ export default defineNuxtPlugin({
   parallel: true,
   async setup(nuxtApp) {
     const iceStore = useIceStore(nuxtApp['$pinia'] as Pinia)
+    const schoolFormStore = useSchoolFormStore(nuxtApp['$pinia'] as Pinia)
 
     // Check if data is provided via URL query params
     const route = useRoute()
@@ -83,6 +84,30 @@ export default defineNuxtPlugin({
         } catch (fallbackError) {
           console.error('Fallback to localStorage also failed:', fallbackError)
         }
+      }
+    }, { detached: true })
+
+    // Load school form data from LocalForage
+    try {
+      const savedSchoolFormData = await localforage.getItem('school-form-data')
+      if (savedSchoolFormData) {
+        schoolFormStore.$patch({ data: savedSchoolFormData })
+        if (import.meta.dev) {
+          console.warn('School form data loaded from LocalForage')
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load school form data from LocalForage:', error)
+    }
+
+    // Subscribe to school form store changes and save to LocalForage
+    schoolFormStore.$subscribe(async (_mutation, state) => {
+      try {
+        // Convert reactive proxy to plain object for serialization
+        const plainData = JSON.parse(JSON.stringify(state.data))
+        await localforage.setItem('school-form-data', plainData)
+      } catch (error) {
+        console.error('Failed to save school form data to LocalForage:', error)
       }
     }, { detached: true })
   }
