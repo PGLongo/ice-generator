@@ -19,7 +19,7 @@ const handleResetConfirm = () => {
   resetDialog.value?.hide()
   toast.add({
     title: t('form.success'),
-    description: 'All data has been reset',
+    description: t('schoolForm.allPeopleRemoved'),
     color: 'success'
   })
 }
@@ -28,8 +28,8 @@ const handleResetConfirm = () => {
 const generateCardsForAll = () => {
   if (!schoolFormStore.hasPeople) {
     toast.add({
-      title: 'Error',
-      description: 'Please add at least one person to the list',
+      title: t('form.error'),
+      description: t('schoolForm.errorNoPeople'),
       color: 'error'
     })
     return
@@ -37,8 +37,8 @@ const generateCardsForAll = () => {
 
   // TODO: Implement card generation logic
   toast.add({
-    title: 'Feature coming soon',
-    description: 'Card generation will be implemented soon',
+    title: t('schoolForm.featureComingSoon'),
+    description: t('schoolForm.cardGenerationComingSoon'),
     color: 'info'
   })
 }
@@ -50,8 +50,8 @@ const generateCardsForAll = () => {
       <UCard>
         <div class="space-y-8">
           <div class="text-center space-y-2">
-            <h1 class="text-3xl font-bold">School Form</h1>
-            <p class="text-gray-600">Create emergency cards for your school</p>
+            <h1 class="text-3xl font-bold">{{ $t('schoolForm.title') }}</h1>
+            <p class="text-gray-600">{{ $t('schoolForm.subtitle') }}</p>
           </div>
 
           <USeparator />
@@ -75,7 +75,7 @@ const generateCardsForAll = () => {
               @click="generateCardsForAll"
               class="col-span-full md:col-span-1"
             >
-              Generate Cards for All ({{ schoolFormStore.peopleCount }})
+              {{ $t('schoolForm.generateCards', { count: schoolFormStore.peopleCount }) }}
             </UButton>
 
             <!-- Secondary Actions -->
@@ -89,7 +89,7 @@ const generateCardsForAll = () => {
               @click="openResetModal"
               class="col-span-full md:col-span-1"
             >
-              Reset All
+              {{ $t('schoolForm.resetAll') }}
             </UButton>
           </div>
         </div>
@@ -104,14 +104,14 @@ const generateCardsForAll = () => {
       <template #title>
         <div class="flex items-center gap-3">
           <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-amber-500" />
-          <span>Confirm Reset</span>
+          <span>{{ $t('schoolForm.confirmReset') }}</span>
         </div>
       </template>
 
       <template #message>
         <div class="space-y-2">
-          <p>Are you sure you want to reset all school form data?</p>
-          <p class="text-sm text-gray-500">This action cannot be undone.</p>
+          <p>{{ $t('schoolForm.resetMessage') }}</p>
+          <p class="text-sm text-gray-500">{{ $t('schoolForm.resetWarning') }}</p>
         </div>
       </template>
     </DialogCancel>

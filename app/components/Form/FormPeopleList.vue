@@ -14,6 +14,7 @@ const localData = ref<Person[]>(props.modelValue || [])
 const newPersonName = ref('')
 const fileInput = ref<HTMLInputElement | null>(null)
 const toast = useToast()
+const { t } = useI18n()
 
 const addPerson = () => {
   if (newPersonName.value.trim()) {
@@ -25,7 +26,7 @@ const addPerson = () => {
     emitUpdate()
     newPersonName.value = ''
     toast.add({
-      title: 'Person added',
+      title: t('schoolForm.personAdded'),
       color: 'success'
     })
   }
@@ -35,7 +36,7 @@ const removePerson = (id: string) => {
   localData.value = localData.value.filter(p => p.id !== id)
   emitUpdate()
   toast.add({
-    title: 'Person removed',
+    title: t('schoolForm.personRemoved'),
     color: 'success'
   })
 }
@@ -60,8 +61,8 @@ const handleFileUpload = (event: Event) => {
 
   reader.onerror = () => {
     toast.add({
-      title: 'Error reading file',
-      description: 'Please try again',
+      title: t('schoolForm.errorReadingFile'),
+      description: t('schoolForm.errorReadingFileMessage'),
       color: 'error'
     })
   }
@@ -90,8 +91,8 @@ const parseCsv = (content: string) => {
   emitUpdate()
 
   toast.add({
-    title: 'File imported successfully',
-    description: `${importedPeople.length} people added`,
+    title: t('schoolForm.fileImported'),
+    description: t('schoolForm.peopleImported', { count: importedPeople.length }),
     color: 'success'
   })
 }
@@ -126,15 +127,15 @@ const parseExcel = (content: string) => {
     emitUpdate()
 
     toast.add({
-      title: 'Excel file imported successfully',
-      description: `${importedPeople.length} people added`,
+      title: t('schoolForm.fileImported'),
+      description: t('schoolForm.peopleImported', { count: importedPeople.length }),
       color: 'success'
     })
   } catch (error) {
     console.error('Error parsing Excel file:', error)
     toast.add({
-      title: 'Error parsing Excel file',
-      description: 'Please check the file format',
+      title: t('schoolForm.errorParsingExcel'),
+      description: t('schoolForm.errorParsingExcelMessage'),
       color: 'error'
     })
   }
@@ -144,7 +145,7 @@ const clearAll = () => {
   localData.value = []
   emitUpdate()
   toast.add({
-    title: 'All people removed',
+    title: t('schoolForm.allPeopleRemoved'),
     color: 'success'
   })
 }
@@ -165,7 +166,7 @@ watch(() => props.modelValue, (newValue) => {
       <div class="flex items-center gap-2">
         <div class="w-1 h-6 bg-primary rounded-full"></div>
         <h3 class="text-lg font-semibold">
-          People List
+          {{ $t('schoolForm.peopleList') }}
         </h3>
       </div>
       <UButton
@@ -176,16 +177,16 @@ watch(() => props.modelValue, (newValue) => {
         variant="ghost"
         @click="clearAll"
       >
-        Clear All
+        {{ $t('schoolForm.clearAll') }}
       </UButton>
     </div>
 
     <!-- Manual input section -->
     <div class="flex gap-2">
-      <UFormField label="Add person manually" class="flex-1">
+      <UFormField :label="$t('schoolForm.addPersonManually')" class="flex-1">
         <UInput
           v-model="newPersonName"
-          placeholder="Full Name"
+          :placeholder="$t('schoolForm.fullNamePlaceholder')"
           size="lg"
           icon="i-heroicons-user-plus"
           @keyup.enter="addPerson"
@@ -198,7 +199,7 @@ watch(() => props.modelValue, (newValue) => {
         class="mt-6"
         @click="addPerson"
       >
-        Add
+        {{ $t('schoolForm.addPerson') }}
       </UButton>
     </div>
 
@@ -217,21 +218,21 @@ watch(() => props.modelValue, (newValue) => {
         color="secondary"
         @click="fileInput?.click()"
       >
-        Upload File (CSV/Excel)
+        {{ $t('schoolForm.uploadFile') }}
       </UButton>
       <p class="text-sm text-gray-500">
-        Upload a CSV or Excel file with one name per line
+        {{ $t('schoolForm.uploadFileDescription') }}
       </p>
     </div>
 
     <!-- People list -->
     <div v-if="localData.length === 0" class="text-center py-8 text-gray-500">
-      <p>No people added yet</p>
+      <p>{{ $t('schoolForm.noPeople') }}</p>
     </div>
 
     <div v-else class="space-y-2">
       <p class="text-sm text-gray-600 font-medium">
-        {{ localData.length }} {{ localData.length === 1 ? 'person' : 'people' }}
+        {{ $t('schoolForm.peopleCount', { count: localData.length }) }}
       </p>
       <div
         v-for="person in localData"
