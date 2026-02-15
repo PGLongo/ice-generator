@@ -259,6 +259,7 @@
     "uploadFileDescription": "Carica un file CSV o Excel con un nome per riga",
     "noPeople": "Nessuna persona aggiunta",
     "peopleCount": "{count} persone",
+    "actions": "Azioni",
     "remove": "Rimuovi",
     "clearAll": "Rimuovi Tutti",
     "generateCards": "Genera Tessere per Tutti ({count})",

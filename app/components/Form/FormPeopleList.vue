@@ -160,6 +160,20 @@ const emitUpdate = () => {
   emit('update:modelValue', [...localData.value])
 }
 
+// Table columns definition
+const columns = [
+  {
+    key: 'fullName',
+    label: t('schoolForm.fullName'),
+    sortable: true
+  },
+  {
+    key: 'actions',
+    label: t('schoolForm.actions'),
+    sortable: false
+  }
+] as any
+
 // Watch for external changes
 watch(() => props.modelValue, (newValue) => {
   localData.value = newValue || []
@@ -231,29 +245,30 @@ watch(() => props.modelValue, (newValue) => {
       </p>
     </div>
 
-    <!-- People list -->
-    <div v-if="localData.length === 0" class="text-center py-8 text-gray-500">
-      <p>{{ $t('schoolForm.noPeople') }}</p>
-    </div>
-
-    <div v-else class="space-y-2">
+    <!-- People list table -->
+    <div v-if="localData.length > 0" class="space-y-2">
       <p class="text-sm text-gray-600 font-medium">
         {{ $t('schoolForm.peopleCount', { count: localData.length }) }}
       </p>
-      <div
-        v-for="person in localData"
-        :key="person.id"
-        class="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50"
+      <UTable
+        :rows="localData"
+        :columns="columns"
       >
-        <span class="font-medium">{{ person.fullName }}</span>
-        <UButton
-          icon="i-heroicons-trash"
-          size="xs"
-          color="error"
-          variant="ghost"
-          @click="removePerson(person.id)"
-        ></UButton>
-      </div>
+        <template #actions-data="{ row }">
+          <UButton
+            icon="i-heroicons-trash"
+            size="xs"
+            color="error"
+            variant="ghost"
+            :ui="{ base: 'justify-center' }"
+            @click="removePerson(row.id)"
+          />
+        </template>
+      </UTable>
+    </div>
+
+    <div v-else class="text-center py-8 text-gray-500">
+      <p>{{ $t('schoolForm.noPeople') }}</p>
     </div>
   </div>
 </template>
