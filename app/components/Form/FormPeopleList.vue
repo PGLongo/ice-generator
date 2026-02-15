@@ -254,6 +254,10 @@ watch(() => props.modelValue, (newValue) => {
         :rows="localData"
         :columns="(columns as any)"
       >
+        <template #fullName-data="{ row }">
+          <span class="font-medium">{{ (row as unknown as Person).fullName }}</span>
+        </template>
+
         <template #actions-data="{ row }">
           <UButton
             icon="i-heroicons-trash"
@@ -261,7 +265,7 @@ watch(() => props.modelValue, (newValue) => {
             color="error"
             variant="ghost"
             :ui="{ base: 'justify-center' }"
-            @click="removePerson(row.id)"
+            @click="removePerson((row as unknown as Person).id)"
           />
         </template>
       </UTable>
