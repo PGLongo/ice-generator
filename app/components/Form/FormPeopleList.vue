@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import * as XLSX from 'xlsx'
 import type { Person } from '@/types/school-form'
 
 const props = defineProps<{
@@ -47,18 +48,13 @@ const handleFileUpload = (event: Event) => {
   const reader = new FileReader()
 
   reader.onload = (e) => {
-    const content = e.target?.result as string
+    const content = e.target?.result
     const ext = file.name.split('.').pop()?.toLowerCase()
 
     if (ext === 'csv') {
-      parseCsv(content)
+      parseCsv(content as string)
     } else if (ext === 'xlsx') {
-      // Will be implemented after Step 5
-      toast.add({
-        title: 'Excel files not yet supported',
-        description: 'Please use CSV format for now',
-        color: 'warning'
-      })
+      parseExcel(content as string)
     }
   }
 
@@ -98,6 +94,50 @@ const parseCsv = (content: string) => {
     description: `${importedPeople.length} people added`,
     color: 'success'
   })
+}
+
+const parseExcel = (content: string) => {
+  try {
+    const workbook = XLSX.read(content, { type: 'binary' })
+    const firstSheetName = workbook.SheetNames[0]
+    const worksheet = workbook.Sheets[firstSheetName]
+
+    // Convert to array of arrays
+    const data = XLSX.utils.sheet_to_json<string[]>(worksheet, { header: 1 })
+
+    // Filter empty rows and flatten to get all names
+    const names: string[] = []
+    data.forEach(row => {
+      if (row && row.length > 0) {
+        // Take first column value if exists and not empty
+        const name = String(row[0] || '').trim()
+        if (name) {
+          names.push(name)
+        }
+      }
+    })
+
+    const importedPeople: Person[] = names.map(name => ({
+      id: crypto.randomUUID(),
+      fullName: name
+    }))
+
+    localData.value.push(...importedPeople)
+    emitUpdate()
+
+    toast.add({
+      title: 'Excel file imported successfully',
+      description: `${importedPeople.length} people added`,
+      color: 'success'
+    })
+  } catch (error) {
+    console.error('Error parsing Excel file:', error)
+    toast.add({
+      title: 'Error parsing Excel file',
+      description: 'Please check the file format',
+      color: 'error'
+    })
+  }
 }
 
 const clearAll = () => {
