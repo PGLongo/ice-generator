@@ -1,7 +1,24 @@
 <script setup lang="ts">
-import { useIceStore } from '@/stores/ice'
+import type { SchoolData } from '@/types/school'
 
-const iceStore = useIceStore()
+const props = defineProps<{
+  modelValue: SchoolData
+}>()
+
+const emit = defineEmits<{
+  'update:modelValue': [value: SchoolData]
+}>()
+
+const localData = ref<SchoolData>(props.modelValue || {})
+
+const emitUpdate = () => {
+  emit('update:modelValue', { ...localData.value })
+}
+
+// Watch for external changes
+watch(() => props.modelValue, (newValue) => {
+  localData.value = newValue || {}
+}, { deep: true })
 </script>
 
 <template>
@@ -22,12 +39,13 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.name"
+            v-model="localData.name"
             :placeholder="$t('form.schoolNamePlaceholder')"
             size="xl"
             icon="i-heroicons-academic-cap"
             class="w-full"
-          ></UInput>
+            @input="emitUpdate"
+          />
         </UFormField>
       </div>
 
@@ -38,12 +56,13 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.phone"
+            v-model="localData.phone"
             :placeholder="$t('form.schoolPhonePlaceholder')"
             size="xl"
             icon="i-heroicons-phone"
             class="w-full"
-          ></UInput>
+            @input="emitUpdate"
+          />
         </UFormField>
       </div>
     </div>
@@ -57,12 +76,13 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.city"
+            v-model="localData.city"
             :placeholder="$t('form.schoolCityPlaceholder')"
             size="xl"
             icon="i-heroicons-map"
             class="w-full"
-          ></UInput>
+            @input="emitUpdate"
+          />
         </UFormField>
       </div>
 
@@ -73,12 +93,13 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.address"
+            v-model="localData.address"
             :placeholder="$t('form.schoolAddressPlaceholder')"
             size="xl"
             icon="i-heroicons-map-pin"
             class="w-full"
-          ></UInput>
+            @input="emitUpdate"
+          />
         </UFormField>
       </div>
     </div>
@@ -92,12 +113,13 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.referentName"
+            v-model="localData.referentName"
             :placeholder="$t('form.schoolReferentNamePlaceholder')"
             size="xl"
             icon="i-heroicons-user"
             class="w-full"
-          ></UInput>
+            @input="emitUpdate"
+          />
         </UFormField>
       </div>
 
@@ -108,12 +130,13 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.referentPhone"
+            v-model="localData.referentPhone"
             :placeholder="$t('form.schoolReferentPhonePlaceholder')"
             size="xl"
             icon="i-heroicons-phone"
             class="w-full"
-          ></UInput>
+            @input="emitUpdate"
+          />
         </UFormField>
       </div>
 
@@ -124,12 +147,13 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.section"
+            v-model="localData.section"
             :placeholder="$t('school.sectionPlaceholder')"
             size="xl"
             icon="i-heroicons-rectangle-group"
             class="w-full"
-          ></UInput>
+            @input="emitUpdate"
+          />
         </UFormField>
       </div>
     </div>
@@ -143,12 +167,13 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.school.logoUrl"
+            v-model="localData.logoUrl"
             :placeholder="$t('form.schoolLogoUrlPlaceholder')"
             size="xl"
             icon="i-heroicons-photo"
             class="w-full"
-          ></UInput>
+            @input="emitUpdate"
+          />
         </UFormField>
       </div>
     </div>

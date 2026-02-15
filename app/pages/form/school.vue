@@ -56,80 +56,8 @@ const generateCardsForAll = () => {
 
           <USeparator />
 
-          <!-- School Information Section (temporarily inline, will use FormSchoolInfo after refactoring) -->
-          <div class="space-y-6">
-            <div class="flex items-center gap-2 mb-6">
-              <div class="w-1 h-6 bg-primary rounded-full"></div>
-              <h3 class="text-lg font-semibold">
-                School Information
-              </h3>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-              <div class="md:col-span-8">
-                <UFormField
-                  label="School Name"
-                  name="schoolName"
-                  class="w-full"
-                >
-                  <UInput
-                    v-model="schoolFormStore.data.school.name"
-                    placeholder="Enter school name"
-                    size="xl"
-                    icon="i-heroicons-academic-cap"
-                    class="w-full"
-                  />
-                </UFormField>
-              </div>
-
-              <div class="md:col-span-4">
-                <UFormField
-                  label="Phone"
-                  name="schoolPhone"
-                  class="w-full"
-                >
-                  <UInput
-                    v-model="schoolFormStore.data.school.phone"
-                    type="tel"
-                    placeholder="Phone number"
-                    size="xl"
-                    icon="i-heroicons-phone"
-                    class="w-full"
-                  />
-                </UFormField>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <UFormField
-                label="Address"
-                name="schoolAddress"
-                class="w-full"
-              >
-                <UInput
-                  v-model="schoolFormStore.data.school.address"
-                  placeholder="Street address"
-                  size="xl"
-                  icon="i-heroicons-map-pin"
-                  class="w-full"
-                />
-              </UFormField>
-
-              <UFormField
-                label="City"
-                name="schoolCity"
-                class="w-full"
-              >
-                <UInput
-                  v-model="schoolFormStore.data.school.city"
-                  placeholder="City"
-                  size="xl"
-                  icon="i-heroicons-building-office"
-                  class="w-full"
-                />
-              </UFormField>
-            </div>
-          </div>
+          <!-- School Information Section -->
+          <FormSchoolInfo v-model="schoolFormStore.data.school" />
 
           <USeparator />
 
