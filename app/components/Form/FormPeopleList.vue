@@ -160,20 +160,19 @@ const emitUpdate = () => {
   emit('update:modelValue', [...localData.value])
 }
 
-// Table columns definition
+// Table columns definition - use string labels directly
 const columns = [
   {
     key: 'fullName',
-    label: t('schoolForm.fullName'),
+    label: 'Full Name',
     sortable: true
   },
   {
     key: 'actions',
-    id: 'actions',
-    label: t('schoolForm.actions'),
+    label: 'Actions',
     sortable: false
   }
-] as any
+]
 
 // Watch for external changes
 watch(() => props.modelValue, (newValue) => {
@@ -253,7 +252,7 @@ watch(() => props.modelValue, (newValue) => {
       </p>
       <UTable
         :rows="localData"
-        :columns="columns"
+        :columns="(columns as any)"
       >
         <template #actions-data="{ row }">
           <UButton
