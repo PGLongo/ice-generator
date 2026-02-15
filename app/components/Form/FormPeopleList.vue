@@ -169,6 +169,7 @@ const columns = [
   },
   {
     key: 'actions',
+    id: 'actions',
     label: t('schoolForm.actions'),
     sortable: false
   }
