@@ -10,7 +10,6 @@ const emit = defineEmits<{
   'update:modelValue': [value: Person[]]
 }>()
 
-const localData = ref<Person[]>(props.modelValue || [])
 const newPersonName = ref('')
 const fileInput = ref<HTMLInputElement | null>(null)
 const toast = useToast()
@@ -22,8 +21,8 @@ const addPerson = () => {
       id: crypto.randomUUID(),
       fullName: newPersonName.value.trim()
     }
-    localData.value.push(newPerson)
-    emitUpdate()
+    const updated = [...props.modelValue, newPerson]
+    emit('update:modelValue', updated)
     newPersonName.value = ''
     toast.add({
       title: t('schoolForm.personAdded'),
@@ -33,8 +32,8 @@ const addPerson = () => {
 }
 
 const removePerson = (id: string) => {
-  localData.value = localData.value.filter(p => p.id !== id)
-  emitUpdate()
+  const updated = props.modelValue.filter(p => p.id !== id)
+  emit('update:modelValue', updated)
   toast.add({
     title: t('schoolForm.personRemoved'),
     color: 'success'
@@ -87,8 +86,8 @@ const parseCsv = (content: string) => {
     fullName: line
   }))
 
-  localData.value.push(...importedPeople)
-  emitUpdate()
+  const updated = [...props.modelValue, ...importedPeople]
+  emit('update:modelValue', updated)
 
   toast.add({
     title: t('schoolForm.fileImported'),
@@ -129,8 +128,8 @@ const parseExcel = (content: string) => {
       fullName: name
     }))
 
-    localData.value.push(...importedPeople)
-    emitUpdate()
+    const updated = [...props.modelValue, ...importedPeople]
+    emit('update:modelValue', updated)
 
     toast.add({
       title: t('schoolForm.fileImported'),
@@ -148,16 +147,11 @@ const parseExcel = (content: string) => {
 }
 
 const clearAll = () => {
-  localData.value = []
-  emitUpdate()
+  emit('update:modelValue', [])
   toast.add({
     title: t('schoolForm.allPeopleRemoved'),
     color: 'success'
   })
-}
-
-const emitUpdate = () => {
-  emit('update:modelValue', [...localData.value])
 }
 
 // Table columns definition
@@ -179,11 +173,6 @@ const tableColumns = [
 ]
 
 const columns = computed(() => tableColumns)
-
-// Watch for external changes
-watch(() => props.modelValue, (newValue) => {
-  localData.value = newValue || []
-}, { deep: true })
 </script>
 
 <template>
@@ -196,7 +185,7 @@ watch(() => props.modelValue, (newValue) => {
         </h3>
       </div>
       <UButton
-        v-if="localData.length > 0"
+        v-if="modelValue.length > 0"
         icon="i-heroicons-trash"
         size="sm"
         color="error"
@@ -252,13 +241,13 @@ watch(() => props.modelValue, (newValue) => {
     </div>
 
     <!-- People list table -->
-    <div v-if="localData.length > 0" class="space-y-2">
+    <div v-if="modelValue.length > 0" class="space-y-2">
       <p class="text-sm text-gray-600 font-medium">
-        {{ $t('schoolForm.peopleCount', { count: localData.length }) }}
+        {{ $t('schoolForm.peopleCount', { count: modelValue.length }) }}
       </p>
       <UTable
-        :key="`table-${localData.length}`"
-        :rows="localData"
+        :key="`table-${modelValue.length}`"
+        :rows="modelValue"
         :columns="(columns as any)"
       >
         <template #fullName-data="{ row }">
