@@ -154,6 +154,18 @@ const clearAll = () => {
   })
 }
 
+const exportCsv = () => {
+  if (!props.modelValue.length) return
+  const content = props.modelValue.map(p => p.fullName).join('\n')
+  const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = 'people.csv'
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
 // Table columns definition
 const columns = [
   {
@@ -229,6 +241,16 @@ const columns = [
         @click="fileInput?.click()"
       >
         {{ $t('schoolForm.uploadFile') }}
+      </UButton>
+      <UButton
+        icon="i-heroicons-arrow-down-tray"
+        size="lg"
+        color="secondary"
+        variant="outline"
+        :disabled="!modelValue.length"
+        @click="exportCsv"
+      >
+        {{ $t('schoolForm.exportFile') }}
       </UButton>
       <p class="text-sm text-gray-500">
         {{ $t('schoolForm.uploadFileDescription') }}

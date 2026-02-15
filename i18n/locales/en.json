@@ -255,6 +255,7 @@
     "fullName": "Full Name",
     "fullNamePlaceholder": "Enter full name",
     "uploadFile": "Upload File (CSV/Excel)",
+    "exportFile": "Export CSV",
     "uploadFileDescription": "Upload a CSV or Excel file with one name per line",
     "noPeople": "No people added yet",
     "peopleCount": "{count} people",

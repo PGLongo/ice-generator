@@ -256,6 +256,7 @@
     "fullName": "Nome Completo",
     "fullNamePlaceholder": "Inserisci nome completo",
     "uploadFile": "Carica File (CSV/Excel)",
+    "exportFile": "Esporta CSV",
     "uploadFileDescription": "Carica un file CSV o Excel con un nome per riga",
     "noPeople": "Nessuna persona aggiunta",
     "peopleCount": "{count} persone",
