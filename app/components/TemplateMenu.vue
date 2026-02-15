@@ -36,6 +36,12 @@ const items = computed<NavigationMenuItem[]>(() => [
     to: '/school',
     icon: 'i-heroicons-academic-cap',
     active: route.path === '/school'
+  },
+  {
+    label: t('schoolForm.title'),
+    to: '/form/school',
+    icon: 'i-heroicons-user-group',
+    active: route.path === '/form/school'
   }
 ])
 </script>
