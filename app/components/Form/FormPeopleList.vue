@@ -155,24 +155,19 @@ const clearAll = () => {
 }
 
 // Table columns definition
-const tableColumns = [
+const columns = [
   {
-    key: 'fullName',
+    accessorKey: 'fullName',
     id: 'fullName',
-    label: 'Full Name',
-    sortable: true,
-    class: 'font-medium'
+    header: 'Full Name',
+    enableSorting: true
   },
   {
-    key: 'actions',
     id: 'actions',
-    label: 'Actions',
-    sortable: false,
-    class: 'text-right'
+    header: 'Actions',
+    enableSorting: false
   }
 ]
-
-const columns = computed(() => tableColumns)
 </script>
 
 <template>
@@ -247,22 +242,21 @@ const columns = computed(() => tableColumns)
       </p>
       <UTable
         :key="`table-${modelValue.length}`"
-        :rows="modelValue"
+        :data="modelValue"
         :columns="(columns as any)"
       >
-        <template #fullName-data="{ row }">
-          <span class="font-medium">{{ (row as unknown as Person).fullName }}</span>
+        <template #fullName-cell="{ row }">
+          <span class="font-medium">{{ row.original.fullName }}</span>
         </template>
 
-        <template #actions-data="{ row }">
+        <template #actions-cell="{ row }">
           <UButton
             icon="i-heroicons-trash"
             size="xs"
             color="error"
             variant="ghost"
-            :ui="{ base: 'justify-center' }"
-            @click="removePerson((row as unknown as Person).id)"
-          />
+            @click="removePerson(row.original.id)"
+          ></UButton>
         </template>
       </UTable>
     </div>
