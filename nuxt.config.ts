@@ -3,12 +3,6 @@ import pkg from './package.json'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 
-  runtimeConfig: {
-    public: {
-      appVersion: `v${pkg.version}`
-    }
-  },
-
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui',
@@ -24,6 +18,17 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/css/main.css'],
+
+  ui: {
+    theme: {
+      colors: ['primary', 'secondary', 'neutral', 'error', 'warning', 'success', 'info']
+    }
+  },
+  runtimeConfig: {
+    public: {
+      appVersion: `v${pkg.version}`
+    }
+  },
 
   routeRules: {
     '/': { prerender: true },
@@ -128,12 +133,6 @@ export default defineNuxtConfig({
         'heroicons:check'
       ],
       scan: true
-    }
-  },
-
-  ui: {
-    theme: {
-      colors: ['primary', 'secondary', 'neutral', 'error', 'warning', 'success', 'info']
     }
   }
 })

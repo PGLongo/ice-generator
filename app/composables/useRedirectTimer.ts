@@ -1,4 +1,4 @@
-import { ref, onUnmounted, getCurrentScope, } from 'vue'
+import { ref, onUnmounted, getCurrentScope } from 'vue'
 
 export const useRedirectTimer = () => {
     const seconds = ref(0)

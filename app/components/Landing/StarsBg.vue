@@ -140,7 +140,7 @@ const starLayers = computed(() => [
             backgroundColor: 'var(--star-color)',
             opacity: 'var(--star-opacity)'
           }"
-        />
+        ></div>
       </div>
     </div>
   </div>

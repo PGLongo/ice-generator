@@ -31,18 +31,17 @@ onMounted(() => {
 
 <template>
   <div class="relative w-full mt-4 bg-gray-900/90 backdrop-blur-sm border border-emerald-500/30 rounded-xl p-3 animate-pulse-border text-left group">
-    
     <!-- Close Button -->
-    <button 
+    <button
       class="absolute top-2 right-2 text-gray-400 hover:text-white transition-colors p-1 rounded-full hover:bg-gray-800"
       @click="cancel"
     >
-      <UIcon name="i-heroicons-x-mark" class="w-4 h-4" />
+      <UIcon name="i-heroicons-x-mark" class="w-4 h-4" ></UIcon>
     </button>
 
     <div class="flex items-center gap-3" @click="redirect">
       <div class="relative flex items-center justify-center w-8 h-8 shrink-0 cursor-pointer">
-        <UIcon name="i-heroicons-clock" class="w-5 h-5 text-emerald-400" />
+        <UIcon name="i-heroicons-clock" class="w-5 h-5 text-emerald-400" ></UIcon>
         <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
           <path
             class="text-emerald-500/20"
@@ -61,7 +60,7 @@ onMounted(() => {
           />
         </svg>
       </div>
-      
+
       <div class="cursor-pointer">
         <p class="text-xs font-bold text-white uppercase tracking-wide">Reindirizzamento</p>
         <p class="text-[10px] text-emerald-400 font-medium">Auto-navigazione in {{ seconds }}s</p>

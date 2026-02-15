@@ -1,7 +1,5 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-
-
 const { search, filteredIcons } = useIcons()
 const selectedColor = ref('#10B77F')
 const selectedIcon = ref('i-heroicons-shopping-bag')
@@ -31,7 +29,6 @@ const colors = [
   '#EC4899' // Pink
 ]
 
-
 const generatePreview = async () => {
     if (!isValid.value) return
     isGenerating.value = true
@@ -50,7 +47,7 @@ const generatePreview = async () => {
     // Robust encoding for UTF-8 support
     const jsonString = JSON.stringify(data)
     const encodedData = btoa(unescape(encodeURIComponent(jsonString)))
-    
+
     try {
         await router.push({
             path: '/social/instagram/preview',
@@ -69,7 +66,6 @@ const generatePreview = async () => {
   <div class="bg-[#0B1120] text-gray-200 font-sans min-h-[calc(100vh-64px)]">
     <!-- Config Section -->
     <div class="bg-[#0B1120]">
-
       <!-- Static content that should NOT scroll -->
       <div class="p-5 pb-0 max-w-md mx-auto w-full space-y-5">
         <!-- Informazioni Base -->
@@ -250,23 +246,23 @@ const generatePreview = async () => {
 
     <!-- Footer Action -->
 
-      <div class="max-w-md mx-auto w-full pb-4">
-        <button
-          type="button"
-          class="w-full py-3.5 rounded-xl font-bold text-white shadow-lg transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 text-sm tracking-wide disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
-          :style="{
-            backgroundColor: isValid ? '#10B77F' : '#374151',
-            boxShadow: isValid ? '0 4px 14px 0 rgba(16, 183, 127, 0.39)' : 'none'
-          }"
-          :disabled="!isValid || isGenerating"
-          @click="generatePreview"
-        >
-          {{ isGenerating ? 'Generating...' : 'Generate Preview' }}
-          <span data-cy="debug-cta" class="hidden">{{ formCtaTitle }}</span>
-          <UIcon name="i-heroicons-sparkles" class="w-4 h-4 animate-pulse" v-if="isValid && !isGenerating" ></UIcon>
-          <UIcon name="i-heroicons-arrow-path" class="w-4 h-4 animate-spin" v-if="isGenerating" ></UIcon>
-        </button>
-      </div>
+    <div class="max-w-md mx-auto w-full pb-4">
+      <button
+        type="button"
+        class="w-full py-3.5 rounded-xl font-bold text-white shadow-lg transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 text-sm tracking-wide disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
+        :style="{
+          backgroundColor: isValid ? '#10B77F' : '#374151',
+          boxShadow: isValid ? '0 4px 14px 0 rgba(16, 183, 127, 0.39)' : 'none'
+        }"
+        :disabled="!isValid || isGenerating"
+        @click="generatePreview"
+      >
+        {{ isGenerating ? 'Generating...' : 'Generate Preview' }}
+        <span data-cy="debug-cta" class="hidden">{{ formCtaTitle }}</span>
+        <UIcon name="i-heroicons-sparkles" class="w-4 h-4 animate-pulse" v-if="isValid && !isGenerating" ></UIcon>
+        <UIcon name="i-heroicons-arrow-path" class="w-4 h-4 animate-spin" v-if="isGenerating" ></UIcon>
+      </button>
+    </div>
   </div>
 </template>
 

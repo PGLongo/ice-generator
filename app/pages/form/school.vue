@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { useSchoolFormStore } from '@/stores/school-form'
 
@@ -54,15 +55,15 @@ const generateCardsForAll = () => {
             <p class="text-gray-600">{{ $t('schoolForm.subtitle') }}</p>
           </div>
 
-          <USeparator />
+          <USeparator ></USeparator>
 
           <!-- School Information Section -->
-          <FormSchoolInfo v-model="schoolFormStore.data.school" />
+          <FormSchoolInfo v-model="schoolFormStore.data.school" ></FormSchoolInfo>
 
-          <USeparator />
+          <USeparator ></USeparator>
 
           <!-- People List Section -->
-          <FormPeopleList v-model="schoolFormStore.data.people" />
+          <FormPeopleList v-model="schoolFormStore.data.people" ></FormPeopleList>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6">
             <!-- Primary Action -->
@@ -103,7 +104,7 @@ const generateCardsForAll = () => {
     >
       <template #title>
         <div class="flex items-center gap-3">
-          <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-amber-500" />
+          <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-amber-500" ></UIcon>
           <span>{{ $t('schoolForm.confirmReset') }}</span>
         </div>
       </template>

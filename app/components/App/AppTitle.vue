@@ -13,8 +13,7 @@ defineProps({
     <span v-if="text" class="bg-clip-text text-transparent bg-gradient-to-r from-[#00ccff] to-[#0066ff]">
       {{ text }}
     </span>
-    
+
     <!-- Split Mode (Prefix + Suffix) -->
-    
   </h1>
 </template>

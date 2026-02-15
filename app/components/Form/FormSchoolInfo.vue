@@ -45,7 +45,7 @@ watch(() => props.modelValue, (newValue) => {
             icon="i-heroicons-academic-cap"
             class="w-full"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
       </div>
 
@@ -62,7 +62,7 @@ watch(() => props.modelValue, (newValue) => {
             icon="i-heroicons-phone"
             class="w-full"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
       </div>
     </div>
@@ -82,7 +82,7 @@ watch(() => props.modelValue, (newValue) => {
             icon="i-heroicons-map"
             class="w-full"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
       </div>
 
@@ -99,7 +99,7 @@ watch(() => props.modelValue, (newValue) => {
             icon="i-heroicons-map-pin"
             class="w-full"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
       </div>
     </div>
@@ -119,7 +119,7 @@ watch(() => props.modelValue, (newValue) => {
             icon="i-heroicons-user"
             class="w-full"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
       </div>
 
@@ -136,7 +136,7 @@ watch(() => props.modelValue, (newValue) => {
             icon="i-heroicons-phone"
             class="w-full"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
       </div>
 
@@ -153,7 +153,7 @@ watch(() => props.modelValue, (newValue) => {
             icon="i-heroicons-rectangle-group"
             class="w-full"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
       </div>
     </div>
@@ -173,7 +173,7 @@ watch(() => props.modelValue, (newValue) => {
             icon="i-heroicons-photo"
             class="w-full"
             @input="emitUpdate"
-          />
+          ></UInput>
         </UFormField>
       </div>
     </div>

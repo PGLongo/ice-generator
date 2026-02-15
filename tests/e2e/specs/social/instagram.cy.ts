@@ -34,8 +34,6 @@ describe('Social Instagram Pages', () => {
       .should('not.be.disabled')
       .click({ force: true })
 
-
-
     // Explicit wait for navigation
     cy.wait(4000)
 

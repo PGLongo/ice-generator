@@ -101,7 +101,13 @@ const parseExcel = (content: string) => {
   try {
     const workbook = XLSX.read(content, { type: 'binary' })
     const firstSheetName = workbook.SheetNames[0]
+    if (!firstSheetName) {
+      throw new Error('No sheets found in Excel file')
+    }
     const worksheet = workbook.Sheets[firstSheetName]
+    if (!worksheet) {
+      throw new Error('Sheet not found in Excel file')
+    }
 
     // Convert to array of arrays
     const data = XLSX.utils.sheet_to_json<string[]>(worksheet, { header: 1 })
@@ -190,7 +196,7 @@ watch(() => props.modelValue, (newValue) => {
           size="lg"
           icon="i-heroicons-user-plus"
           @keyup.enter="addPerson"
-        />
+        ></UInput>
       </UFormField>
       <UButton
         icon="i-heroicons-plus"
@@ -211,7 +217,7 @@ watch(() => props.modelValue, (newValue) => {
         accept=".csv,.xlsx"
         class="hidden"
         @change="handleFileUpload"
-      >
+      />
       <UButton
         icon="i-heroicons-arrow-up-tray"
         size="lg"
@@ -246,7 +252,7 @@ watch(() => props.modelValue, (newValue) => {
           color="error"
           variant="ghost"
           @click="removePerson(person.id)"
-        />
+        ></UButton>
       </div>
     </div>
   </div>

@@ -312,39 +312,62 @@ May I proceed to create these items in the GitHub project board?
 - `importData(jsonData)` - Import from JSON string
 
 ### Form Components Architecture
-**IMPORTANT: All form components MUST follow this pattern for clean, type-safe code:**
+**IMPORTANT: Components use props/v-model/emit. Pinia stores are used ONLY in pages.**
 
-- **Direct store import**: `import { useIceStore } from '@/stores/ice'` in every form component
-- **No props for data**: Forms do NOT accept `modelValue` or other data props (except FormEmergencyContacts which uses v-model for the array)
-- **Direct binding**: Use `v-model="iceStore.data.fieldName"` directly in inputs - NO intermediate computed properties
-- **Computed for transformations**: Use computed properties ONLY when transforming data (e.g., array ↔ comma-separated string)
-- **No optional chaining**: All nested objects (like `school`) are always initialized as empty objects `{}` - never optional
-- **No watchers**: No need to watch props or sync local data
-- **No emit**: No need to emit updates - store is reactive
+See rule: `.claude/rules/frontend/40-component-store-separation.md`
+
+- **Props/v-model**: Components receive data via `defineProps` and `v-model`
+- **Emit changes**: Components emit `update:modelValue` on every change
+- **Store in pages only**: Pages (`app/pages/`) import Pinia stores and pass data to components
+- **No store in components**: Components in `app/components/` NEVER import stores directly
 - **Modular**: Each form section is a separate component in `app/components/Form/`
 - **Validation**: Client-side validation with required fields (name, age)
-- **Auto-save**: No explicit save button needed - data persists on every change
+- **Auto-save**: Data persists on every change via store subscription in pages
 
 **Benefits of this architecture:**
-- ✅ Cleaner code without optional chaining (`?.`)
-- ✅ Simpler components without intermediate computed properties
+- ✅ Components are reusable and testable in isolation
+- ✅ Clear unidirectional data flow (page → component via props, component → page via emit)
+- ✅ No coupling between components and specific stores
 - ✅ Better type safety with TypeScript
 - ✅ Consistent pattern across all form components
-- ✅ Direct, transparent data flow from store to UI
 
 **Example pattern:**
+
+Page (`app/pages/form/school.vue`):
 ```vue
 <script setup lang="ts">
-import { useIceStore } from '@/stores/ice'
-const iceStore = useIceStore()
-// That's it! No computed properties needed for simple field bindings
+const store = useSchoolFormStore()
 </script>
 
 <template>
-  <UInput v-model="iceStore.data.name" />
-  <UInput v-model="iceStore.data.age" />
-  <UInput v-model="iceStore.data.school.name" />
-  <!-- Direct binding - no ?.  because school is always {} -->
+  <FormSchoolInfo v-model="store.data.school" />
+  <FormPeopleList v-model="store.data.people" />
+</template>
+```
+
+Component (`app/components/Form/FormSchoolInfo.vue`):
+```vue
+<script setup lang="ts">
+import type { SchoolData } from '@/types/school'
+
+const props = defineProps<{
+  modelValue: SchoolData
+}>()
+
+const emit = defineEmits<{
+  'update:modelValue': [value: SchoolData]
+}>()
+
+const updateField = (field: keyof SchoolData, value: string) => {
+  emit('update:modelValue', { ...props.modelValue, [field]: value })
+}
+</script>
+
+<template>
+  <UInput
+    :model-value="modelValue.name"
+    @update:model-value="updateField('name', $event)"
+  />
 </template>
 ```
 

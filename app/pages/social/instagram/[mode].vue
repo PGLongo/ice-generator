@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useClipboard, useShare } from '@vueuse/core'
+
 definePageMeta({
   layout: 'fullscreen'
 })
@@ -8,7 +10,7 @@ const props = defineProps({
         type: String,
         default: ''
     },
-    
+
     defaultBackground: {
         type: String,
         default: ''
@@ -51,15 +53,15 @@ watch(() => route.query['data'], (data) => {
 const getContrastColor = (hexcolor: string) => {
   // If invalid hex, default to black
   if (!hexcolor || hexcolor[0] !== '#') return '#000000'
-  
+
   // Convert to RGB value
   const r = parseInt(hexcolor.substring(1, 3), 16)
   const g = parseInt(hexcolor.substring(3, 5), 16)
   const b = parseInt(hexcolor.substring(5, 7), 16)
-  
+
   // Calculate YIQ ratio
   const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
-  
+
   // Return black for light colors, white for dark colors
   return (yiq >= 128) ? '#000000' : '#FFFFFF'
 }
@@ -68,7 +70,6 @@ const textColor = computed(() => {
   if (!decodedData.value?.color) return '#000000'
   return getContrastColor(decodedData.value.color)
 })
-import { useClipboard, useShare } from '@vueuse/core'
 
 const showSidebar = computed(() => {
   return route.params['mode'] === 'preview'
@@ -88,7 +89,7 @@ const copyShareLink = async () => {
 
   try {
     await copy(getShareUrl())
-    
+
     toast.add({
       title: 'Link Copiato!',
       description: 'Il link alla tua anteprima è stato copiato negli appunti.',
@@ -151,74 +152,71 @@ onMounted(() => {
 
     <template v-else-if="decodedData">
       <div class="preview-content">
-
         <!-- Story Card Preview -->
         <div id="story-card-preview" class="story-card">
-          
-            <!-- Full Height Background Image -->
-            <img 
-              id="story-bg-image"
-              :src="decodedData?.backgroundImageUrl || props.defaultBackground" 
-              class="absolute inset-0 w-full h-full object-cover"
-              alt="Story Background"
-            />
-            
-            <!-- Story Header (User Info) -->
-            <div id="story-header" class="absolute top-0 left-0 right-0 p-6 bg-gradient-to-b from-black/80 to-transparent z-20 flex items-center gap-3">
-              <!-- Avatar with Ring -->
-              <div id="story-avatar-container" class="relative w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500">
-                <img 
-                  id="story-avatar-image"
-                  :src="decodedData?.profileImageUrl || props.defaultAvatar" 
-                  class="w-full h-full rounded-full border-2 border-black object-cover bg-white"
-                />
-              </div>
-              <!-- Text Info -->
-              <div class="flex flex-col justify-center drop-shadow-md">
-                <span class="text-white font-bold text-sm leading-tight">{{ decodedData.name }}</span>
-                <span class="text-white/90 text-xs font-normal leading-tight">{{ decodedData.handle }}</span>
-              </div>
+          <!-- Full Height Background Image -->
+          <img
+            id="story-bg-image"
+            :src="decodedData?.backgroundImageUrl || props.defaultBackground"
+            class="absolute inset-0 w-full h-full object-cover"
+            alt="Story Background"
+          />
+
+          <!-- Story Header (User Info) -->
+          <div id="story-header" class="absolute top-0 left-0 right-0 p-6 bg-gradient-to-b from-black/80 to-transparent z-20 flex items-center gap-3">
+            <!-- Avatar with Ring -->
+            <div id="story-avatar-container" class="relative w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500">
+              <img
+                id="story-avatar-image"
+                :src="decodedData?.profileImageUrl || props.defaultAvatar"
+                class="w-full h-full rounded-full border-2 border-black object-cover bg-white"
+              />
             </div>
-
-            <!-- Floating CTA Card (Bottom) -->
-            <div id="story-cta-container" class="absolute bottom-12 left-6 right-6 z-20 animate-fade-in-up">
-              <div class="bg-black/60 backdrop-blur-xl border border-white/10 p-5 rounded-2xl shadow-xl text-center">
-                <button
-                  id="btn-cta-preview"
-                  data-cy="cta-button"
-                  class="cta-shine-btn w-full py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 relative overflow-hidden group"
-                  :style="{
-                    '--btn-color': decodedData?.color || '#00E5FF',
-                    backgroundColor: 'var(--btn-color)',
-                    color: textColor
-                  }"
-                  @click="navigateToProfile"
-                >
-                  <!-- Shine Overlay -->
-                  <div class="cta-shine-effect"></div>
-                  
-                  <span class="text-lg uppercase tracking-wide relative z-10 font-black">{{ decodedData?.ctaTitle }}</span>
-                  <div class="cta-icon-wrapper relative z-10 flex items-center justify-center rounded-full w-8 h-8 bg-white/20 backdrop-blur-sm shadow-inner overflow-hidden">
-                    <UIcon :name="decodedData?.icon || 'i-heroicons-shopping-bag'" class="w-5 h-5 cta-icon" />
-                  </div>
-                </button>
-
-                <!-- Timer Alert Component -->
-                <AlertRedirect 
-                  v-if="!showSidebar && showRedirectAlert && decodedData?.destinationUrl" 
-                  :url="decodedData.destinationUrl" 
-                  @close="showRedirectAlert = false"
-                />
-              </div>
+            <!-- Text Info -->
+            <div class="flex flex-col justify-center drop-shadow-md">
+              <span class="text-white font-bold text-sm leading-tight">{{ decodedData.name }}</span>
+              <span class="text-white/90 text-xs font-normal leading-tight">{{ decodedData.handle }}</span>
             </div>
+          </div>
 
+          <!-- Floating CTA Card (Bottom) -->
+          <div id="story-cta-container" class="absolute bottom-12 left-6 right-6 z-20 animate-fade-in-up">
+            <div class="bg-black/60 backdrop-blur-xl border border-white/10 p-5 rounded-2xl shadow-xl text-center">
+              <button
+                id="btn-cta-preview"
+                data-cy="cta-button"
+                class="cta-shine-btn w-full py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 relative overflow-hidden group"
+                :style="{
+                  '--btn-color': decodedData?.color || '#00E5FF',
+                  'backgroundColor': 'var(--btn-color)',
+                  'color': textColor
+                }"
+                @click="navigateToProfile"
+              >
+                <!-- Shine Overlay -->
+                <div class="cta-shine-effect"></div>
+
+                <span class="text-lg uppercase tracking-wide relative z-10 font-black">{{ decodedData?.ctaTitle }}</span>
+                <div class="cta-icon-wrapper relative z-10 flex items-center justify-center rounded-full w-8 h-8 bg-white/20 backdrop-blur-sm shadow-inner overflow-hidden">
+                  <UIcon :name="decodedData?.icon || 'i-heroicons-shopping-bag'" class="w-5 h-5 cta-icon" ></UIcon>
+                </div>
+              </button>
+
+              <!-- Timer Alert Component -->
+              <AlertRedirect
+                v-if="!showSidebar && showRedirectAlert && decodedData?.destinationUrl"
+                :url="decodedData.destinationUrl"
+                @close="showRedirectAlert = false"
+              ></AlertRedirect>
+            </div>
+          </div>
         </div>
 
         <!-- Actions Sidebar -->
         <div v-if="showSidebar" id="actions-sidebar" class="actions-sidebar">
           <!-- Live Preview Header -->
           <div class="text-center lg:text-left space-y-2">
-            <AppTitle text="Live Preview" />
+            <AppTitle text="Live Preview" ></AppTitle>
             <p id="preview-subtext" class="text-gray-400 text-sm font-medium">Visualizzazione in tempo reale dello stile {{ decodedData.name }}.</p>
           </div>
 
@@ -251,7 +249,6 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        
       </div>
     </template>
 
@@ -309,7 +306,7 @@ onMounted(() => {
 .story-card {
   position: relative;
   /* Scale based on available height in the main flex container */
-  height: calc(100% - 2rem); 
+  height: calc(100% - 2rem);
   aspect-ratio: 9 / 16;
   margin: 0 auto;
   user-select: none;
@@ -401,9 +398,9 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    110deg, 
-    transparent 30%, 
-    rgba(255, 255, 255, 0.5) 50%, 
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.5) 50%,
     transparent 70%
   );
   transform: translateX(-100%);
