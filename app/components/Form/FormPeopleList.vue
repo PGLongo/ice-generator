@@ -251,6 +251,7 @@ watch(() => props.modelValue, (newValue) => {
         {{ $t('schoolForm.peopleCount', { count: localData.length }) }}
       </p>
       <UTable
+        :key="`table-${localData.length}`"
         :rows="localData"
         :columns="(columns as any)"
       >
