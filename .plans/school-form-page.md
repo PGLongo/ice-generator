@@ -1,8 +1,8 @@
 # School Form Page (/form/school)
 
-**Stato**: in-progress
+**Stato**: completed
 **Creato**: 2026-02-15
-**Ultimo aggiornamento**: 2026-02-15 16:15
+**Ultimo aggiornamento**: 2026-02-15 16:20
 
 ## Descrizione
 
@@ -67,7 +67,7 @@ Lo store dedicato gestirà i dati della scuola e la lista persone, con persisten
   - Aggiungere link nel menu di navigazione (`TemplateMenu.vue`)
   - Opzionale: bottone nella pagina `/form` per navigare a `/form/school`
 
-- [~] **Step 10** - Verificare TypeScript e ESLint
+- [x] **Step 10** - Verificare TypeScript e ESLint
   - `pnpm typecheck`
   - `pnpm lint`
   - Correggere eventuali errori

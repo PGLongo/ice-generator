@@ -257,7 +257,7 @@
     "uploadFile": "Upload File (CSV/Excel)",
     "uploadFileDescription": "Upload a CSV or Excel file with one name per line",
     "noPeople": "No people added yet",
-    "peopleCount": "{count} {count, plural, one {person} other {people}}",
+    "peopleCount": "{count} people",
     "remove": "Remove",
     "clearAll": "Clear All",
     "generateCards": "Generate Cards for All ({count})",
