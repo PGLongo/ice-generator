@@ -160,19 +160,25 @@ const emitUpdate = () => {
   emit('update:modelValue', [...localData.value])
 }
 
-// Table columns definition - use string labels directly
-const columns = [
+// Table columns definition
+const tableColumns = [
   {
     key: 'fullName',
+    id: 'fullName',
     label: 'Full Name',
-    sortable: true
+    sortable: true,
+    class: 'font-medium'
   },
   {
     key: 'actions',
+    id: 'actions',
     label: 'Actions',
-    sortable: false
+    sortable: false,
+    class: 'text-right'
   }
 ]
+
+const columns = computed(() => tableColumns)
 
 // Watch for external changes
 watch(() => props.modelValue, (newValue) => {
