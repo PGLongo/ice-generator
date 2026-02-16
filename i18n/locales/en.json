@@ -280,6 +280,8 @@
     "errorParsingExcelMessage": "Please check the file format",
     "featureComingSoon": "Feature coming soon",
     "cardGenerationComingSoon": "Card generation will be implemented soon",
-    "errorNoPeople": "Please add at least one person to the list"
+    "errorNoPeople": "Please add at least one person to the list",
+    "pdfGenerated": "{count} cards generated successfully",
+    "pdfError": "Error generating PDF, please try again"
   }
 }

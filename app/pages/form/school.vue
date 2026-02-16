@@ -5,6 +5,7 @@ import { useSchoolFormStore } from '@/stores/school-form'
 const { t } = useI18n()
 const toast = useToast()
 const schoolFormStore = useSchoolFormStore()
+const { generateSchoolPDF } = useSchoolPDF()
 
 const hasPeople = ref(false)
 watchEffect(() => {
@@ -27,7 +28,7 @@ const handleResetConfirm = () => {
   })
 }
 
-const generateCardsForAll = () => {
+const generateCardsForAll = async () => {
   if (!hasPeople.value) {
     toast.add({
       title: t('form.error'),
@@ -37,11 +38,20 @@ const generateCardsForAll = () => {
     return
   }
 
-  toast.add({
-    title: t('schoolForm.featureComingSoon'),
-    description: t('schoolForm.cardGenerationComingSoon'),
-    color: 'info'
-  })
+  try {
+    await generateSchoolPDF(schoolFormStore.data)
+    toast.add({
+      title: t('form.success'),
+      description: t('schoolForm.pdfGenerated', { count: schoolFormStore.data.people.length }),
+      color: 'success'
+    })
+  } catch {
+    toast.add({
+      title: t('form.error'),
+      description: t('schoolForm.pdfError'),
+      color: 'error'
+    })
+  }
 }
 </script>
 

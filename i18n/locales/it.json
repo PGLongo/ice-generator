@@ -281,6 +281,8 @@
     "errorParsingExcelMessage": "Controlla il formato del file",
     "featureComingSoon": "Funzionalità in arrivo",
     "cardGenerationComingSoon": "La generazione delle tessere sarà implementata presto",
-    "errorNoPeople": "Aggiungi almeno una persona all'elenco"
+    "errorNoPeople": "Aggiungi almeno una persona all'elenco",
+    "pdfGenerated": "{count} tessere generate con successo",
+    "pdfError": "Errore nella generazione del PDF, riprova"
   }
 }
