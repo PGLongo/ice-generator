@@ -6,6 +6,13 @@ const { t } = useI18n()
 const toast = useToast()
 const schoolFormStore = useSchoolFormStore()
 
+const hasPeople = ref(false)
+watch(
+  () => schoolFormStore.data.people,
+  (people) => { hasPeople.value = people.length > 0 },
+  { immediate: true }
+)
+
 const resetDialog = ref()
 
 const openResetModal = () => {
@@ -23,7 +30,7 @@ const handleResetConfirm = () => {
 }
 
 const generateCardsForAll = () => {
-  if (!schoolFormStore.data.people.length) {
+  if (!hasPeople.value) {
     toast.add({
       title: t('form.error'),
       description: t('schoolForm.errorNoPeople'),
@@ -80,7 +87,7 @@ const generateCardsForAll = () => {
           size="xl"
           block
           icon="i-heroicons-document-duplicate"
-          :disabled="!schoolFormStore.data.people.length"
+          :disabled="!hasPeople"
           @click="generateCardsForAll"
         >
           {{ $t('schoolForm.generateCards', { count: schoolFormStore.peopleCount }) }}
