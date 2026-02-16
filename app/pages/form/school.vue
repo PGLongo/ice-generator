@@ -61,21 +61,20 @@ const generateCardsForAll = () => {
     </div>
 
     <!-- Two-column layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch">
       <!-- Left: School Info -->
-      <div class="lg:col-span-2">
-        <UCard class="h-full">
+      <div class="lg:col-span-2 flex">
+        <UCard class="flex-1">
           <FormSchoolInfo v-model="schoolFormStore.data.school"></FormSchoolInfo>
         </UCard>
       </div>
 
       <!-- Right: People List + Generate CTA -->
       <div class="lg:col-span-3 flex flex-col gap-4">
-        <UCard>
+        <UCard class="flex-1">
           <FormPeopleList v-model="schoolFormStore.data.people"></FormPeopleList>
         </UCard>
 
-        <!-- Generate CTA — right-aligned, full-width on the people column -->
         <UButton
           type="button"
           size="xl"
