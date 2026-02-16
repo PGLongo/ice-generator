@@ -16,28 +16,35 @@ const toast = useToast()
 const { t } = useI18n()
 
 const addPerson = () => {
-  if (newPersonName.value.trim()) {
-    const newPerson: Person = {
-      id: crypto.randomUUID(),
-      fullName: newPersonName.value.trim()
-    }
-    const updated = [...props.modelValue, newPerson]
-    emit('update:modelValue', updated)
-    newPersonName.value = ''
-    toast.add({
-      title: t('schoolForm.personAdded'),
-      color: 'success'
-    })
+  if (!newPersonName.value.trim()) return
+  const newPerson: Person = {
+    id: crypto.randomUUID(),
+    fullName: newPersonName.value.trim()
   }
+  emit('update:modelValue', [...props.modelValue, newPerson])
+  newPersonName.value = ''
+  toast.add({ title: t('schoolForm.personAdded'), color: 'success' })
 }
 
 const removePerson = (id: string) => {
-  const updated = props.modelValue.filter(p => p.id !== id)
-  emit('update:modelValue', updated)
-  toast.add({
-    title: t('schoolForm.personRemoved'),
-    color: 'success'
-  })
+  emit('update:modelValue', props.modelValue.filter(p => p.id !== id))
+  toast.add({ title: t('schoolForm.personRemoved'), color: 'success' })
+}
+
+const clearAll = () => {
+  emit('update:modelValue', [])
+}
+
+const exportCsv = () => {
+  if (!props.modelValue.length) return
+  const content = props.modelValue.map(p => p.fullName).join('\n')
+  const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = 'people.csv'
+  link.click()
+  URL.revokeObjectURL(url)
 }
 
 const handleFileUpload = (event: Event) => {
@@ -46,11 +53,10 @@ const handleFileUpload = (event: Event) => {
   if (!file) return
 
   const reader = new FileReader()
+  const ext = file.name.split('.').pop()?.toLowerCase()
 
   reader.onload = (e) => {
     const content = e.target?.result
-    const ext = file.name.split('.').pop()?.toLowerCase()
-
     if (ext === 'csv') {
       parseCsv(content as string)
     } else if (ext === 'xlsx') {
@@ -72,26 +78,16 @@ const handleFileUpload = (event: Event) => {
     reader.readAsBinaryString(file)
   }
 
-  // Reset input
   target.value = ''
 }
 
 const parseCsv = (content: string) => {
-  const lines = content.split('\n')
-    .map(line => line.trim())
-    .filter(line => line.length > 0)
-
-  const importedPeople: Person[] = lines.map(line => ({
-    id: crypto.randomUUID(),
-    fullName: line
-  }))
-
-  const updated = [...props.modelValue, ...importedPeople]
-  emit('update:modelValue', updated)
-
+  const lines = content.split('\n').map(l => l.trim()).filter(Boolean)
+  const imported: Person[] = lines.map(line => ({ id: crypto.randomUUID(), fullName: line }))
+  emit('update:modelValue', [...props.modelValue, ...imported])
   toast.add({
     title: t('schoolForm.fileImported'),
-    description: t('schoolForm.peopleImported', { count: importedPeople.length }),
+    description: t('schoolForm.peopleImported', { count: imported.length }),
     color: 'success'
   })
 }
@@ -100,44 +96,24 @@ const parseExcel = (content: string) => {
   try {
     const workbook = XLSX.read(content, { type: 'binary' })
     const firstSheetName = workbook.SheetNames[0]
-    if (!firstSheetName) {
-      throw new Error('No sheets found in Excel file')
-    }
+    if (!firstSheetName) throw new Error('No sheets found')
     const worksheet = workbook.Sheets[firstSheetName]
-    if (!worksheet) {
-      throw new Error('Sheet not found in Excel file')
-    }
+    if (!worksheet) throw new Error('Sheet not found')
 
-    // Convert to array of arrays
     const data = XLSX.utils.sheet_to_json<string[]>(worksheet, { header: 1 })
+    const names: string[] = data
+      .filter(row => row && row.length > 0)
+      .map(row => String(row[0] || '').trim())
+      .filter(Boolean)
 
-    // Filter empty rows and flatten to get all names
-    const names: string[] = []
-    data.forEach(row => {
-      if (row && row.length > 0) {
-        // Take first column value if exists and not empty
-        const name = String(row[0] || '').trim()
-        if (name) {
-          names.push(name)
-        }
-      }
-    })
-
-    const importedPeople: Person[] = names.map(name => ({
-      id: crypto.randomUUID(),
-      fullName: name
-    }))
-
-    const updated = [...props.modelValue, ...importedPeople]
-    emit('update:modelValue', updated)
-
+    const imported: Person[] = names.map(name => ({ id: crypto.randomUUID(), fullName: name }))
+    emit('update:modelValue', [...props.modelValue, ...imported])
     toast.add({
       title: t('schoolForm.fileImported'),
-      description: t('schoolForm.peopleImported', { count: importedPeople.length }),
+      description: t('schoolForm.peopleImported', { count: imported.length }),
       color: 'success'
     })
-  } catch (error) {
-    console.error('Error parsing Excel file:', error)
+  } catch {
     toast.add({
       title: t('schoolForm.errorParsingExcel'),
       description: t('schoolForm.errorParsingExcelMessage'),
@@ -146,55 +122,30 @@ const parseExcel = (content: string) => {
   }
 }
 
-const clearAll = () => {
-  emit('update:modelValue', [])
-  toast.add({
-    title: t('schoolForm.allPeopleRemoved'),
-    color: 'success'
-  })
-}
+const sortedPeople = computed(() =>
+  [...props.modelValue].sort((a, b) => a.fullName.localeCompare(b.fullName))
+)
 
-const exportCsv = () => {
-  if (!props.modelValue.length) return
-  const content = props.modelValue.map(p => p.fullName).join('\n')
-  const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = 'people.csv'
-  link.click()
-  URL.revokeObjectURL(url)
-}
-
-// Table columns definition
 const columns = [
-  {
-    accessorKey: 'fullName',
-    id: 'fullName',
-    header: 'Full Name',
-    enableSorting: true
-  },
-  {
-    id: 'actions',
-    header: 'Actions',
-    enableSorting: false
-  }
+  { id: 'index', header: '#' },
+  { accessorKey: 'fullName', id: 'fullName', header: () => t('schoolForm.fullName') },
+  { id: 'actions', header: '' }
 ]
 </script>
 
 <template>
-  <div class="space-y-6">
-    <div class="flex items-center justify-between mb-6">
+  <div class="flex flex-col gap-5">
+    <!-- Section header -->
+    <div class="flex items-center justify-between">
       <div class="flex items-center gap-2">
         <div class="w-1 h-6 bg-primary rounded-full"></div>
-        <h3 class="text-lg font-semibold">
-          {{ $t('schoolForm.peopleList') }}
-        </h3>
+        <h3 class="text-lg font-semibold">{{ $t('schoolForm.peopleList') }}</h3>
+        <UBadge v-if="modelValue.length > 0" :label="String(modelValue.length)" color="primary" variant="soft" size="sm"></UBadge>
       </div>
       <UButton
         v-if="modelValue.length > 0"
         icon="i-heroicons-trash"
-        size="sm"
+        size="xs"
         color="error"
         variant="ghost"
         @click="clearAll"
@@ -203,30 +154,26 @@ const columns = [
       </UButton>
     </div>
 
-    <!-- Manual input section -->
-    <div class="flex gap-2">
-      <UFormField :label="$t('schoolForm.addPersonManually')" class="flex-1">
-        <UInput
-          v-model="newPersonName"
-          :placeholder="$t('schoolForm.fullNamePlaceholder')"
-          size="lg"
-          icon="i-heroicons-user-plus"
-          @keyup.enter="addPerson"
-        ></UInput>
-      </UFormField>
+    <!-- Add person row -->
+    <UFieldGroup class="w-full">
+      <UInput
+        v-model="newPersonName"
+        :placeholder="$t('schoolForm.addPersonManually')"
+        size="lg"
+        icon="i-heroicons-user-plus"
+        class="flex-1"
+        @keyup.enter="addPerson"
+      ></UInput>
       <UButton
         icon="i-heroicons-plus"
         size="lg"
         color="primary"
-        class="mt-6"
         @click="addPerson"
-      >
-        {{ $t('schoolForm.addPerson') }}
-      </UButton>
-    </div>
+      ></UButton>
+    </UFieldGroup>
 
-    <!-- File upload section -->
-    <div class="flex gap-2 items-center">
+    <!-- File actions row -->
+    <div class="flex flex-wrap gap-2 items-center">
       <input
         ref="fileInput"
         type="file"
@@ -236,55 +183,65 @@ const columns = [
       />
       <UButton
         icon="i-heroicons-arrow-up-tray"
-        size="lg"
-        color="secondary"
+        size="sm"
+        color="neutral"
+        variant="outline"
         @click="fileInput?.click()"
       >
         {{ $t('schoolForm.uploadFile') }}
       </UButton>
       <UButton
         icon="i-heroicons-arrow-down-tray"
-        size="lg"
-        color="secondary"
+        size="sm"
+        color="neutral"
         variant="outline"
         :disabled="!modelValue.length"
         @click="exportCsv"
       >
         {{ $t('schoolForm.exportFile') }}
       </UButton>
-      <p class="text-sm text-gray-500">
+      <p class="text-xs text-gray-400 dark:text-gray-500 ml-1">
         {{ $t('schoolForm.uploadFileDescription') }}
       </p>
     </div>
 
-    <!-- People list table -->
-    <div v-if="modelValue.length > 0" class="space-y-2">
-      <p class="text-sm text-gray-600 font-medium">
-        {{ $t('schoolForm.peopleCount', { count: modelValue.length }) }}
-      </p>
+    <!-- People table -->
+    <div v-if="modelValue.length > 0">
       <UTable
         :key="`table-${modelValue.length}`"
-        :data="modelValue"
+        :data="sortedPeople"
         :columns="(columns as any)"
+        class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden"
       >
+        <template #index-cell="{ row }">
+          <span class="text-xs text-gray-400 dark:text-gray-500 tabular-nums w-6 text-right block">
+            {{ row.index + 1 }}
+          </span>
+        </template>
+
         <template #fullName-cell="{ row }">
-          <span class="font-medium">{{ row.original.fullName }}</span>
+          <span class="font-medium text-gray-900 dark:text-gray-100">{{ row.original.fullName }}</span>
         </template>
 
         <template #actions-cell="{ row }">
-          <UButton
-            icon="i-heroicons-trash"
-            size="xs"
-            color="error"
-            variant="ghost"
-            @click="removePerson(row.original.id)"
-          ></UButton>
+          <div class="flex justify-end">
+            <UButton
+              icon="i-heroicons-trash"
+              size="xs"
+              color="error"
+              variant="ghost"
+              @click="removePerson(row.original.id)"
+            ></UButton>
+          </div>
         </template>
       </UTable>
     </div>
 
-    <div v-else class="text-center py-8 text-gray-500">
-      <p>{{ $t('schoolForm.noPeople') }}</p>
+    <!-- Empty state -->
+    <div v-else class="flex flex-col items-center justify-center py-12 text-center border border-dashed border-gray-200 dark:border-gray-700 rounded-lg">
+      <UIcon name="i-heroicons-users" class="w-10 h-10 text-gray-300 dark:text-gray-600 mb-3"></UIcon>
+      <p class="text-sm font-medium text-gray-400 dark:text-gray-500">{{ $t('schoolForm.noPeople') }}</p>
+      <p class="text-xs text-gray-300 dark:text-gray-600 mt-1">{{ $t('schoolForm.uploadFileDescription') }}</p>
     </div>
   </div>
 </template>
