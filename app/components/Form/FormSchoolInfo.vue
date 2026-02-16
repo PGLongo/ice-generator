@@ -11,12 +11,12 @@ const emit = defineEmits<{
 
 const localData = ref<SchoolData>(props.modelValue || {})
 
-const emitUpdate = () => {
-  emit('update:modelValue', { ...localData.value })
-}
-
 watch(() => props.modelValue, (newValue) => {
   localData.value = newValue || {}
+}, { deep: true })
+
+watch(localData, () => {
+  emit('update:modelValue', { ...localData.value })
 }, { deep: true })
 </script>
 
@@ -34,7 +34,6 @@ watch(() => props.modelValue, (newValue) => {
         :placeholder="$t('form.schoolNamePlaceholder')"
         icon="i-heroicons-academic-cap"
         class="w-full"
-        @input="emitUpdate"
       ></UInput>
     </UFormField>
 
@@ -45,7 +44,6 @@ watch(() => props.modelValue, (newValue) => {
         :placeholder="$t('form.schoolPhonePlaceholder')"
         icon="i-heroicons-phone"
         class="w-full"
-        @input="emitUpdate"
       ></UInput>
     </UFormField>
 
@@ -57,7 +55,6 @@ watch(() => props.modelValue, (newValue) => {
           :placeholder="$t('form.schoolCityPlaceholder')"
           icon="i-heroicons-map"
           class="w-full"
-          @input="emitUpdate"
         ></UInput>
       </UFormField>
 
@@ -67,7 +64,6 @@ watch(() => props.modelValue, (newValue) => {
           :placeholder="$t('form.schoolAddressPlaceholder')"
           icon="i-heroicons-map-pin"
           class="w-full"
-          @input="emitUpdate"
         ></UInput>
       </UFormField>
     </div>
@@ -80,7 +76,6 @@ watch(() => props.modelValue, (newValue) => {
           :placeholder="$t('form.schoolReferentNamePlaceholder')"
           icon="i-heroicons-user"
           class="w-full"
-          @input="emitUpdate"
         ></UInput>
       </UFormField>
 
@@ -90,7 +85,6 @@ watch(() => props.modelValue, (newValue) => {
           :placeholder="$t('form.schoolReferentPhonePlaceholder')"
           icon="i-heroicons-phone"
           class="w-full"
-          @input="emitUpdate"
         ></UInput>
       </UFormField>
     </div>
@@ -102,7 +96,6 @@ watch(() => props.modelValue, (newValue) => {
         :placeholder="$t('school.sectionPlaceholder')"
         icon="i-heroicons-rectangle-group"
         class="w-full"
-        @input="emitUpdate"
       ></UInput>
     </UFormField>
 
@@ -113,7 +106,6 @@ watch(() => props.modelValue, (newValue) => {
         :placeholder="$t('form.schoolLogoUrlPlaceholder')"
         icon="i-heroicons-photo"
         class="w-full"
-        @input="emitUpdate"
       ></UInput>
     </UFormField>
   </div>
