@@ -27,25 +27,25 @@ const CARD_CONFIG = {
   // Font sizes (pt)
   font: {
     // NOME BAMBINO, SEZIONE, REFERENTE labels
-    label: 7.5,
+    label: 12,
     // address / city
-    address: 8.5,
+    address: 14,
     // school phone
-    schoolPhone: 10,
+    schoolPhone: 16,
     // school name
-    schoolName: 14,
-    referentName: 12,
+    schoolName: 32,
+    referentName: 20,
     referentPhone: 16,
     // section value
     section: 26,
     // child name (largest)
-    childName: 40
+    childName: 60
   },
 
   // Line heights (mm) — space added after each text block
   lineH: {
     // gap below a label before its value
-    label: 16,
+    label: 24,
     // gap between address lines
     address: 6,
     // per-line height for school name
@@ -205,7 +205,7 @@ async function buildPDF(formData: SchoolFormData) {
       pdf.setFont('helvetica', 'normal')
       pdf.setTextColor(160, 160, 160)
       pdf.text('SEZIONE', rightStartX, rightY)
-      rightY += 8
+      rightY += C.lineH.label
 
       pdf.setFontSize(C.font.section)
       pdf.setFont('helvetica', 'bold')
@@ -225,7 +225,7 @@ async function buildPDF(formData: SchoolFormData) {
       pdf.setFont('helvetica', 'normal')
       pdf.setTextColor(160, 160, 160)
       pdf.text('REFERENTE DI EMERGENZA', rightStartX, rightY)
-      rightY += 10
+      rightY += C.lineH.label
 
       if (school.referentName) {
         pdf.setFillColor(80, 80, 80)
