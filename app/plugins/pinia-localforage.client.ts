@@ -1,5 +1,6 @@
 import type { Pinia } from 'pinia'
 import localforage from 'localforage'
+import type { SchoolFormData } from '@/types/school-form'
 
 export default defineNuxtPlugin({
   name: 'pinia.localforage',
