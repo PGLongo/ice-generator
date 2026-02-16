@@ -263,6 +263,7 @@
     "remove": "Remove",
     "clearAll": "Clear All",
     "generateCards": "Generate Cards for All ({count})",
+    "previewCards": "Preview Cards",
     "resetAll": "Reset All",
     "confirmReset": "Confirm Reset",
     "resetMessage": "Are you sure you want to reset all school form data?",

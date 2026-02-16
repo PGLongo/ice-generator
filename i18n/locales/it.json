@@ -264,6 +264,7 @@
     "remove": "Rimuovi",
     "clearAll": "Rimuovi Tutti",
     "generateCards": "Genera Tessere per Tutti ({count})",
+    "previewCards": "Anteprima Tessere",
     "resetAll": "Resetta Tutto",
     "confirmReset": "Conferma Reset",
     "resetMessage": "Sei sicuro di voler resettare tutti i dati del modulo scolastico?",

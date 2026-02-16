@@ -5,7 +5,7 @@ import { useSchoolFormStore } from '@/stores/school-form'
 const { t } = useI18n()
 const toast = useToast()
 const schoolFormStore = useSchoolFormStore()
-const { generateSchoolPDF } = useSchoolPDF()
+const { generateSchoolPDF, previewSchoolPDF } = useSchoolPDF()
 
 const hasPeople = ref(false)
 watchEffect(() => {
@@ -26,6 +26,27 @@ const handleResetConfirm = () => {
     description: t('schoolForm.allPeopleRemoved'),
     color: 'success'
   })
+}
+
+const previewCards = async () => {
+  if (!hasPeople.value) {
+    toast.add({
+      title: t('form.error'),
+      description: t('schoolForm.errorNoPeople'),
+      color: 'error'
+    })
+    return
+  }
+
+  try {
+    await previewSchoolPDF(schoolFormStore.data)
+  } catch {
+    toast.add({
+      title: t('form.error'),
+      description: t('schoolForm.pdfError'),
+      color: 'error'
+    })
+  }
 }
 
 const generateCardsForAll = async () => {
@@ -90,16 +111,30 @@ const generateCardsForAll = async () => {
           <FormPeopleList v-model="schoolFormStore.data.people"></FormPeopleList>
         </UCard>
 
-        <UButton
-          type="button"
-          size="xl"
-          block
-          icon="i-heroicons-document-duplicate"
-          :disabled="!hasPeople"
-          @click="generateCardsForAll"
-        >
-          {{ $t('schoolForm.generateCards', { count: schoolFormStore.peopleCount }) }}
-        </UButton>
+        <div class="flex gap-3">
+          <UButton
+            type="button"
+            size="xl"
+            color="neutral"
+            variant="outline"
+            icon="i-heroicons-eye"
+            :disabled="!hasPeople"
+            class="flex-1"
+            @click="previewCards"
+          >
+            {{ $t('schoolForm.previewCards') }}
+          </UButton>
+          <UButton
+            type="button"
+            size="xl"
+            icon="i-heroicons-document-duplicate"
+            :disabled="!hasPeople"
+            class="flex-1"
+            @click="generateCardsForAll"
+          >
+            {{ $t('schoolForm.generateCards', { count: schoolFormStore.peopleCount }) }}
+          </UButton>
+        </div>
       </div>
     </div>
 
