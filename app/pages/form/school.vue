@@ -23,7 +23,7 @@ const handleResetConfirm = () => {
 }
 
 const generateCardsForAll = () => {
-  if (!schoolFormStore.hasPeople) {
+  if (!schoolFormStore.data.people.length) {
     toast.add({
       title: t('form.error'),
       description: t('schoolForm.errorNoPeople'),
@@ -80,7 +80,7 @@ const generateCardsForAll = () => {
           size="xl"
           block
           icon="i-heroicons-document-duplicate"
-          :disabled="!schoolFormStore.hasPeople"
+          :disabled="!schoolFormStore.data.people.length"
           @click="generateCardsForAll"
         >
           {{ $t('schoolForm.generateCards', { count: schoolFormStore.peopleCount }) }}
