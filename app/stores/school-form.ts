@@ -31,11 +31,14 @@ export const useSchoolFormStore = defineStore('school-form', {
       this.data.people = []
     },
 
+    loadData(saved: SchoolFormData) {
+      this.data.school = saved.school || {}
+      this.data.people = saved.people || []
+    },
+
     clearAll() {
-      this.data = {
-        school: {},
-        people: []
-      }
+      this.data.school = {}
+      this.data.people = []
     }
   },
 

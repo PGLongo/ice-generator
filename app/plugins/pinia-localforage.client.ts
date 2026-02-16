@@ -89,9 +89,9 @@ export default defineNuxtPlugin({
 
     // Load school form data from LocalForage
     try {
-      const savedSchoolFormData = await localforage.getItem('school-form-data')
+      const savedSchoolFormData = await localforage.getItem<SchoolFormData>('school-form-data')
       if (savedSchoolFormData) {
-        schoolFormStore.$patch({ data: savedSchoolFormData })
+        schoolFormStore.loadData(savedSchoolFormData)
         if (import.meta.dev) {
           console.warn('School form data loaded from LocalForage')
         }
