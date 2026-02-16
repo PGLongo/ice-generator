@@ -32,13 +32,17 @@ export const useSchoolFormStore = defineStore('school-form', {
     },
 
     loadData(saved: SchoolFormData) {
-      this.data.school = saved.school || {}
-      this.data.people = saved.people || []
+      this.$patch((state) => {
+        state.data.school = saved.school || {}
+        state.data.people = saved.people || []
+      })
     },
 
     clearAll() {
-      this.data.school = {}
-      this.data.people = []
+      this.$patch((state) => {
+        state.data.school = {}
+        state.data.people = []
+      })
     }
   },
 

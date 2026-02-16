@@ -7,11 +7,9 @@ const toast = useToast()
 const schoolFormStore = useSchoolFormStore()
 
 const hasPeople = ref(false)
-watch(
-  () => schoolFormStore.data.people,
-  (people) => { hasPeople.value = people.length > 0 },
-  { immediate: true }
-)
+watchEffect(() => {
+  hasPeople.value = schoolFormStore.data.people.length > 0
+})
 
 const resetDialog = ref()
 
