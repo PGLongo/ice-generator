@@ -57,7 +57,9 @@ function contactInitial(name: string): string {
               <p class="text-sm font-bold text-[var(--ui-text-highlighted)] leading-tight truncate">{{ contact.name }}</p>
               <span v-if="index === 0" class="text-[8px] font-bold tracking-wider uppercase px-1.5 py-px rounded bg-primary/10 text-primary flex-shrink-0">{{ $t('preview.primary') }}</span>
             </div>
-            <p class="text-[11px] text-[var(--ui-text-dimmed)] font-medium">{{ contact.relationship }}</p>
+            <p class="text-[11px] text-[var(--ui-text-dimmed)] font-medium">
+              {{ contact.relationship }}<span v-if="contact.phone" class="text-[var(--ui-text)] font-bold font-mono"> · {{ contact.phone }}</span>
+            </p>
           </div>
         </div>
         <div class="flex gap-1.5 flex-shrink-0">
