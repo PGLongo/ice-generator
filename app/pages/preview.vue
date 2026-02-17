@@ -48,7 +48,7 @@ const hasAdditionalInfo = computed(() => {
 </script>
 
 <template>
-  <div class="preview-page min-h-screen py-8 md:py-12">
+  <div class="preview-page min-h-screen py-4 md:py-8">
     <UContainer>
       <div class="max-w-lg mx-auto">
         <PreviewEmptyState v-if="!hasData"></PreviewEmptyState>

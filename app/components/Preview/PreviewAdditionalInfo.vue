@@ -29,7 +29,7 @@ const items = computed(() => [
           </div>
           <div>
             <p class="text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)]">{{ item.label }}</p>
-            <p class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ item.value }}</p>
+            <p class="text-sm font-semibold text-[var(--ui-text-highlighted)] float-left truncate">{{ item.value }}</p>
           </div>
         </div>
       </div>

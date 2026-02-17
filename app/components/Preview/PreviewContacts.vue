@@ -6,16 +6,6 @@ interface Props {
 }
 
 defineProps<Props>()
-
-const contactColors = ['blue', 'rose', 'violet', 'amber', 'cyan', 'emerald'] as const
-
-function getContactColor(index: number): string {
-  return contactColors[index % contactColors.length] ?? 'blue'
-}
-
-function contactInitial(name: string): string {
-  return name.length > 0 ? name.charAt(0).toUpperCase() : '?'
-}
 </script>
 
 <template>
@@ -29,35 +19,12 @@ function contactInitial(name: string): string {
         class="preview-contact flex items-center justify-between px-3 py-2.5 rounded-xl"
       >
         <div class="flex items-center gap-3 min-w-0">
-          <div
-            class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-            :class="{
-              'bg-blue-500/15': getContactColor(index) === 'blue',
-              'bg-rose-500/15': getContactColor(index) === 'rose',
-              'bg-violet-500/15': getContactColor(index) === 'violet',
-              'bg-amber-500/15': getContactColor(index) === 'amber',
-              'bg-cyan-500/15': getContactColor(index) === 'cyan',
-              'bg-emerald-500/15': getContactColor(index) === 'emerald'
-            }"
-          >
-            <span
-              class="text-xs font-bold"
-              :class="{
-                'text-blue-500 dark:text-blue-400': getContactColor(index) === 'blue',
-                'text-rose-500 dark:text-rose-400': getContactColor(index) === 'rose',
-                'text-violet-500 dark:text-violet-400': getContactColor(index) === 'violet',
-                'text-amber-500 dark:text-amber-400': getContactColor(index) === 'amber',
-                'text-cyan-500 dark:text-cyan-400': getContactColor(index) === 'cyan',
-                'text-emerald-500 dark:text-emerald-400': getContactColor(index) === 'emerald'
-              }"
-            >{{ contactInitial(contact.name) }}</span>
-          </div>
           <div class="min-w-0">
             <div class="flex items-center gap-2">
               <p class="text-base font-bold text-[var(--ui-text-highlighted)] leading-tight truncate">{{ contact.name }}</p>
-              <span v-if="index === 0" class="text-[10px] font-bold tracking-wider uppercase px-1.5 py-px rounded bg-primary/10 text-primary flex-shrink-0">{{ $t('preview.primary') }}</span>
+              <span v-if="index === 0" class="text-[10px] font-bold tracking-wider uppercase px-1.5 py-px rounded bg-primary/10 text-primary">{{ $t('preview.primary') }}</span>
             </div>
-            <p class="text-xs text-[var(--ui-text-dimmed)] font-medium">
+            <p class="text-xs text-[var(--ui-text-dimmed)] font-medium float-left truncate">
               {{ contact.relationship }}<span v-if="contact.phone" class="text-[var(--ui-text)] font-bold font-mono"> · {{ contact.phone }}</span>
             </p>
           </div>
