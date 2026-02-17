@@ -391,6 +391,81 @@ const updateField = (field: keyof SchoolData, value: string) => {
 - **Cookie persistence**: Language preference saved in cookie
 - **IMPORTANT**: When adding new fields to forms, ALWAYS update ALL translation files (en.json AND it.json)
 
+### UI Design System & Stylistic Guide
+
+The app uses a **refined glassmorphism** aesthetic: dark-first, panel-based layout with subtle depth and color-coded semantics.
+
+#### Panels
+All content panels use the `.preview-panel` pattern:
+```css
+/* Light */
+background: var(--ui-bg-elevated);
+border: 1px solid var(--ui-border);
+box-shadow: 0 8px 32px -8px rgba(0,0,0,0.08), 0 4px 16px -4px rgba(0,0,0,0.04);
+
+/* Dark */
+background: linear-gradient(165deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 50%, rgba(0,0,0,0.08) 100%);
+border-color: rgba(255,255,255,0.07);
+box-shadow: 0 16px 48px -12px rgba(0,0,0,0.4), 0 8px 24px -8px rgba(0,30,80,0.15);
+```
+
+#### CSS Variables (Nuxt UI tokens)
+Always use semantic tokens — never hardcode colors:
+- `var(--ui-text-highlighted)` — primary text (names, values)
+- `var(--ui-text)` — normal text
+- `var(--ui-text-muted)` — secondary labels
+- `var(--ui-text-dimmed)` — tertiary / meta text
+- `var(--ui-bg-elevated)` — panel/card backgrounds
+- `var(--ui-border)` — dividers and borders
+
+#### Typography Scale
+| Role | Class | Usage |
+|------|-------|-------|
+| Hero name | `text-2xl font-extrabold` | Person name in preview |
+| Section header | `text-xs font-bold tracking-[0.15em] uppercase` | Panel titles |
+| Sub-label | `text-[11px] font-bold tracking-[0.15em] uppercase` | Field labels inside panels |
+| Body value | `text-sm font-semibold` | Field values |
+| Meta / mono | `text-xs font-mono` | Phone numbers, codes |
+| Micro badge | `text-[10px] font-bold tracking-wider uppercase` | Tags like "PRIMARY" |
+
+#### Color Semantics
+Use consistently across the app:
+| Color | Meaning | Example |
+|-------|---------|---------|
+| `red-500` | Blood type / medical alert | Blood type badge |
+| `amber-500` | Warning / allergy | Allergy badges, special instructions |
+| `emerald-500` | Phone / action | Call button |
+| `blue-500` | Email / link | Mail button |
+| `cyan-500` | Doctor / healthcare | Doctor icon |
+| `violet-500` | Medication | Pill badges |
+
+#### Icon + Color Badge Pattern
+Used for list items with semantic color coding:
+```html
+<div class="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center flex-shrink-0">
+  <UIcon name="i-lucide-stethoscope" class="w-3.5 h-3.5 text-cyan-500 dark:text-cyan-400"></UIcon>
+</div>
+```
+- Background: `bg-{color}-500/10` (10% opacity)
+- Icon: `text-{color}-500 dark:text-{color}-400`
+- Size: `w-7 h-7` for medium, `w-8 h-8` for large
+
+#### Data-driven Rows
+When 3+ rows share identical structure, use a computed array + `v-for`:
+```ts
+const items = computed(() => [
+  { value: props.doctor, icon: '...', bg: 'bg-cyan-500/10', color: 'text-cyan-500 dark:text-cyan-400', label: t('preview.doctor') },
+  // ...
+].filter(item => item.value))
+```
+**Important**: define all Tailwind classes as full strings in the array — never interpolate (`bg-${color}-500`) or Tailwind won't include them in the build.
+
+#### Dividers
+```html
+<div class="h-px bg-[var(--ui-border)] mx-4"></div>  <!-- inset -->
+<div class="h-px bg-[var(--ui-border)] mb-3"></div>   <!-- full width -->
+```
+
 ### UI Components Best Practices
 - **Use Native Nuxt UI Components**: ALWAYS use built-in Nuxt UI components instead of creating custom ones
   - Available components: https://ui.nuxt.com/components
