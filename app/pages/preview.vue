@@ -182,18 +182,18 @@ const getContactColor = (index: number) => contactColors[index % contactColors.l
                   </div>
                   <div class="flex gap-1.5 flex-shrink-0">
                     <a
-                      v-if="contact.phone"
-                      :href="`tel:${contact.phone}`"
-                      class="preview-action-btn w-8 h-8 rounded-lg flex items-center justify-center bg-emerald-500/15 border border-emerald-500/20 hover:bg-emerald-500/25 transition-colors"
-                    >
-                      <UIcon name="i-lucide-phone" class="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400"></UIcon>
-                    </a>
-                    <a
                       v-if="contact.email"
                       :href="`mailto:${contact.email}`"
                       class="preview-action-btn w-8 h-8 rounded-lg flex items-center justify-center bg-blue-500/15 border border-blue-500/20 hover:bg-blue-500/25 transition-colors"
                     >
                       <UIcon name="i-lucide-mail" class="w-3.5 h-3.5 text-blue-500 dark:text-blue-400"></UIcon>
+                    </a>
+                    <a
+                      v-if="contact.phone"
+                      :href="`tel:${contact.phone}`"
+                      class="preview-action-btn w-8 h-8 rounded-lg flex items-center justify-center bg-emerald-500/15 border border-emerald-500/20 hover:bg-emerald-500/25 transition-colors"
+                    >
+                      <UIcon name="i-lucide-phone" class="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400"></UIcon>
                     </a>
                   </div>
                 </div>
