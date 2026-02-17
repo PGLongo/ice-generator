@@ -5,8 +5,8 @@
   <div>
     <div class="preview-panel-header flex items-center justify-between px-5 py-3">
       <div class="flex items-center gap-2">
-        <UIcon name="i-lucide-heart-pulse" class="w-4 h-4 text-primary"></UIcon>
-        <span class="text-[11px] font-extrabold tracking-[0.12em] uppercase text-[var(--ui-text-muted)]">CareCard</span>
+        <app-icon></app-icon>
+        <app-title :text="$t('app.title')"></app-title>
       </div>
       <UButton
         to="/form"

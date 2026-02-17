@@ -1,10 +1,24 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
+import type { AdditionalInfoData } from '@/components/Form/FormAdditionalInfo.vue'
 import { useIceStore } from '@/stores/ice'
 
 const { t } = useI18n()
 const toast = useToast()
 const iceStore = useIceStore()
+
+const additionalInfo = computed<AdditionalInfoData>({
+  get: () => ({
+    primaryDoctor: iceStore.data.primaryDoctor,
+    insuranceInfo: iceStore.data.insuranceInfo,
+    specialInstructions: iceStore.data.specialInstructions
+  }),
+  set: (value: AdditionalInfoData) => {
+    iceStore.data.primaryDoctor = value.primaryDoctor
+    iceStore.data.insuranceInfo = value.insuranceInfo
+    iceStore.data.specialInstructions = value.specialInstructions
+  }
+})
 
 const { copyShareableUrl, getEncodedSize, encodeData, generateShareableUrl } = useIceUrlShare()
 const { generateQRCode } = useQRCode()
@@ -225,7 +239,7 @@ const generateAndDownloadPDF = async () => {
               <span class="text-[10px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-muted)]">{{ $t('form.additionalInfo') }}</span>
             </div>
             <div class="px-6 py-5">
-              <FormAdditionalInfo></FormAdditionalInfo>
+              <FormAdditionalInfo v-model="additionalInfo"></FormAdditionalInfo>
             </div>
           </div>
 

@@ -1,12 +1,31 @@
 <script setup lang="ts">
-import { useIceStore } from '@/stores/ice'
+export interface AdditionalInfoData {
+  primaryDoctor?: string
+  insuranceInfo?: string
+  specialInstructions?: string
+}
 
-const iceStore = useIceStore()
+const props = defineProps<{
+  modelValue: AdditionalInfoData
+}>()
+
+const emit = defineEmits<{
+  'update:modelValue': [value: AdditionalInfoData]
+}>()
+
+const localData = ref<AdditionalInfoData>(props.modelValue || {})
+
+watch(() => props.modelValue, (newValue) => {
+  localData.value = newValue || {}
+}, { deep: true })
+
+watch(localData, () => {
+  emit('update:modelValue', { ...localData.value })
+}, { deep: true })
 </script>
 
 <template>
   <div class="space-y-6">
-    <!-- Grid a 6 colonne: input singolo occupa tutte le 6 colonne, textareas anche -->
     <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
       <div class="md:col-span-6">
         <UFormField
@@ -15,7 +34,7 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UInput
-            v-model="iceStore.data.primaryDoctor"
+            v-model="localData.primaryDoctor"
             :placeholder="$t('form.primaryDoctorPlaceholder')"
             size="xl"
             icon="i-heroicons-user-circle"
@@ -31,7 +50,7 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UTextarea
-            v-model="iceStore.data.insuranceInfo"
+            v-model="localData.insuranceInfo"
             :placeholder="$t('form.insuranceInfoPlaceholder')"
             :rows="3"
             size="xl"
@@ -47,7 +66,7 @@ const iceStore = useIceStore()
           class="w-full"
         >
           <UTextarea
-            v-model="iceStore.data.specialInstructions"
+            v-model="localData.specialInstructions"
             :placeholder="$t('form.specialInstructionsPlaceholder')"
             :rows="4"
             size="xl"

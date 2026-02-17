@@ -21,7 +21,7 @@ function contactInitial(name: string): string {
 <template>
   <div v-if="contacts.length > 0" class="px-5 pb-3">
     <div class="h-px bg-[var(--ui-border)] mb-3"></div>
-    <p class="text-[9px] font-bold tracking-[0.2em] uppercase text-[var(--ui-text-dimmed)] mb-2">{{ $t('preview.emergencyContacts') }}</p>
+    <p class="text-[11px] font-bold tracking-[0.2em] uppercase text-[var(--ui-text-dimmed)] mb-2">{{ $t('preview.emergencyContacts') }}</p>
     <div class="space-y-1.5">
       <div
         v-for="(contact, index) in contacts"
@@ -54,10 +54,10 @@ function contactInitial(name: string): string {
           </div>
           <div class="min-w-0">
             <div class="flex items-center gap-2">
-              <p class="text-sm font-bold text-[var(--ui-text-highlighted)] leading-tight truncate">{{ contact.name }}</p>
-              <span v-if="index === 0" class="text-[8px] font-bold tracking-wider uppercase px-1.5 py-px rounded bg-primary/10 text-primary flex-shrink-0">{{ $t('preview.primary') }}</span>
+              <p class="text-base font-bold text-[var(--ui-text-highlighted)] leading-tight truncate">{{ contact.name }}</p>
+              <span v-if="index === 0" class="text-[10px] font-bold tracking-wider uppercase px-1.5 py-px rounded bg-primary/10 text-primary flex-shrink-0">{{ $t('preview.primary') }}</span>
             </div>
-            <p class="text-[11px] text-[var(--ui-text-dimmed)] font-medium">
+            <p class="text-xs text-[var(--ui-text-dimmed)] font-medium">
               {{ contact.relationship }}<span v-if="contact.phone" class="text-[var(--ui-text)] font-bold font-mono"> · {{ contact.phone }}</span>
             </p>
           </div>

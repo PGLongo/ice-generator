@@ -13,12 +13,12 @@ defineProps<Props>()
     <div class="px-5 py-4">
       <div class="flex items-center gap-2 mb-3">
         <UIcon name="i-lucide-heart-pulse" class="w-4 h-4 text-red-500 dark:text-red-400"></UIcon>
-        <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-muted)]">{{ $t('preview.medicalInfo') }}</p>
+        <p class="text-xs font-bold tracking-[0.15em] uppercase text-[var(--ui-text-muted)]">{{ $t('preview.medicalInfo') }}</p>
       </div>
 
       <div class="space-y-3">
         <div v-if="conditions && conditions.length > 0">
-          <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)] mb-1.5">{{ $t('preview.conditions') }}</p>
+          <p class="text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)] mb-1.5">{{ $t('preview.conditions') }}</p>
           <div class="flex flex-wrap gap-1.5">
             <span
               v-for="condition in conditions"
@@ -29,7 +29,7 @@ defineProps<Props>()
         </div>
 
         <div v-if="medications && medications.length > 0">
-          <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)] mb-1.5">{{ $t('preview.medications') }}</p>
+          <p class="text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)] mb-1.5">{{ $t('preview.medications') }}</p>
           <div class="flex flex-wrap gap-1.5">
             <span
               v-for="medication in medications"
@@ -43,7 +43,7 @@ defineProps<Props>()
         </div>
 
         <div v-if="notes">
-          <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)] mb-1.5">{{ $t('preview.notes') }}</p>
+          <p class="text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)] mb-1.5">{{ $t('preview.notes') }}</p>
           <p class="text-sm text-[var(--ui-text-muted)] leading-relaxed whitespace-pre-wrap">{{ notes }}</p>
         </div>
       </div>

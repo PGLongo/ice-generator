@@ -1,11 +1,17 @@
 <script setup lang="ts">
-interface Props {
+const props = defineProps<{
   doctor?: string
   insurance?: string
   instructions?: string
-}
+}>()
 
-defineProps<Props>()
+const { t } = useI18n()
+
+const items = computed(() => [
+  { value: props.doctor, icon: 'i-lucide-stethoscope', bg: 'bg-cyan-500/10', color: 'text-cyan-500 dark:text-cyan-400', label: t('preview.doctor') },
+  { value: props.insurance, icon: 'i-lucide-shield-check', bg: 'bg-emerald-500/10', color: 'text-emerald-500 dark:text-emerald-400', label: t('preview.insurance') },
+  { value: props.instructions, icon: 'i-lucide-file-warning', bg: 'bg-amber-500/10', color: 'text-amber-500 dark:text-amber-400', label: t('preview.instructions') }
+].filter(item => item.value))
 </script>
 
 <template>
@@ -13,37 +19,17 @@ defineProps<Props>()
     <div class="px-5 py-4">
       <div class="flex items-center gap-2 mb-3">
         <UIcon name="i-lucide-info" class="w-4 h-4 text-primary"></UIcon>
-        <p class="text-[10px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-muted)]">{{ $t('preview.additionalInfo') }}</p>
+        <p class="text-xs font-bold tracking-[0.15em] uppercase text-[var(--ui-text-muted)]">{{ $t('preview.additionalInfo') }}</p>
       </div>
 
       <div class="space-y-3">
-        <div v-if="doctor" class="flex items-start gap-3">
-          <div class="w-7 h-7 rounded-lg bg-cyan-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-            <UIcon name="i-lucide-stethoscope" class="w-3.5 h-3.5 text-cyan-500 dark:text-cyan-400"></UIcon>
+        <div v-for="item in items" :key="item.label" class="flex items-center gap-3">
+          <div class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" :class="item.bg">
+            <UIcon :name="item.icon" class="w-3.5 h-3.5" :class="item.color"></UIcon>
           </div>
           <div>
-            <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)]">{{ $t('preview.doctor') }}</p>
-            <p class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ doctor }}</p>
-          </div>
-        </div>
-
-        <div v-if="insurance" class="flex items-start gap-3">
-          <div class="w-7 h-7 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-            <UIcon name="i-lucide-shield-check" class="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400"></UIcon>
-          </div>
-          <div>
-            <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)]">{{ $t('preview.insurance') }}</p>
-            <p class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ insurance }}</p>
-          </div>
-        </div>
-
-        <div v-if="instructions" class="flex items-start gap-3">
-          <div class="w-7 h-7 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-            <UIcon name="i-lucide-file-warning" class="w-3.5 h-3.5 text-amber-500 dark:text-amber-400"></UIcon>
-          </div>
-          <div>
-            <p class="text-[9px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)]">{{ $t('preview.instructions') }}</p>
-            <p class="text-sm text-[var(--ui-text-muted)] leading-relaxed whitespace-pre-wrap">{{ instructions }}</p>
+            <p class="text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)]">{{ item.label }}</p>
+            <p class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ item.value }}</p>
           </div>
         </div>
       </div>
