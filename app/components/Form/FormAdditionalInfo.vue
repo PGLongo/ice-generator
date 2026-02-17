@@ -6,13 +6,6 @@ const iceStore = useIceStore()
 
 <template>
   <div class="space-y-6">
-    <div class="flex items-center gap-2 mb-6">
-      <div class="w-1 h-6 bg-primary rounded-full"></div>
-      <h3 class="text-lg font-semibold">
-        {{ $t('form.additionalInfo') }}
-      </h3>
-    </div>
-
     <!-- Grid a 6 colonne: input singolo occupa tutte le 6 colonne, textareas anche -->
     <div class="grid grid-cols-1 md:grid-cols-6 gap-6">
       <div class="md:col-span-6">

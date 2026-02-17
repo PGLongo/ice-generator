@@ -50,19 +50,17 @@ const emitUpdate = () => {
 watch(() => props.modelValue, (newValue) => {
   localData.value = newValue || []
 }, { deep: true })
+
+const contactColors = ['blue', 'rose', 'violet', 'amber', 'cyan', 'emerald'] as const
+const getContactColor = (index: number) => contactColors[index % contactColors.length]
 </script>
 
 <template>
-  <div class="space-y-6">
-    <div class="flex items-center justify-between mb-6">
-      <div class="flex items-center gap-2">
-        <div class="w-1 h-6 bg-primary rounded-full"></div>
-        <h3 class="text-lg font-semibold">
-          {{ $t('form.emergencyContacts') }}
-        </h3>
-      </div>
+  <div class="space-y-4">
+    <!-- Add contact button -->
+    <div class="flex justify-end">
       <UButton
-        icon="i-heroicons-plus"
+        icon="i-lucide-plus"
         size="sm"
         color="primary"
         @click="addContact"
@@ -71,17 +69,52 @@ watch(() => props.modelValue, (newValue) => {
       </UButton>
     </div>
 
-    <div v-if="localData.length === 0" class="text-center py-8 text-gray-500">
-      <p>{{ $t('form.noContacts') }}</p>
+    <!-- Empty state -->
+    <div v-if="localData.length === 0" class="text-center py-8">
+      <div class="w-12 h-12 rounded-xl bg-[var(--ui-bg-elevated)] border border-[var(--ui-border)] flex items-center justify-center mx-auto mb-3">
+        <UIcon name="i-lucide-user-plus" class="w-5 h-5 text-[var(--ui-text-dimmed)]"></UIcon>
+      </div>
+      <p class="text-sm text-[var(--ui-text-dimmed)]">{{ $t('form.noContacts') }}</p>
     </div>
 
-    <div v-for="(contact, index) in localData" :key="contact.id" class="space-y-4 p-4 border border-gray-200 rounded-lg">
+    <!-- Contact cards -->
+    <div
+      v-for="(contact, index) in localData"
+      :key="contact.id"
+      class="contact-card rounded-xl p-4 space-y-4"
+    >
+      <!-- Contact header: number badge + delete -->
       <div class="flex items-center justify-between">
-        <span class="font-medium text-sm text-gray-700">
-          {{ $t('form.contact') }} {{ index + 1 }}
-        </span>
+        <div class="flex items-center gap-2.5">
+          <div
+            class="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
+            :class="{
+              'bg-blue-500/15': getContactColor(index) === 'blue',
+              'bg-rose-500/15': getContactColor(index) === 'rose',
+              'bg-violet-500/15': getContactColor(index) === 'violet',
+              'bg-amber-500/15': getContactColor(index) === 'amber',
+              'bg-cyan-500/15': getContactColor(index) === 'cyan',
+              'bg-emerald-500/15': getContactColor(index) === 'emerald'
+            }"
+          >
+            <span
+              class="text-[10px] font-extrabold"
+              :class="{
+                'text-blue-500 dark:text-blue-400': getContactColor(index) === 'blue',
+                'text-rose-500 dark:text-rose-400': getContactColor(index) === 'rose',
+                'text-violet-500 dark:text-violet-400': getContactColor(index) === 'violet',
+                'text-amber-500 dark:text-amber-400': getContactColor(index) === 'amber',
+                'text-cyan-500 dark:text-cyan-400': getContactColor(index) === 'cyan',
+                'text-emerald-500 dark:text-emerald-400': getContactColor(index) === 'emerald'
+              }"
+            >{{ index + 1 }}</span>
+          </div>
+          <span class="text-xs font-bold text-[var(--ui-text-muted)] uppercase tracking-wider">
+            {{ $t('form.contact') }} {{ index + 1 }}
+          </span>
+        </div>
         <UButton
-          icon="i-heroicons-trash"
+          icon="i-lucide-trash-2"
           size="xs"
           color="error"
           variant="ghost"
@@ -89,19 +122,19 @@ watch(() => props.modelValue, (newValue) => {
         ></UButton>
       </div>
 
-      <!-- Grid a 12 colonne: 12 su xs, 4 su sm, 3 su md -->
-      <div class="grid grid-cols-12 gap-6">
+      <!-- Fields grid -->
+      <div class="grid grid-cols-12 gap-4">
         <UFormField
           :label="$t('form.contactName')"
           :name="`contact-name-${index}`"
           required
-          class="col-span-12 sm:col-span-4 md:col-span-3"
+          class="col-span-12 sm:col-span-6 md:col-span-3"
         >
           <UInput
             v-model="contact.name"
             :placeholder="$t('form.contactNamePlaceholder')"
             size="lg"
-            icon="i-heroicons-user"
+            icon="i-lucide-user"
             @input="emitUpdate"
           ></UInput>
         </UFormField>
@@ -110,13 +143,13 @@ watch(() => props.modelValue, (newValue) => {
           :label="$t('form.relationship')"
           :name="`relationship-${index}`"
           required
-          class="col-span-12 sm:col-span-4 md:col-span-3"
+          class="col-span-12 sm:col-span-6 md:col-span-3"
         >
           <UInput
             v-model="contact.relationship"
             :placeholder="$t('form.relationshipPlaceholder')"
             size="lg"
-            icon="i-heroicons-heart"
+            icon="i-lucide-heart"
             @input="emitUpdate"
           ></UInput>
         </UFormField>
@@ -125,14 +158,14 @@ watch(() => props.modelValue, (newValue) => {
           :label="$t('form.phone')"
           :name="`phone-${index}`"
           required
-          class="col-span-12 sm:col-span-4 md:col-span-3"
+          class="col-span-12 sm:col-span-6 md:col-span-3"
         >
           <UInput
             v-model="contact.phone"
             type="tel"
             :placeholder="$t('form.phonePlaceholder')"
             size="lg"
-            icon="i-heroicons-phone"
+            icon="i-lucide-phone"
             @input="emitUpdate"
           ></UInput>
         </UFormField>
@@ -140,14 +173,14 @@ watch(() => props.modelValue, (newValue) => {
         <UFormField
           :label="$t('form.email')"
           :name="`email-${index}`"
-          class="col-span-12 sm:col-span-4 md:col-span-3"
+          class="col-span-12 sm:col-span-6 md:col-span-3"
         >
           <UInput
             v-model="contact.email"
             type="email"
             :placeholder="$t('form.emailPlaceholder')"
             size="lg"
-            icon="i-heroicons-envelope"
+            icon="i-lucide-mail"
             @input="emitUpdate"
           ></UInput>
         </UFormField>
@@ -161,3 +194,24 @@ watch(() => props.modelValue, (newValue) => {
     @cancel="handleDeleteCancel"
   ></DialogCancel>
 </template>
+
+<style scoped>
+.contact-card {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s;
+}
+
+.dark .contact-card {
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.contact-card:hover {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.dark .contact-card:hover {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+</style>

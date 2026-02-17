@@ -181,108 +181,144 @@ const generateAndDownloadPDF = async () => {
 </script>
 
 <template>
-  <UContainer class="py-12">
-    <div class="max-w-4xl mx-auto">
-      <UCard>
-        <form class="space-y-8" @submit.prevent="onSubmit">
-          <FormPersonalInfo></FormPersonalInfo>
+  <div class="form-page min-h-screen py-8 md:py-12">
+    <UContainer>
+      <div class="max-w-3xl mx-auto">
+        <form class="space-y-5" @submit.prevent="onSubmit">
+          <!-- Section: Personal Info -->
+          <div class="form-panel rounded-2xl overflow-hidden">
+            <div class="flex items-center gap-2 px-6 py-3 panel-header">
+              <UIcon name="i-lucide-user" class="w-3.5 h-3.5 text-primary"></UIcon>
+              <span class="text-[10px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-muted)]">{{ $t('form.personalInfo') }}</span>
+            </div>
+            <div class="px-6 py-5">
+              <FormPersonalInfo></FormPersonalInfo>
+            </div>
+          </div>
 
-          <USeparator></USeparator>
+          <!-- Section: Medical Info -->
+          <div class="form-panel rounded-2xl overflow-hidden">
+            <div class="flex items-center gap-2 px-6 py-3 panel-header">
+              <UIcon name="i-lucide-heart-pulse" class="w-3.5 h-3.5 text-red-500 dark:text-red-400"></UIcon>
+              <span class="text-[10px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-muted)]">{{ $t('form.medicalInfo') }}</span>
+            </div>
+            <div class="px-6 py-5">
+              <FormMedicalInfo></FormMedicalInfo>
+            </div>
+          </div>
 
-          <FormMedicalInfo></FormMedicalInfo>
+          <!-- Section: Emergency Contacts -->
+          <div class="form-panel rounded-2xl overflow-hidden">
+            <div class="flex items-center gap-2 px-6 py-3 panel-header">
+              <UIcon name="i-lucide-phone" class="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400"></UIcon>
+              <span class="text-[10px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-muted)]">{{ $t('form.emergencyContacts') }}</span>
+            </div>
+            <div class="px-6 py-5">
+              <FormEmergencyContacts v-model="iceStore.data.emergencyContacts"></FormEmergencyContacts>
+            </div>
+          </div>
 
-          <USeparator></USeparator>
+          <!-- Section: Additional Info -->
+          <div class="form-panel rounded-2xl overflow-hidden">
+            <div class="flex items-center gap-2 px-6 py-3 panel-header">
+              <UIcon name="i-lucide-info" class="w-3.5 h-3.5 text-blue-500 dark:text-blue-400"></UIcon>
+              <span class="text-[10px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-muted)]">{{ $t('form.additionalInfo') }}</span>
+            </div>
+            <div class="px-6 py-5">
+              <FormAdditionalInfo></FormAdditionalInfo>
+            </div>
+          </div>
 
-          <FormEmergencyContacts v-model="iceStore.data.emergencyContacts"></FormEmergencyContacts>
+          <!-- Section: Export -->
+          <div class="form-panel rounded-2xl overflow-hidden">
+            <div class="flex items-center gap-2 px-6 py-3 panel-header">
+              <UIcon name="i-lucide-download" class="w-3.5 h-3.5 text-violet-500 dark:text-violet-400"></UIcon>
+              <span class="text-[10px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-muted)]">Export</span>
+            </div>
+            <div class="px-6 py-5 space-y-2.5">
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <UButton
+                  type="submit"
+                  size="lg"
+                  block
+                  icon="i-lucide-qr-code"
+                >
+                  {{ $t('form.generateQr') }}
+                </UButton>
 
-          <USeparator></USeparator>
+                <UButton
+                  type="button"
+                  size="lg"
+                  variant="outline"
+                  icon="i-lucide-link"
+                  block
+                  :disabled="!iceStore.hasData"
+                  @click="generateShareLink"
+                >
+                  {{ $t('form.generateNfcLink') }}
+                </UButton>
 
-          <FormAdditionalInfo></FormAdditionalInfo>
+                <UButton
+                  type="button"
+                  size="lg"
+                  variant="outline"
+                  icon="i-lucide-file-text"
+                  block
+                  :disabled="!iceStore.hasData"
+                  @click="generateAndDownloadPDF"
+                >
+                  {{ $t('form.generatePdf') }}
+                </UButton>
+              </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-6">
-            <!-- Primary Actions -->
-            <UButton
-              type="submit"
-              size="xl"
-              block
-              icon="i-heroicons-qr-code"
-              class="col-span-full md:col-span-1"
-            >
-              {{ $t('form.generateQr') }}
-            </UButton>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                <UButton
+                  type="button"
+                  size="md"
+                  color="neutral"
+                  variant="subtle"
+                  icon="i-lucide-eye"
+                  block
+                  :disabled="!iceStore.hasData"
+                  @click="goToPreview"
+                >
+                  {{ $t('form.preview') }}
+                </UButton>
 
-            <UButton
-              type="button"
-              size="xl"
-              color="info"
-              variant="outline"
-              icon="i-heroicons-link"
-              block
-              :disabled="!iceStore.hasData"
-              @click="generateShareLink"
-              class="col-span-full md:col-span-1"
-            >
-              {{ $t('form.generateNfcLink') }}
-            </UButton>
+                <UButton
+                  type="button"
+                  size="md"
+                  color="neutral"
+                  variant="subtle"
+                  icon="i-lucide-graduation-cap"
+                  block
+                  :disabled="!iceStore.hasData"
+                  @click="goToSchool"
+                >
+                  {{ $t('form.schoolCard') }}
+                </UButton>
 
-            <UButton
-              type="button"
-              size="xl"
-              color="warning"
-              variant="outline"
-              icon="i-heroicons-document-text"
-              block
-              :disabled="!iceStore.hasData"
-              @click="generateAndDownloadPDF"
-              class="col-span-full md:col-span-1"
-            >
-              {{ $t('form.generatePdf') }}
-            </UButton>
+                <UButton
+                  type="button"
+                  size="md"
+                  color="error"
+                  variant="ghost"
+                  icon="i-lucide-rotate-ccw"
+                  @click="openResetModal"
+                >
+                  {{ $t('form.cancel') }}
+                </UButton>
+              </div>
+            </div>
+          </div>
 
-            <!-- Secondary Actions -->
-            <UButton
-              type="button"
-              size="lg"
-              color="primary"
-              variant="outline"
-              icon="i-heroicons-eye"
-              block
-              @click="goToPreview"
-              :disabled="!iceStore.hasData"
-              class="col-span-full lg:col-span-1"
-            >
-              {{ $t('form.preview') }}
-            </UButton>
-
-            <UButton
-              type="button"
-              size="lg"
-              color="primary"
-              variant="outline"
-              icon="i-heroicons-academic-cap"
-              block
-              :disabled="!iceStore.hasData"
-              @click="goToSchool"
-              class="col-span-full lg:col-span-1"
-            >
-              {{ $t('form.schoolCard') }}
-            </UButton>
-
-            <UButton
-              type="button"
-              size="lg"
-              color="neutral"
-              variant="outline"
-              icon="i-heroicons-arrow-path"
-              @click="openResetModal"
-              class="col-span-full lg:col-span-1"
-            >
-              {{ $t('form.cancel') }}
-            </UButton>
+          <!-- Footer note -->
+          <div class="text-center pt-2 pb-2">
+            <p class="text-[10px] text-[var(--ui-text-dimmed)]">{{ $t('form.footer') }}</p>
           </div>
         </form>
-      </UCard>
-    </div>
+      </div>
+    </UContainer>
 
     <!-- Reset Confirmation Modal -->
     <DialogCancel
@@ -291,7 +327,7 @@ const generateAndDownloadPDF = async () => {
     >
       <template #title>
         <div class="flex items-center gap-3">
-          <UIcon name="i-heroicons-exclamation-triangle" class="w-6 h-6 text-amber-500"></UIcon>
+          <UIcon name="i-lucide-triangle-alert" class="w-6 h-6 text-amber-500"></UIcon>
           <span>{{ $t('form.resetConfirmTitle') }}</span>
         </div>
       </template>
@@ -299,9 +335,40 @@ const generateAndDownloadPDF = async () => {
       <template #message>
         <div class="space-y-2">
           <p>{{ $t('form.resetConfirmMessage') }}</p>
-          <p class="text-sm text-gray-500">{{ $t('form.resetConfirmWarning') }}</p>
+          <p class="text-sm text-[var(--ui-text-dimmed)]">{{ $t('form.resetConfirmWarning') }}</p>
         </div>
       </template>
     </DialogCancel>
-  </UContainer>
+  </div>
 </template>
+
+<style scoped>
+.form-panel {
+  position: relative;
+  background: var(--ui-bg-elevated);
+  border: 1px solid var(--ui-border);
+  box-shadow:
+    0 4px 16px -4px rgba(0, 0, 0, 0.06),
+    0 2px 8px -2px rgba(0, 0, 0, 0.03);
+}
+
+.dark .form-panel {
+  background: linear-gradient(165deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.02) 50%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow:
+    0 8px 32px -8px rgba(0, 0, 0, 0.3),
+    0 4px 16px -4px rgba(0, 30, 80, 0.1);
+}
+
+.panel-header {
+  border-bottom: 1px solid var(--ui-border);
+}
+
+.dark .panel-header {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+</style>
