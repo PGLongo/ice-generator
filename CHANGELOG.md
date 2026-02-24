@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/PGLongo/ice-generator/compare/v1.2.1...v1.3.0) (2026-02-24)
+
+
+### Features
+
+* **component:** add CSV export button to FormPeopleList ([e0e6406](https://github.com/PGLongo/ice-generator/commit/e0e6406e194647a50d33f21078dc43c9732d2d24))
+* **component:** add Excel parsing support to FormPeopleList ([d6684d1](https://github.com/PGLongo/ice-generator/commit/d6684d149ee78a913b3e975c10566817fd943c5b))
+* **component:** create FormPeopleList component with CSV support ([f18a018](https://github.com/PGLongo/ice-generator/commit/f18a0182f7e615b397e436e5c467c250fabcb271))
+* **composable:** add CARD_CONFIG, extract buildPDF, add PDF preview ([a3c847e](https://github.com/PGLongo/ice-generator/commit/a3c847e8ddc8001e21154f483c7cbaf56b62c0ba))
+* **composable:** implement school PDF generation with landscape card layout ([44e4e48](https://github.com/PGLongo/ice-generator/commit/44e4e4857ccb3be0f5c27f5db07e3ef20f90dea5))
+* **i18n:** add school form translations in EN and IT ([4087681](https://github.com/PGLongo/ice-generator/commit/4087681d47f2b0bd906bef9641c24e60988e0a39))
+* **nav:** add School Form link to dashboard sidebar menu ([0811717](https://github.com/PGLongo/ice-generator/commit/08117173fe5419b1eea08b1433e880c08f28d758))
+* **nav:** add school form link to navigation menu ([8da99f8](https://github.com/PGLongo/ice-generator/commit/8da99f80a0ebf026739f99de5e9916132c587333))
+* **page:** create school form page at /form/school ([40aa1c6](https://github.com/PGLongo/ice-generator/commit/40aa1c661d426aed7bc3941b0ef2f4ae48e55cce))
+* **plugin:** add LocalForage persistence for school form store ([ba5926f](https://github.com/PGLongo/ice-generator/commit/ba5926f9099382357af72193e4a1cb66d2f2c9bb))
+* **store:** create useSchoolFormStore for school form data ([362fe00](https://github.com/PGLongo/ice-generator/commit/362fe0097a5d75cd5fecc099ee5a8dfb94f0b974))
+* **table:** add template for fullName column in UTable ([086bad6](https://github.com/PGLongo/ice-generator/commit/086bad63e454bb54bdc3962d0fa163373dd9d467))
+* **types:** create SchoolFormData and Person interfaces ([7892e54](https://github.com/PGLongo/ice-generator/commit/7892e5491d9fed3f7759570eaed4bfb23e826103))
+* **ui:** redesign form page with multi-panel glassmorphism layout ([410e043](https://github.com/PGLongo/ice-generator/commit/410e043316ac619604b858197fb4026bc6a532f6))
+* **ui:** redesign preview page with glassmorphism panel style ([342bf61](https://github.com/PGLongo/ice-generator/commit/342bf615ac1d25b03e5fc9b2fb5eea29119f77aa))
+
+
+### Bug Fixes
+
+* **composable:** add rounded card border, logo and icons to school PDF ([53668ff](https://github.com/PGLongo/ice-generator/commit/53668ffebe9195065069bbd99ac85d3c14a10de3))
+* **composable:** fix logo, icon visibility, label overlap and space in school PDF ([58a29c0](https://github.com/PGLongo/ice-generator/commit/58a29c01ad9a832d462ee2566bc2281eac7e39d1))
+* **composable:** increase label-to-value gap and unify via CARD_CONFIG ([4a0c3b9](https://github.com/PGLongo/ice-generator/commit/4a0c3b94896f00bc9c3506aec46a887ef45ac532))
+* **config:** disable SSR for /preview route to prevent hydration mismatch ([93d357d](https://github.com/PGLongo/ice-generator/commit/93d357d6a2273b505847e4dc767077482ef3a71c))
+* **i18n:** remove invalid ICU plural syntax from translations ([42cbe29](https://github.com/PGLongo/ice-generator/commit/42cbe29066b4d010844131ff8ab96f4cf647cf7b))
+* layout preview ([d44c5f2](https://github.com/PGLongo/ice-generator/commit/d44c5f28fcda198e8699ba14bad297e79bc85857))
+* pdf layout ([17aac5c](https://github.com/PGLongo/ice-generator/commit/17aac5ce39342b2eb77d24f79c788faa395bf0c4))
+* **plugin:** add explicit SchoolFormData import in pinia-localforage plugin ([4cca341](https://github.com/PGLongo/ice-generator/commit/4cca3414c8eb9a97a861ed993c45c631fdf7bf71))
+* **preview:** move phone after mail ([b221f51](https://github.com/PGLongo/ice-generator/commit/b221f516569b2e8be467c0d4745c6759c147ae51))
+* **store:** restore reactivity on reload by mutating state properties individually ([26fce29](https://github.com/PGLongo/ice-generator/commit/26fce2999a09bd4f22e538505ef15b652e048999))
+* **store:** use $patch(fn) in loadData/clearAll and watchEffect for hasPeople ([6b66c72](https://github.com/PGLongo/ice-generator/commit/6b66c724c19ce8066c65c5624a949bd767cf7890))
+* **table:** add explicit id to all columns and use computed ([d9c2ea9](https://github.com/PGLongo/ice-generator/commit/d9c2ea95c6ff54009003de184aec60dcb7cab0f5))
+* **table:** add id to actions column in UTable ([369a763](https://github.com/PGLongo/ice-generator/commit/369a76398e1cbf51c06ac025383507abc9877cbd))
+* **table:** add key binding to force UTable re-render on data changes ([1d85ee2](https://github.com/PGLongo/ice-generator/commit/1d85ee2d55b89caa5dc556cafe1d6f9f7f382c8b))
+* **table:** use Nuxt UI v4 UTable API (data, accessorKey, -cell slots) ([9f6ff76](https://github.com/PGLongo/ice-generator/commit/9f6ff766e152e438f2de5f66202b842be35294c5))
+* **table:** use static string labels for UTable columns ([1c0e738](https://github.com/PGLongo/ice-generator/commit/1c0e7387c9bda0966c7e458fe8087078ca5d0658))
+* **ui:** fix generate button disabled state by accessing state directly ([b944bc0](https://github.com/PGLongo/ice-generator/commit/b944bc0a75a028df793f3376c4fefd3a75a64ff6))
+* **ui:** move allergies to medical info section and improve layout spacing ([f64e4f5](https://github.com/PGLongo/ice-generator/commit/f64e4f571c3813ead0e710b44f519b4d0448b1c9))
+* **ui:** persist school info by watching localData instead of [@input](https://github.com/input) events ([76f4800](https://github.com/PGLongo/ice-generator/commit/76f48008c5a14a44f22eb660637e5afed08e46ed))
+* **ui:** show phone number inline with relationship in PreviewContacts ([ce804d1](https://github.com/PGLongo/ice-generator/commit/ce804d1002a7a38ec0a61179ad7d3134280382d1))
+* **ui:** use explicit watch to sync hasPeople after async store load ([8fc6b8d](https://github.com/PGLongo/ice-generator/commit/8fc6b8d19ad73f20b1b8f9d694444ef7a06e7076))
+
 ## [1.2.1](https://github.com/PGLongo/ice-generator/compare/v1.2.0...v1.2.1) (2026-02-10)
 
 
