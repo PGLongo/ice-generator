@@ -1,5 +1,6 @@
 <script setup lang="ts">
 interface Props {
+  allergies?: string[]
   conditions?: string[]
   medications?: string[]
   notes?: string
@@ -17,6 +18,20 @@ defineProps<Props>()
       </div>
 
       <div class="space-y-3">
+        <div v-if="allergies && allergies.length > 0">
+          <p class="text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)] mb-1.5">{{ $t('preview.allergies') }}</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span
+              v-for="allergy in allergies"
+              :key="allergy"
+              class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/15 text-xs font-bold text-amber-600 dark:text-amber-400"
+            >
+              <UIcon name="i-lucide-triangle-alert" class="w-3 h-3"></UIcon>
+              {{ allergy }}
+            </span>
+          </div>
+        </div>
+
         <div v-if="conditions && conditions.length > 0">
           <p class="text-[11px] font-bold tracking-[0.15em] uppercase text-[var(--ui-text-dimmed)] mb-1.5">{{ $t('preview.conditions') }}</p>
           <div class="flex flex-wrap gap-1.5">

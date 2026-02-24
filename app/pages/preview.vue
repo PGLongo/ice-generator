@@ -53,7 +53,7 @@ const hasAdditionalInfo = computed(() => {
       <div class="max-w-lg mx-auto">
         <PreviewEmptyState v-if="!hasData"></PreviewEmptyState>
 
-        <div v-else class="space-y-3">
+        <div v-else class="space-y-4">
           <!-- Main panel -->
           <div class="preview-panel rounded-2xl overflow-hidden">
             <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent z-20"></div>
@@ -70,12 +70,11 @@ const hasAdditionalInfo = computed(() => {
             ></PreviewIdentity>
 
             <PreviewContacts :contacts="iceData.emergencyContacts"></PreviewContacts>
-
-            <PreviewAllergies :allergies="iceData.allergies ?? []"></PreviewAllergies>
           </div>
 
           <PreviewMedicalInfo
             v-if="hasMedicalInfo"
+            :allergies="iceData.allergies"
             :conditions="iceData.medicalConditions"
             :medications="iceData.currentMedications"
             :notes="iceData.medicalNotes"

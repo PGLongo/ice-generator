@@ -24,7 +24,7 @@ defineProps<Props>()
               <p class="text-base font-bold text-[var(--ui-text-highlighted)] leading-tight truncate">{{ contact.name }}</p>
               <span v-if="index === 0" class="text-[10px] font-bold tracking-wider uppercase px-1.5 py-px rounded bg-primary/10 text-primary">{{ $t('preview.primary') }}</span>
             </div>
-            <p class="text-xs text-[var(--ui-text-dimmed)] font-medium float-left truncate">
+            <p class="text-xs text-[var(--ui-text-dimmed)] font-medium truncate">
               {{ contact.relationship }}<span v-if="contact.phone" class="text-[var(--ui-text)] font-bold font-mono"> · {{ contact.phone }}</span>
             </p>
           </div>
