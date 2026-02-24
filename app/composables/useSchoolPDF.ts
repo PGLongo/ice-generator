@@ -1,3 +1,4 @@
+import type { jsPDF as JsPDF } from 'jspdf'
 import type { SchoolFormData } from '@/types/school-form'
 
 // ─── TUNABLE LAYOUT CONFIG ────────────────────────────────────────────────────
@@ -16,36 +17,36 @@ const CARD_CONFIG = {
   dividerGap: 12,
 
   // Logo size (mm)
-  logoSize: 36,
+  logoSize: 60,
 
   // QR code size (mm)
   qrSize: 40,
 
   // Icon dot radius (mm)
-  iconRadius: 2.5,
+  iconRadius: 3,
 
   // Font sizes (pt)
   font: {
     // NOME BAMBINO, SEZIONE, REFERENTE labels
-    label: 12,
+    label: 16,
     // address / city
-    address: 14,
+    address: 18,
     // school phone
-    schoolPhone: 16,
+    schoolPhone: 22,
     // school name
     schoolName: 32,
-    referentName: 20,
-    referentPhone: 16,
+    referentName: 22,
+    referentPhone: 18,
     // section value
     section: 26,
     // child name (largest)
-    childName: 60
+    childName: 48
   },
 
   // Line heights (mm) — space added after each text block
   lineH: {
     // gap below a label before its value
-    label: 24,
+    label: 12,
     // gap between address lines
     address: 6,
     // per-line height for school name
@@ -83,6 +84,8 @@ async function buildPDF(formData: SchoolFormData) {
 
   const { school, people } = formData
   const C = CARD_CONFIG
+
+  const iconSize = C.iconRadius * 2
 
   const pdf = new jsPDF('l', 'mm', 'a4')
   const pageW = pdf.internal.pageSize.getWidth()
@@ -128,7 +131,7 @@ async function buildPDF(formData: SchoolFormData) {
 
     if (logoDataUrl) {
       pdf.addImage(logoDataUrl, logoFormat, leftCenterX - C.logoSize / 2, leftY, C.logoSize, C.logoSize)
-      leftY += C.logoSize + 8
+      leftY += C.logoSize + 15
     } else {
       leftY += 10
     }
@@ -143,40 +146,41 @@ async function buildPDF(formData: SchoolFormData) {
       leftY += schoolNameLines.length * C.lineH.schoolName + 10
     }
 
-    if (school.address || school.city) {
-      const iconX = leftCenterX - leftPanelW * 0.3
-      const textX = iconX + 6
-      pdf.setFillColor(110, 110, 110)
-      pdf.setDrawColor(110, 110, 110)
+    // ── ADDRESS & PHONE (bottom-anchored) ───────────────────────────────────
+    // rowPhoneY / rowDetailY are shared with the right panel to keep elements aligned
+    const leftIconX = leftCenterX - leftPanelW * 0.3
+    const leftTextX = leftIconX + iconSize + 2
+    const rowPhoneY = cardY + cardH - C.pad - 4
+    const rowDetailY = rowPhoneY - 12
 
-      let addrY = leftY
-      if (school.address) {
-        pdf.circle(iconX, addrY - 1.2, C.iconRadius, 'F')
-        pdf.setFontSize(C.font.address)
-        pdf.setFont('helvetica', 'normal')
-        pdf.setTextColor(90, 90, 90)
-        pdf.text(school.address, textX, addrY)
-        addrY += C.lineH.address
-      }
-      if (school.city) {
-        pdf.setFontSize(C.font.address)
-        pdf.setFont('helvetica', 'normal')
-        pdf.setTextColor(90, 90, 90)
-        pdf.text(school.city, textX, addrY)
-        addrY += C.lineH.address
-      }
-      leftY = addrY + 4
-    }
+    // iconTopOffset: places icon center at ~cap-height midpoint of the adjacent text
+    // (baseline − capCenter − iconSize/2) / iconSize ≈ 0.92 for Helvetica at these sizes
+    const iconTopOffset = (textY: number) => textY - iconSize * 0.92
 
     if (school.phone) {
-      const iconX = leftCenterX - leftPanelW * 0.3
-      const textX = iconX + 6
-      pdf.setFillColor(20, 150, 130)
-      pdf.circle(iconX, leftY - 1.2, C.iconRadius, 'F')
+      drawIcon(pdf, 'phone', leftIconX, iconTopOffset(rowPhoneY), iconSize, [20, 150, 130])
       pdf.setFontSize(C.font.schoolPhone)
       pdf.setFont('helvetica', 'bold')
       pdf.setTextColor(20, 150, 130)
-      pdf.text(school.phone, textX, leftY)
+      pdf.text(school.phone, leftTextX, rowPhoneY)
+    }
+
+    if (school.address || school.city) {
+      pdf.setFontSize(C.font.address)
+      pdf.setFont('helvetica', 'normal')
+      pdf.setTextColor(90, 90, 90)
+
+      // city at rowDetailY → aligns with referentName on the right
+      // address one row above city (smaller Y = higher on page)
+      if (school.city) {
+        drawIcon(pdf, 'pin', leftIconX, iconTopOffset(rowDetailY), iconSize, [110, 110, 110])
+        pdf.text(school.city, leftTextX, rowDetailY)
+      }
+      if (school.address) {
+        const addrY = school.city ? rowDetailY - C.lineH.address : rowDetailY
+        drawIcon(pdf, 'pin', leftIconX, iconTopOffset(addrY), iconSize, [110, 110, 110])
+        pdf.text(school.address, leftTextX, addrY)
+      }
     }
 
     // ── VERTICAL DIVIDER ────────────────────────────────────────────────────
@@ -191,12 +195,12 @@ async function buildPDF(formData: SchoolFormData) {
     pdf.setFont('helvetica', 'normal')
     pdf.setTextColor(160, 160, 160)
     pdf.text('NOME BAMBINO', rightStartX, rightY)
-    rightY += C.lineH.label
+    rightY += C.lineH.label * 1.5
 
     pdf.setFontSize(C.font.childName)
     pdf.setFont('helvetica', 'bold')
     pdf.setTextColor(20, 20, 20)
-    const childNameLines = pdf.splitTextToSize(person.fullName, rightWidth - C.qrSize - 5)
+    const childNameLines = pdf.splitTextToSize(person.fullName, rightWidth)
     pdf.text(childNameLines, rightStartX, rightY)
     rightY += childNameLines.length * C.lineH.childName + 6
 
@@ -214,40 +218,8 @@ async function buildPDF(formData: SchoolFormData) {
       rightY += C.lineH.section
     }
 
-    rightY += 4
-    pdf.setDrawColor(230, 230, 230)
-    pdf.setLineWidth(0.3)
-    pdf.line(rightStartX, rightY, cardX + cardW - C.pad, rightY)
-    rightY += 10
-
-    if (school.referentName || school.referentPhone) {
-      pdf.setFontSize(C.font.label)
-      pdf.setFont('helvetica', 'normal')
-      pdf.setTextColor(160, 160, 160)
-      pdf.text('REFERENTE DI EMERGENZA', rightStartX, rightY)
-      rightY += C.lineH.label
-
-      if (school.referentName) {
-        pdf.setFillColor(80, 80, 80)
-        pdf.circle(rightStartX + 3, rightY - 1.5, 3, 'F')
-        pdf.setFontSize(C.font.referentName)
-        pdf.setFont('helvetica', 'normal')
-        pdf.setTextColor(40, 40, 40)
-        pdf.text(school.referentName, rightStartX + 9, rightY)
-        rightY += C.lineH.referentName
-      }
-
-      if (school.referentPhone) {
-        pdf.setFillColor(20, 150, 130)
-        pdf.circle(rightStartX + 3, rightY - 1.5, 3, 'F')
-        pdf.setFontSize(C.font.referentPhone)
-        pdf.setFont('helvetica', 'bold')
-        pdf.setTextColor(20, 150, 130)
-        pdf.text(school.referentPhone, rightStartX + 9, rightY)
-      }
-    }
-
-    // QR CODE (bottom-right)
+    // ── REFERENT & QR CODE (bottom-anchored) ────────────────────────────────
+    // QR CODE (bottom-right corner)
     try {
       const qrData = [person.fullName, school.section, school.referentName, school.referentPhone]
         .filter(Boolean)
@@ -259,6 +231,34 @@ async function buildPDF(formData: SchoolFormData) {
     } catch {
       // skip QR if generation fails
     }
+
+    if (school.referentName || school.referentPhone) {
+      if (school.referentPhone) {
+        drawIcon(pdf, 'phone', rightStartX, iconTopOffset(rowPhoneY), iconSize, [20, 150, 130])
+        pdf.setFontSize(C.font.schoolPhone)
+        pdf.setFont('helvetica', 'bold')
+        pdf.setTextColor(20, 150, 130)
+        pdf.text(school.referentPhone, rightStartX + iconSize + 2, rowPhoneY)
+      }
+
+      if (school.referentName) {
+        drawIcon(pdf, 'person', rightStartX, iconTopOffset(rowDetailY), iconSize, [110, 110, 110])
+        pdf.setFontSize(C.font.address)
+        pdf.setFont('helvetica', 'normal')
+        pdf.setTextColor(90, 90, 90)
+        pdf.text(school.referentName, rightStartX + iconSize + 2, rowDetailY)
+      }
+
+      const refLabelY = rowDetailY - 14
+      pdf.setFontSize(C.font.label)
+      pdf.setFont('helvetica', 'normal')
+      pdf.setTextColor(160, 160, 160)
+      pdf.text('REFERENTE DI EMERGENZA', rightStartX, refLabelY)
+
+      pdf.setDrawColor(230, 230, 230)
+      pdf.setLineWidth(0.5)
+      pdf.line(rightStartX, refLabelY - 15, cardX + cardW - 10, refLabelY - 15)
+    }
   }
 
   return pdf
@@ -266,6 +266,61 @@ async function buildPDF(formData: SchoolFormData) {
 
 function buildFilename(schoolName: string | undefined): string {
   return `Tessere-${schoolName?.replace(/\s+/g, '-') ?? 'Scuola'}-${new Date().toISOString().split('T')[0]}.pdf`
+}
+
+// Draws a vector icon directly on the jsPDF canvas — resolution-independent, crisp at any DPI.
+// (x, y) = top-left corner of the icon bounding box; size = width = height in mm.
+function drawIcon(
+  pdf: JsPDF,
+  type: 'phone' | 'pin' | 'person',
+  x: number,
+  y: number,
+  size: number,
+  color: [number, number, number]
+): void {
+  const [r, g, b] = color
+  const cx = x + size / 2
+  const s = size
+
+  if (type === 'phone') {
+    // Classic diagonal handset: thick rounded stroke between ear (top-right) and mouth (bottom-left)
+    const earX = x + s * 0.65
+    const earY = y + s * 0.20
+    const mouthX = x + s * 0.35
+    const mouthY = y + s * 0.80
+    pdf.setDrawColor(r, g, b)
+    pdf.setLineCap('round')
+    pdf.setLineWidth(s * 0.28)
+    pdf.line(earX, earY, mouthX, mouthY)
+    pdf.setLineCap('butt')
+  } else if (type === 'pin') {
+    // Filled teardrop: circle + converging triangle + white inner dot
+    const pinR = s * 0.34
+    const pinCy = y + s * 0.38
+    pdf.setFillColor(r, g, b)
+    pdf.circle(cx, pinCy, pinR, 'F')
+    const triLeft = cx - pinR * 0.75
+    const triRight = cx + pinR * 0.75
+    const triTop = pinCy + pinR * 0.45
+    const triTip = y + s * 0.95
+    pdf.lines(
+      [[triRight - triLeft, 0], [cx - triRight, triTip - triTop]],
+      triLeft, triTop,
+      [1, 1], 'F', true
+    )
+    pdf.setFillColor(255, 255, 255)
+    pdf.circle(cx, pinCy, pinR * 0.40, 'F')
+  } else {
+    // Person: filled circle (head) + filled half-ellipse (bust/shoulders)
+    pdf.setFillColor(r, g, b)
+    pdf.circle(cx, y + s * 0.27, s * 0.20, 'F')
+    pdf.ellipse(cx, y + s * 0.80, s * 0.34, s * 0.23, 'F')
+  }
+
+  // Restore safe drawing defaults so subsequent PDF operations aren't affected
+  pdf.setLineWidth(0.4)
+  pdf.setDrawColor(0, 0, 0)
+  pdf.setFillColor(0, 0, 0)
 }
 
 interface LoadImageResult {
